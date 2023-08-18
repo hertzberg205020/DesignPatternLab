@@ -1,4 +1,5 @@
 ﻿using ShowDown.Enums;
+using ShowDown.Extensions;
 
 namespace ShowDown.Models;
 
@@ -26,5 +27,20 @@ public class Card: IComparable<Card>
         var suitComparison = Suit.CompareTo(other.Suit);
         if (suitComparison != 0) return suitComparison;
         return Rank.CompareTo(other.Rank);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Card card)
+        {
+            return false;
+        }
+
+        return Suit == card.Suit && Rank == card.Rank;
+    }
+
+    public override string ToString()
+    {
+        return $"{Suit.GetDisplayName()}{Rank.GetDisplayName()}";
     }
 }
