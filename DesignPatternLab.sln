@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterballCollege", "Waterba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarmUp", "WarmUp\WarmUp.csproj", "{A59F41AA-7AA9-4C30-991C-2158C6233BA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowDown", "ShowDown\ShowDown.csproj", "{8CCC1349-DF33-4974-884E-ECBF396171C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Showdown.Test", "Showdown.Test\Showdown.Test.csproj", "{D17AE27F-3225-456C-87A3-D57A5CF5C2A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{A59F41AA-7AA9-4C30-991C-2158C6233BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A59F41AA-7AA9-4C30-991C-2158C6233BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A59F41AA-7AA9-4C30-991C-2158C6233BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CCC1349-DF33-4974-884E-ECBF396171C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCC1349-DF33-4974-884E-ECBF396171C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCC1349-DF33-4974-884E-ECBF396171C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCC1349-DF33-4974-884E-ECBF396171C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D17AE27F-3225-456C-87A3-D57A5CF5C2A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D17AE27F-3225-456C-87A3-D57A5CF5C2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D17AE27F-3225-456C-87A3-D57A5CF5C2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D17AE27F-3225-456C-87A3-D57A5CF5C2A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
