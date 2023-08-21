@@ -50,4 +50,9 @@ public class Deck
         Cards.RemoveAt(0);
         player.HandCards.Add(card);
     }
+    
+    public bool HasCardsToDeal()
+    {
+        return Cards.Any();
+    }
 }
