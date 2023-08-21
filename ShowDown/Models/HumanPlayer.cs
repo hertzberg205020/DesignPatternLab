@@ -82,13 +82,6 @@ public class HumanPlayer: Player
                 ExchangeHandCards(player);
             }
         }
-        else
-        {
-            if (ExchangeHandsRelationship.IsTimeToRevert())
-            {
-                RevertHandSwap();
-            }
-        }
     }
     
     

@@ -39,12 +39,14 @@ public abstract class Player
     /// </summary>
     /// <returns></returns>
     public abstract Card Show();
+    
+    public abstract void MakeExchangeDecision(IList<Player> players);
 
     protected void ExchangeHandCards(Player player)
     {
         if (HasExchangeHands)
         {
-            throw new InvalidOperationException("尚未主動提出過交換手牌");
+            throw new InvalidOperationException("You have already exchanged hands.");
         }
               
         HasExchangeHands = true;
@@ -59,7 +61,7 @@ public abstract class Player
     /// 將手牌交換回來
     /// </summary>
     /// <exception cref="InvalidOperationException"></exception>
-    public void RevertHandSwap()
+    public void RevertHandExchange()
     {
         if (!HasExchangeHands)
         {
@@ -74,8 +76,21 @@ public abstract class Player
         (HandCards, ExchangeHandsRelationship.OtherPlayer.HandCards) = (ExchangeHandsRelationship.OtherPlayer.HandCards, HandCards);
     }
     
+    public bool IsTimeToRevertHandExchange()
+    {
+        return HasExchangeHands && ExchangeHandsRelationship.Round >= 3;
+    }
     
-    public virtual void UpdateExchangeState()
+    public void RevertHandExchangeIfTime()
+    {
+        if (IsTimeToRevertHandExchange())
+        {
+            RevertHandExchange();
+        }
+    }
+    
+    
+    public void UpdateExchangeState()
     {
         if (HasExchangeHands)
         {
@@ -83,6 +98,12 @@ public abstract class Player
         } 
     }
     
-    public abstract void MakeExchangeDecision(IList<Player> players);
+    public Card ExecuteTurnActions(IList<Player> players)
+    { 
+        RevertHandExchangeIfTime();
+        MakeExchangeDecision(players);
+        var card = Show();
+        return card;
+    }
     
 }

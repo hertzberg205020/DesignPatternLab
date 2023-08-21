@@ -2,9 +2,9 @@
 
 public class ShowDownGame
 {
-    public readonly List<Player> Players = new List<Player>();
+    private readonly List<Player> _players = new List<Player>(4);
 
-    private readonly Deck _deck = new Deck();
+    private readonly Deck _deck = new ();
     
     private int _currentRound = 0;
 
@@ -43,13 +43,16 @@ public class ShowDownGame
     {
         for (var i = 0; i < MaxNumberOfCardsOnHand; i++)
         {
-            foreach (var player in Players)
+            foreach (var player in _players)
             {
                 _deck.DealCardToPlayer(player);
             }
         }
     }
 
+    /// <summary>
+    /// 每回合的遊戲輪流讓玩家打牌
+    /// </summary>
     private void OnPlayTurns()
     {
         while (HasNextRound())
@@ -60,64 +63,19 @@ public class ShowDownGame
             _currentRound++;
         }
     }
-
-    private void ShowCards()
-    {
-        foreach (var player in RoundCardPlay.Keys)
-        {
-            Console.WriteLine($"{player.Name} 出了 {RoundCardPlay[player]}");
-        }
-    }
-
-    private void TakeATurn()
-    {
-        InitializeRoundCardPlay();
-        foreach (var player in Players)
-        {
-            player.MakeExchangeDecision(Players);
-            var card = player.Show();
-            RoundCardPlay[player] = card;
-            player.UpdateExchangeState();
-        }
-    }
-
-    private void InitializeRoundCardPlay()
-    {
-        RoundCardPlay = new Dictionary<Player, Card?>(); 
-        Players.ForEach(p => RoundCardPlay.Add(p, null));
-    }
     
+    /// <summary>
+    /// 遊戲結束，顯示贏家
+    /// </summary>
     private void OnGameEnd()
     {
-        
-    }
-    
-    
-    private void NamingPlayers()
-    {
-        var index = 0;
-        foreach (var player in Players)
+        var gameWinner = GetGameWinner();
+        foreach (var player in gameWinner)
         {
-            index++;
-            Console.WriteLine($"請輸入{index}號玩家名稱：");
-            var name = Console.ReadLine();
-            player.NameSelf(string.IsNullOrWhiteSpace(name) ? $"玩家{index}號" : name);
+            Console.WriteLine($"{player.Name} 獲勝！");
         }
     }
 
-    private void CreatePlayers()
-    {
-        for (var i = 0; i < HumanPlayerCount; i++)
-        {
-            Players.Add(new HumanPlayer());
-        }
-        
-        for (var i = 0; i < 4 - HumanPlayerCount; i++)
-        {
-            Players.Add(new AiPlayer());
-        }
-    }
-    
     private void InvestigateHumanPlayerCount()
     {
         Console.WriteLine("請輸入真實玩家人數：");
@@ -132,6 +90,57 @@ public class ShowDownGame
             InvestigateHumanPlayerCount();
         }
     }
+
+    private void NamingPlayers()
+    {
+        var index = 0;
+        foreach (var player in _players)
+        {
+            index++;
+            Console.WriteLine($"請輸入{index}號玩家名稱：");
+            var name = Console.ReadLine();
+            player.NameSelf(string.IsNullOrWhiteSpace(name) ? $"玩家{index}號" : name);
+        }
+    }
+    
+    private void CreatePlayers()
+    {
+        for (var i = 0; i < HumanPlayerCount; i++)
+        {
+            _players.Add(new HumanPlayer());
+        }
+        
+        for (var i = 0; i < 4 - HumanPlayerCount; i++)
+        {
+            _players.Add(new AiPlayer());
+        }
+    }
+
+    private void TakeATurn()
+    {
+        InitializeRoundCardPlay();
+        foreach (var player in _players)
+        {
+            var card = player.ExecuteTurnActions(_players);
+            RoundCardPlay[player] = card;
+            player.UpdateExchangeState();
+        }
+    }
+
+    private void InitializeRoundCardPlay()
+    {
+        RoundCardPlay = new Dictionary<Player, Card?>(); 
+        _players.ForEach(p => RoundCardPlay.Add(p, null));
+    }
+
+    private void ShowCards()
+    {
+        foreach (var player in RoundCardPlay.Keys)
+        {
+            Console.WriteLine($"{player.Name} 出了 {RoundCardPlay[player]}");
+        }
+    }
+    
 
     private bool HasNextRound()
     {
@@ -151,11 +160,9 @@ public class ShowDownGame
         return winningPlayer;
     }
     
-    private Player GetGameWinner()
+    private List<Player> GetGameWinner()
     {
-        var maxPoint = Players.Max(p => p.Point);
-        return Players.First(p => p.Point == maxPoint);
+        var maxPoint = _players.Max(p => p.Point);
+        return _players.Where(p => p.Point == maxPoint).ToList();
     }
-    
-    
 }
