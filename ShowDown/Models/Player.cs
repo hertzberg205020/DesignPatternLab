@@ -42,7 +42,7 @@ public abstract class Player
     
     public abstract void MakeExchangeDecision(IList<Player> players);
 
-    protected void ExchangeHandCards(Player player)
+    public void ExchangeHandCards(Player player)
     {
         if (HasExchangeHands)
         {
@@ -98,12 +98,11 @@ public abstract class Player
         } 
     }
     
-    public Card ExecuteTurnActions(IList<Player> players)
-    { 
-        RevertHandExchangeIfTime();
-        MakeExchangeDecision(players);
-        var card = Show();
-        return card;
-    }
+    // public Card ExecuteTurnActions(IList<Player> players)
+    // {
+    //     MakeExchangeDecision(players);
+    //     var card = Show();
+    //     return card;
+    // }
     
 }

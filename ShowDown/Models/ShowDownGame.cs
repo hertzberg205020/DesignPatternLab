@@ -2,19 +2,27 @@
 
 public class ShowDownGame
 {
-    private readonly List<Player> _players = new List<Player>(4);
+    private List<Player> Players { get; init; }
 
-    private readonly Deck _deck = new ();
+    private Deck Deck { get; init; }
     
     private int _currentRound = 0;
 
     private const int MaxNumberOfCardsOnHand = 13;
-
-    private int HumanPlayerCount { get; set; }
-
-    private const int TotalRound = 13;
     
-    public IDictionary<Player, Card?> RoundCardPlay { get; private set; }
+    private const int TotalRound = 13;
+
+    public ShowDownGame()
+    {
+        Players = new List<Player>();
+        Deck = new Deck();
+    }
+    
+    public ShowDownGame(IList<Player> players, Deck deck)
+    {
+        Players = players.ToList();
+        Deck = deck;
+    }
     
     public void Start()
     {
@@ -28,24 +36,24 @@ public class ShowDownGame
     /// 請 P1~P4 為自己取名(Name himself)
     /// 牌堆會進行洗牌 (Shuffle)
     /// </summary>
-    private void OnInit()
+    public void OnInit()
     {
-        InvestigateHumanPlayerCount();
-        CreatePlayers();
+        var amountOfHumanPlayerCount =InvestigateHumanPlayerCount();
+        CreatePlayers(amountOfHumanPlayerCount);
         NamingPlayers();
-        _deck.Shuffle();
+        Deck.Shuffle();
     }
     
     /// <summary>
     /// 抽牌階段
     /// </summary>
-    private void OnCardDraw()
+    public void OnCardDraw()
     {
         for (var i = 0; i < MaxNumberOfCardsOnHand; i++)
         {
-            foreach (var player in _players)
+            foreach (var player in Players)
             {
-                _deck.DealCardToPlayer(player);
+                Deck.DealCardToPlayer(player);
             }
         }
     }
@@ -53,48 +61,48 @@ public class ShowDownGame
     /// <summary>
     /// 每回合的遊戲輪流讓玩家打牌
     /// </summary>
-    private void OnPlayTurns()
+    public void OnPlayTurns()
     {
         while (HasNextRound())
         {
-            TakeATurn();
-            ShowCards();
-            DetermineRoundWinner();
-            _currentRound++;
+            var round = InitializeRoundCardPlay();
+            OnPlayerExchangeHandsStage();
+            TakeATurn(round);
+            ShowCards(round);
+            OnRoundEnd(round);
         }
     }
     
     /// <summary>
     /// 遊戲結束，顯示贏家
     /// </summary>
-    private void OnGameEnd()
+    public void OnGameEnd()
     {
         var gameWinner = GetGameWinner();
         foreach (var player in gameWinner)
         {
-            Console.WriteLine($"{player.Name} 獲勝！");
+            Console.WriteLine($"{player.Name} 贏得此次遊戲的勝利！");
         }
     }
 
-    private void InvestigateHumanPlayerCount()
+    private int InvestigateHumanPlayerCount()
     {
-        Console.WriteLine("請輸入真實玩家人數：");
-        var input = Console.ReadLine();
-        if (int.TryParse(input, out var count) && count > 0)
+        while (true)
         {
-            HumanPlayerCount = count;
-        }
-        else
-        {
+            Console.WriteLine("請輸入真實玩家人數：");
+            var input = Console.ReadLine();
+            if (int.TryParse(input, out var count) && count >= 0)
+            {
+                return count;
+            }
             Console.WriteLine("輸入不正確，請再次輸入一個大於 0 的數字!");
-            InvestigateHumanPlayerCount();
         }
     }
 
     private void NamingPlayers()
     {
         var index = 0;
-        foreach (var player in _players)
+        foreach (var player in Players)
         {
             index++;
             Console.WriteLine($"請輸入{index}號玩家名稱：");
@@ -103,66 +111,92 @@ public class ShowDownGame
         }
     }
     
-    private void CreatePlayers()
+    private void CreatePlayers(int amountOfHumanPlayerCount)
     {
-        for (var i = 0; i < HumanPlayerCount; i++)
+        for (var i = 0; i < amountOfHumanPlayerCount; i++)
         {
-            _players.Add(new HumanPlayer());
+            Players.Add(new HumanPlayer());
         }
         
-        for (var i = 0; i < 4 - HumanPlayerCount; i++)
+        for (var i = 0; i < 4 - amountOfHumanPlayerCount; i++)
         {
-            _players.Add(new AiPlayer());
+            Players.Add(new AiPlayer());
         }
     }
 
-    private void TakeATurn()
+    private IDictionary<Player, Card?> InitializeRoundCardPlay()
     {
-        InitializeRoundCardPlay();
-        foreach (var player in _players)
+        return Players.ToDictionary(p => p, p => (Card?)null);
+    }
+
+    private void OnPlayerExchangeHandsStage()
+    {
+        PlayersRevertExchangeHandsIfTime();
+        PlayersMakeExchangeDecision();
+    }
+
+    private void PlayersRevertExchangeHandsIfTime()
+    {
+        foreach (var player in Players)
         {
-            var card = player.ExecuteTurnActions(_players);
-            RoundCardPlay[player] = card;
+            player.RevertHandExchangeIfTime();
+        }
+    }
+    
+    private void PlayersMakeExchangeDecision()
+    {
+        foreach (var player in Players)
+        {
+            player.MakeExchangeDecision(Players);
+        }
+    }
+
+    private void TakeATurn(IDictionary<Player, Card?> round)
+    {
+        foreach (var player in Players)
+        {
+            var card = player.Show();
+            round[player] = card;
             player.UpdateExchangeState();
         }
     }
 
-    private void InitializeRoundCardPlay()
+    private void ShowCards(IDictionary<Player, Card?> round)
     {
-        RoundCardPlay = new Dictionary<Player, Card?>(); 
-        _players.ForEach(p => RoundCardPlay.Add(p, null));
-    }
-
-    private void ShowCards()
-    {
-        foreach (var player in RoundCardPlay.Keys)
+        foreach (var player in round.Keys)
         {
-            Console.WriteLine($"{player.Name} 出了 {RoundCardPlay[player]}");
+            Console.WriteLine($"{player.Name} 出了 {round[player]}");
         }
     }
-    
 
     private bool HasNextRound()
     {
         return _currentRound < TotalRound;
     }
-    
-    private Player DetermineRoundWinner()
+
+    private Player DetermineRoundWinner(IDictionary<Player, Card?> round)
     {
-        if (RoundCardPlay == null) throw new ArgumentNullException(nameof(RoundCardPlay));
-
-        // 根據牌的大小排序
-        var maxCard = RoundCardPlay.Max(kv => kv.Value);
+        if (round == null) throw new ArgumentNullException(nameof(round));
         
-        // 找出出最大牌的玩家
-        var winningPlayer = RoundCardPlay.First(kv => kv.Value.Equals(maxCard)).Key;
+        var maxCard = round.Max(kv => kv.Value);
+        
+        var winner = round.First(kv => kv.Value.Equals(maxCard)).Key;
 
-        return winningPlayer;
+        return winner;
+    }
+
+    private void OnRoundEnd(IDictionary<Player, Card?> round)
+    {
+        var winner = DetermineRoundWinner(round);
+        winner.GainOnePoint();
+        Console.WriteLine($"{winner.Name} 獲得該回合的勝利！ 目前:{winner.Point}分");
+        _currentRound++;
     }
     
     private List<Player> GetGameWinner()
     {
-        var maxPoint = _players.Max(p => p.Point);
-        return _players.Where(p => p.Point == maxPoint).ToList();
+        var maxPoint = Players.Max(p => p.Point);
+        return Players.Where(p => p.Point == maxPoint).ToList();
     }
+    
 }

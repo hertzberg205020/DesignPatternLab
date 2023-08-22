@@ -12,8 +12,9 @@ public class HumanPlayer: Player
     public override Card Show()
     {
         int maxIndex = HandCards.Count;
-        DisplayHandCards();
-        Console.WriteLine($"請輸入要出的牌的編號，範圍為 0 到 {maxIndex}");
+        var handCards = GetHandCards();
+        Console.WriteLine(handCards);
+        Console.WriteLine($"請輸入要出的牌的編號，範圍為 0 到 {maxIndex-1}");
         var input = GetValidIndex(0, HandCards.Count, "請輸入要出的牌的編號");
         var card = HandCards[input];
         HandCards.RemoveAt(input);
@@ -40,7 +41,7 @@ public class HumanPlayer: Player
                 return index;
             }
 
-            Console.WriteLine($"輸入不正確，請再次輸入一個在 {lowerBound} 到 {higherBound} 之間的數字!");
+            Console.WriteLine($"輸入不正確，請再次輸入一個在 {lowerBound} 到 {higherBound-1} 之間的數字!");
         }
     }
 
@@ -48,7 +49,7 @@ public class HumanPlayer: Player
     /// 顯示手牌
     /// </summary>
     /// <returns></returns>
-    public string DisplayHandCards()
+    public string GetHandCards()
     {
         StringBuilder result = new StringBuilder();
         int cardCount = HandCards.Count;
@@ -107,44 +108,47 @@ public class HumanPlayer: Player
     
     private Player InquireWhichPlayerToExchangeHandCards(List<Player> otherPlayers)
     {
-        Console.WriteLine("請問要和哪位玩家交換手牌？(請輸入玩家名稱)");
+        Console.WriteLine("請問要和哪位玩家交換手牌？(請輸入編號 數字)");
         ShowAllPlayers(otherPlayers);
-        return GetPlayerByName(otherPlayers);
+        return GetPlayerByIndex(otherPlayers);
     }
 
     private void ShowAllPlayers(List<Player> otherPlayers)
     {
+        var index = 0;
         foreach (var player in otherPlayers)
         {
-            Console.WriteLine(player.Name);
+            Console.WriteLine($"{player.Name}--{index}");
+            index++;
         }
     }
 
-    private Player GetPlayerByName(List<Player> otherPlayers)
+    private Player GetPlayerByIndex(List<Player> otherPlayers)
     {
-        Player? player;
-
         while (true)
         {
             var input = Console.ReadLine();
-        
-            if (string.IsNullOrWhiteSpace(input))
+
+            if (IsValidInput(input, otherPlayers.Count, out var index))
             {
-                Console.WriteLine("輸入不正確，請再次輸入玩家名稱！");
-                continue;
-            }
-        
-            player = otherPlayers.SingleOrDefault(p => p.Name == input);
-        
-            if (player != null)
-            {
-                break;
+                return otherPlayers[index];
             }
 
-            Console.WriteLine($"找不到名稱為 {input} 的玩家，請再次輸入玩家名稱！");
+            Console.WriteLine("輸入不正確，請再次輸入玩家編號！");
         }
+    }
     
-        return player;
+    private bool IsValidInput(string? input, int maxIndex, out int parsedIndex)
+    {
+        if (!string.IsNullOrWhiteSpace(input) && 
+            int.TryParse(input, out parsedIndex) && 
+            parsedIndex < maxIndex)
+        {
+            return true;
+        }
+
+        parsedIndex = -1; 
+        return false;
     }
     
 }

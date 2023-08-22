@@ -24,9 +24,9 @@ public class Card: IComparable<Card>
     {
         if (ReferenceEquals(this, other)) return 0;
         if (ReferenceEquals(null, other)) return 1;
-        var suitComparison = Suit.CompareTo(other.Suit);
-        if (suitComparison != 0) return suitComparison;
-        return Rank.CompareTo(other.Rank);
+        
+        var rankComparison = Rank.CompareTo(other.Rank);
+        return rankComparison != 0 ? rankComparison : Suit.CompareTo(other.Suit);
     }
 
     public override bool Equals(object? obj)
