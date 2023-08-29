@@ -55,54 +55,15 @@ public abstract class Player
         // 被交換的玩家的手牌是否要在自身屬性記錄交換關係？
         (HandCards, player.HandCards) = (player.HandCards, HandCards);
     }
-
     
     /// <summary>
-    /// 將手牌交換回來
+    /// 假如玩家已經交換過手牌，則更新交換關係的狀態 
     /// </summary>
-    /// <exception cref="InvalidOperationException"></exception>
-    public void RevertHandExchange()
-    {
-        if (!HasExchangeHands)
-        {
-            throw new InvalidOperationException("You have not exchanged hands.");
-        }
-        
-        if(ExchangeHandsRelationship.Round < 3)
-        {
-            throw new InvalidOperationException("交換手牌的關係會持續三回合後解除");
-        }
-        
-        (HandCards, ExchangeHandsRelationship.OtherPlayer.HandCards) = (ExchangeHandsRelationship.OtherPlayer.HandCards, HandCards);
-    }
-    
-    public bool IsTimeToRevertHandExchange()
-    {
-        return HasExchangeHands && ExchangeHandsRelationship.Round >= 3;
-    }
-    
-    public void RevertHandExchangeIfTime()
-    {
-        if (IsTimeToRevertHandExchange())
-        {
-            RevertHandExchange();
-        }
-    }
-    
-    
-    public void UpdateExchangeState()
+    public void UpdateExchangeStateIfHasExchanged()
     {
         if (HasExchangeHands)
         {
-            ExchangeHandsRelationship.AddOneRound();
+            ExchangeHandsRelationship.UpdateState();
         } 
     }
-    
-    // public Card ExecuteTurnActions(IList<Player> players)
-    // {
-    //     MakeExchangeDecision(players);
-    //     var card = Show();
-    //     return card;
-    // }
-    
 }

@@ -2,26 +2,40 @@
 
 public class ExchangeHandsRelationship
 {
-    public Player Proposer { get; set; }
-    
-    public Player OtherPlayer { get; set; }
+    private readonly Player _proposer;
 
-    public int Round { get; private set; } = 0;
+    private readonly Player _otherPlayer;
+
+    private int Round { get; set; } = 0;
 
     public ExchangeHandsRelationship(Player proposer, Player otherPlayer)
     {
-        Proposer = proposer;
-        OtherPlayer = otherPlayer;
+        _proposer = proposer;
+        _otherPlayer = otherPlayer;
     }
     
-    public void AddOneRound()
+    public void UpdateState()
+    {
+        AddOneRound();
+        RevertHandCardsAfter3Rounds();
+    }
+
+    private void AddOneRound()
     {
         Round += 1;
     }
-    
-    public bool IsTimeToRevert()
+
+    private bool IsTimeToRevert()
     {
         return Round >= 3;
+    }
+
+    private void RevertHandCardsAfter3Rounds()
+    {
+        if(IsTimeToRevert())
+        {
+            (_proposer.HandCards, _otherPlayer.HandCards) = (_otherPlayer.HandCards, _proposer.HandCards);
+        }
     }
     
 }

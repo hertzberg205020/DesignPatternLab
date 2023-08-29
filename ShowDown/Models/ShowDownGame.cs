@@ -139,7 +139,7 @@ public class ShowDownGame
     {
         foreach (var player in Players)
         {
-            player.RevertHandExchangeIfTime();
+            player.UpdateExchangeStateIfHasExchanged();
         }
     }
     
@@ -157,7 +157,7 @@ public class ShowDownGame
         {
             var card = player.Show();
             round[player] = card;
-            player.UpdateExchangeState();
+            player.UpdateExchangeStateIfHasExchanged();
         }
     }
 
