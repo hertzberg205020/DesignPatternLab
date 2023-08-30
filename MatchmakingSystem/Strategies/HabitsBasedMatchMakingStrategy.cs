@@ -8,11 +8,11 @@ public class HabitsBasedMatchMakingStrategy: IMatchingStrategy
     {
         var members = individuals.ToList();
         var bestMatch = members.First();
-        var highestSimilarity = individual.HabitsSimilarityTo(bestMatch);
+        var highestSimilarity = individual.habits.SimilarityTo(bestMatch.habits);
         
         foreach (var otherIndividual in members.Skip(1))
         {
-            var similarity = individual.HabitsSimilarityTo(otherIndividual);
+            var similarity = individual.habits.SimilarityTo(otherIndividual.habits);
             if (similarity > highestSimilarity)
             {
                 bestMatch = otherIndividual;

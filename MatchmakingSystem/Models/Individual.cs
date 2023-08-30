@@ -76,9 +76,9 @@ public class Individual
         }
     }
 
-    public readonly ICollection<string> habits = new HashSet<string>();
+    public readonly Habits habits = new();
 
-    public string Habits => string.Join(",", habits);
+    public string Habits => habits.ToString();
 
     public Coord Location { get; set; }
 
@@ -89,30 +89,5 @@ public class Individual
         Age = age;
         Intro = intro;
         Location = location;
-    }
-    
-    public void AddHabit(string habit)
-    {
-        if (habit is null)
-        {
-            throw new ArgumentNullException("Habit must not be null.");
-        }
-        
-        if (habit.Length < 1 || habit.Length > 10)
-        {
-            throw new ArgumentException("Habit must be between 1 and 10 characters.");
-        }
-        
-        habits.Add(habit);
-    }
-    
-    public double DistanceTo(Individual other)
-    {
-        return Location.DistanceTo(other.Location);
-    }
-    
-    public int HabitsSimilarityTo(Individual other)
-    {
-        return habits.Intersect(other.habits).Count();
     }
 }
