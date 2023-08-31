@@ -4,5 +4,5 @@ namespace MatchmakingSystem.Strategies;
 
 public interface IMatchingStrategy
 {
-    Individual FindBestMatchForIndividual(Individual individual, IEnumerable<Individual> individuals);
+    Individual FindBestMatchForIndividual(Individual individual, List<Individual> individuals);
 }
