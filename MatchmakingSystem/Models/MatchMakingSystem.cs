@@ -6,11 +6,13 @@ public class MatchMakingSystem
 {
     private readonly IMatchingStrategy _matchingStrategy;
     
-    private readonly IEnumerable<Individual> _members;
-
-    public MatchMakingSystem(IMatchingStrategy matchingStrategy, ICollection<Individual> individuals)
+    public MatchMakingSystem(IMatchingStrategy matchingStrategy)
     {
         _matchingStrategy = matchingStrategy;
-        _members = individuals;
+    }
+    
+    public Individual FindBestMatchForIndividual(Individual individual, ref List<Individual> members)
+    {
+        return _matchingStrategy.FindBestMatchForIndividual(individual, ref members);
     }
 }

@@ -4,7 +4,7 @@ namespace MatchmakingSystem.Strategies;
 
 public class DistanceBasedMatchStrategy: IMatchingStrategy
 {
-    public Individual FindBestMatchForIndividual(Individual individual, List<Individual> individuals)
+    public Individual FindBestMatchForIndividual(Individual individual, ref List<Individual> individuals)
     {
         // first sort the individuals by distance
         // then return the first one

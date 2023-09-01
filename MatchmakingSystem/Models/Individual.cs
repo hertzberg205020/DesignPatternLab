@@ -82,12 +82,16 @@ public class Individual
 
     public Coord Location { get; set; }
 
-    public Individual(int id, string gender, int age, string intro, Coord location)
+    public Individual(int id, string gender, int age, string intro, Coord location, params string[] habits)
     {
         Id = id;
         Gender = gender;
         Age = age;
         Intro = intro;
         Location = location;
+        foreach (var h in habits)
+        {
+            this.habits.AddHabit(h);
+        }
     }
 }
