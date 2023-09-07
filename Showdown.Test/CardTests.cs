@@ -26,7 +26,7 @@ public class CardTests
     [MemberData(nameof(CardComparisonData))]
     public void GivenTheSameRank(Card card1, Card card2, int expected)
     {
-        var actual = card1.CompareTo(card2) switch
+        var actual = card1.Showdown(card2) switch
         {
             > 0 => 1,
             < 0 => -1,
@@ -43,7 +43,7 @@ public class CardTests
         var card2 = new Card(Suit.Clubs, Rank.Three);
 
         // act
-        var actual = card1.CompareTo(card2) switch
+        var actual = card1.Showdown(card2) switch
         {
             > 0 => 1,
             < 0 => -1,

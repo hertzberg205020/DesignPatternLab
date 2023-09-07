@@ -28,6 +28,16 @@ public class Card: IComparable<Card>
         var rankComparison = Rank.CompareTo(other.Rank);
         return rankComparison != 0 ? rankComparison : Suit.CompareTo(other.Suit);
     }
+    
+    /// <summary>
+    /// 使用領域知識的方法，撲克牌比較大小的方法
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
+    public int Showdown(Card? other)
+    {
+        return CompareTo(other);
+    }
 
     public override bool Equals(object? obj)
     {
