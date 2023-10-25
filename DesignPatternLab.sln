@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchmakingSystem", "Matchm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchmakingSystem.Test", "MatchmakingSystem.Test\MatchmakingSystem.Test.csproj", "{F187A2F0-A3ED-4B55-A4F0-A8FBCBC3A08D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGameFramework", "CardGameFramework\CardGameFramework.csproj", "{FCF83392-044A-4321-95B6-644A8145FE7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGameFramework.Tests.Unit", "CardGameFramework.Tests.Unit\CardGameFramework.Tests.Unit.csproj", "{D9FCFBC9-1727-43B8-9EFA-9375D2F935BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{F187A2F0-A3ED-4B55-A4F0-A8FBCBC3A08D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F187A2F0-A3ED-4B55-A4F0-A8FBCBC3A08D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F187A2F0-A3ED-4B55-A4F0-A8FBCBC3A08D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCF83392-044A-4321-95B6-644A8145FE7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF83392-044A-4321-95B6-644A8145FE7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF83392-044A-4321-95B6-644A8145FE7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCF83392-044A-4321-95B6-644A8145FE7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9FCFBC9-1727-43B8-9EFA-9375D2F935BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9FCFBC9-1727-43B8-9EFA-9375D2F935BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9FCFBC9-1727-43B8-9EFA-9375D2F935BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9FCFBC9-1727-43B8-9EFA-9375D2F935BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

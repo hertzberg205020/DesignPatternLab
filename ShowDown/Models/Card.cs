@@ -16,14 +16,14 @@ public class Card: IComparable<Card>
     }
 
     /// <summary>
-    /// 當系統中的遊戲只有Showdow，撲克牌比較大小的方法
+    /// 當系統中的遊戲只有Showdown，撲克牌比較大小的方法
     /// </summary>
     /// <param name="other"></param>
     /// <returns></returns>
     public int CompareTo(Card? other)
     {
         if (ReferenceEquals(this, other)) return 0;
-        if (ReferenceEquals(null, other)) return 1;
+        if (ReferenceEquals(null, other)) throw new ArgumentException("Object cannot be null.", nameof(other));
         
         var rankComparison = Rank.CompareTo(other.Rank);
         return rankComparison != 0 ? rankComparison : Suit.CompareTo(other.Suit);
