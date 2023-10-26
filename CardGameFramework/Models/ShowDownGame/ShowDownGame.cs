@@ -2,12 +2,12 @@
 
 namespace CardGameFramework.Models.ShowDownGame;
 
-public class ShowDownGame: CardGame<PokerCard>
+public class ShowDownGame : CardGame<PokerCard>
 {
     public const int NumOfRounds = 13;
     private readonly List<TurnMove> _turnMoves = new();
-    
-    public ShowDownGame(Deck<PokerCard> deck, List<CardPlayer<PokerCard>> players) 
+
+    public ShowDownGame(Deck<PokerCard> deck, List<CardPlayer<PokerCard>> players)
         : base(deck, players)
     {
     }
@@ -22,14 +22,14 @@ public class ShowDownGame: CardGame<PokerCard>
             _turnMoves.Clear();
         }
     }
-    
+
     private void TakeTurn(IShowDownGamePlayer player)
     {
         Console.WriteLine($"It is {player.Name}'s turn.");
         var turnMove = player.TakeTurn();
         _turnMoves.Add(turnMove);
     }
-    
+
     private void ShowDown()
     {
         PrintShowCards();
@@ -39,7 +39,7 @@ public class ShowDownGame: CardGame<PokerCard>
         winner.Points++;
         Console.WriteLine($"{winner.Name} wins this round.");
     }
-    
+
     private void PrintShowCards()
     {
         foreach (var turnMove in _turnMoves)
@@ -50,10 +50,32 @@ public class ShowDownGame: CardGame<PokerCard>
 
     protected override void OnGameEnded()
     {
-        var winner = Players.OfType<IShowDownGamePlayer>()
+        
+        var sortedPlayers = Players.OfType<IShowDownGamePlayer>()
             .OrderByDescending(player => player.Points)
-            .First();
-        Console.WriteLine($"{winner.Name} wins the game.");
+            .ToList();
+
+        foreach (var player in sortedPlayers)
+        {
+            Console.WriteLine($"{player.Name} has {player.Points} points.");
+        }
+
+        var topScore = sortedPlayers.First().Points;
+        var winners = sortedPlayers.Where(player => player.Points == topScore).ToList();
+
+        ShowWinners(winners);
     }
-    
+
+    private static void ShowWinners(List<IShowDownGamePlayer> winners)
+    {
+        if (winners.Count == 1)
+        {
+            Console.WriteLine($"{winners.First().Name} wins the game.");
+        }
+        else
+        {
+            string winnerNames = string.Join(", ", winners.Select(w => w.Name));
+            Console.WriteLine($"It's a tie! Winners are: {winnerNames}.");
+        }
+    }
 }
