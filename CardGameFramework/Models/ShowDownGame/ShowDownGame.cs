@@ -66,7 +66,7 @@ public class ShowDownGame : CardGame<PokerCard>
         ShowWinners(winners);
     }
 
-    private static void ShowWinners(List<IShowDownGamePlayer> winners)
+    private void ShowWinners(List<IShowDownGamePlayer> winners)
     {
         if (winners.Count == 1)
         {
