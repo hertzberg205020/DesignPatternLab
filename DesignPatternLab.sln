@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGameFramework.Tests.Uni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionDetection", "CollisionDetection\CollisionDetection.csproj", "{D172F0B4-F2A0-411A-AD6D-6003FB19F908}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoutubeSubscribe", "YoutubeSubscribe\YoutubeSubscribe.csproj", "{F8AD1298-11D9-42E4-B1D9-26E180601371}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,9 @@ Global
 		{D172F0B4-F2A0-411A-AD6D-6003FB19F908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D172F0B4-F2A0-411A-AD6D-6003FB19F908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D172F0B4-F2A0-411A-AD6D-6003FB19F908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8AD1298-11D9-42E4-B1D9-26E180601371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8AD1298-11D9-42E4-B1D9-26E180601371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8AD1298-11D9-42E4-B1D9-26E180601371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8AD1298-11D9-42E4-B1D9-26E180601371}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
