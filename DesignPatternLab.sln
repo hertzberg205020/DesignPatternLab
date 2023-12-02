@@ -20,6 +20,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionDetection", "Colli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoutubeSubscribe", "YoutubeSubscribe\YoutubeSubscribe.csproj", "{F8AD1298-11D9-42E4-B1D9-26E180601371}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGameFramework.Infra", "CardGameFramework.Infra\CardGameFramework.Infra.csproj", "{4F541071-2F49-494E-BCDF-1CF49B0650A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGameFramework.Showdown", "CardGameFramework.Showdown\CardGameFramework.Showdown.csproj", "{7C93B05F-D50E-4341-92E8-4B3F8EABBAEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGameFramework.Uno", "CardGameFramework.Uno\CardGameFramework.Uno.csproj", "{66A30A6E-57D1-4671-AEC4-0A9E36C3FF00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGameFramework.Big2", "CardGameFramework.Big2\CardGameFramework.Big2.csproj", "{4A3E40C0-710E-4722-9BA9-6292FB954D44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,5 +74,21 @@ Global
 		{F8AD1298-11D9-42E4-B1D9-26E180601371}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8AD1298-11D9-42E4-B1D9-26E180601371}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8AD1298-11D9-42E4-B1D9-26E180601371}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F541071-2F49-494E-BCDF-1CF49B0650A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F541071-2F49-494E-BCDF-1CF49B0650A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F541071-2F49-494E-BCDF-1CF49B0650A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F541071-2F49-494E-BCDF-1CF49B0650A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C93B05F-D50E-4341-92E8-4B3F8EABBAEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C93B05F-D50E-4341-92E8-4B3F8EABBAEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C93B05F-D50E-4341-92E8-4B3F8EABBAEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C93B05F-D50E-4341-92E8-4B3F8EABBAEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66A30A6E-57D1-4671-AEC4-0A9E36C3FF00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A30A6E-57D1-4671-AEC4-0A9E36C3FF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A30A6E-57D1-4671-AEC4-0A9E36C3FF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A30A6E-57D1-4671-AEC4-0A9E36C3FF00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A3E40C0-710E-4722-9BA9-6292FB954D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A3E40C0-710E-4722-9BA9-6292FB954D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A3E40C0-710E-4722-9BA9-6292FB954D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A3E40C0-710E-4722-9BA9-6292FB954D44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
