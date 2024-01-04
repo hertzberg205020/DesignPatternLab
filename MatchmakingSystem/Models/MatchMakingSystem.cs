@@ -11,8 +11,10 @@ public class MatchMakingSystem
         _matchingStrategy = matchingStrategy;
     }
     
-    public Individual FindBestMatchForIndividual(Individual individual, ref List<Individual> members)
-    {
-        return _matchingStrategy.FindBestMatchForIndividual(individual, ref members);
-    }
+    // public Individual FindBestMatchForIndividual(Individual individual, ref List<Individual> members)
+    // {
+    //     return _matchingStrategy.FindBestMatchForIndividual(individual, ref members);
+    // }
+    
+    public Individual FindBestMatchForIndividual(Individual individual, List<Individual> members) => _matchingStrategy.Match(individual, members).First().Individual2;
 }

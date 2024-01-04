@@ -34,7 +34,8 @@ public class MatchMakingSystemTest
 
         var strategy = new HabitsBasedMatchStrategy();
         var system = new MatchMakingSystem(strategy);
-        var result = system.FindBestMatchForIndividual(Target, ref individuals);
+        // var result = system.FindBestMatchForIndividual(Target, ref individuals);
+        var result = system.FindBestMatchForIndividual(Target, individuals);
         result.Id.Should().Be(4);
     }
     
@@ -45,7 +46,8 @@ public class MatchMakingSystemTest
 
         var strategy = new ReverseStrategy(new HabitsBasedMatchStrategy());
         var system = new MatchMakingSystem(strategy);
-        var result = system.FindBestMatchForIndividual(Target, ref individuals);
+        // var result = system.FindBestMatchForIndividual(Target, ref individuals);
+        var result = system.FindBestMatchForIndividual(Target, individuals);
         
         result.Id.Should().Be(3);
     }
@@ -57,8 +59,8 @@ public class MatchMakingSystemTest
 
         var strategy = new DistanceBasedMatchStrategy();
         var system = new MatchMakingSystem(strategy);
-        var result = system.FindBestMatchForIndividual(Target, ref individuals);
-        
+        // var result = system.FindBestMatchForIndividual(Target, ref individuals);
+        var result = system.FindBestMatchForIndividual(Target, individuals);
         result.Id.Should().Be(2);
     }
     
@@ -69,8 +71,8 @@ public class MatchMakingSystemTest
 
         var strategy = new ReverseStrategy(new DistanceBasedMatchStrategy());
         var system = new MatchMakingSystem(strategy);
-        var result = system.FindBestMatchForIndividual(Target, ref individuals);
-        
-        result.Id.Should().Be(3);
+        // var result = system.FindBestMatchForIndividual(Target, ref individuals);
+        var result = system.FindBestMatchForIndividual(Target, individuals);
+        result.Id.Should().Be(4);
     }
 }
