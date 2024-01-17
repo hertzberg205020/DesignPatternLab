@@ -1,6 +1,6 @@
 ﻿namespace CardGameFramework.Infra.Models;
 
-public abstract class CardGame<TCard> 
+public abstract class CardGame<TCard>
     where TCard : ICard
 {
     public readonly Deck<TCard> Deck;
@@ -19,21 +19,16 @@ public abstract class CardGame<TCard>
         OnPlayersNaming();
         OnDeckShuffling();
         OnCardsDealtToPlayers();
+        OnInitiateGame();
         OnGameRoundsStart();
         OnGameEnded();
     }
 
-    protected abstract void OnGameEnded();
-
-
-    protected abstract void OnGameRoundsStart();
-
-
-    protected virtual void OnCardsDealtToPlayers()
+    protected void OnPlayersNaming()
     {
-        while (!Deck.IsEmpty())
+        for (var i = 0; i < Players.Count; i++)
         {
-            Players.ForEach(player => player.AddCardToHand(Deck.Draw()));
+            Players[i].NameSelf(i + 1);
         }
     }
 
@@ -42,12 +37,62 @@ public abstract class CardGame<TCard>
         Deck.Shuffle();
     }
 
-    private void OnPlayersNaming()
+    protected void OnCardsDealtToPlayers()
     {
-        for (var i = 0; i < Players.Count; i++)
+        while (!Deck.IsEmpty())
         {
-            Players[i].NameSelf(i + 1);
+            foreach (var player in Players)
+            {
+                if (IsDealComplete(player))
+                {
+                    player.AddCardToHand(Deck.Draw());
+                }
+            }
         }
     }
+
+    /// <summary>
+    /// 抽牌終止條件
+    /// </summary>
+    /// <returns></returns>
+    protected virtual bool IsDealComplete(CardPlayer<TCard> player)
+    {
+        return true;
+    }
+
+    protected virtual void OnInitiateGame()
+    {
+    }
+
+    protected void OnGameRoundsStart()
+    {
+        while (IsGameOver())
+        {
+            OnExecuteRound();
+        }
+    }
+
+    protected abstract bool IsGameOver();
+    protected abstract void OnExecuteRound();
+
+    protected virtual void OnGameEnded()
+    {
+        var winners = IdentifyWinners();
+        ShowWinners(winners);
+    }
     
+    protected abstract IReadOnlyCollection<CardPlayer<TCard>> IdentifyWinners();
+
+    protected void ShowWinners(IReadOnlyCollection<CardPlayer<TCard>> winners)
+    {
+        if (winners.Count == 1)
+        {
+            Console.WriteLine($"{winners.First().Name} wins the game.");
+        }
+        else
+        {
+            var winnerNames = string.Join(", ", winners.Select(w => w.Name));
+            Console.WriteLine($"It's a tie! Winners are: {winnerNames}.");
+        }
+    }
 }

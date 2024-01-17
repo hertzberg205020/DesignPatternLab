@@ -18,18 +18,20 @@ public class UnoCardGame: CardGame<UnoCard>
         CardTable = cardTable;
         CardTable.Game = this;
     }
-
-    protected override void OnGameEnded()
+    
+    protected override bool IsDealComplete(CardPlayer<UnoCard> player)
     {
-        Console.WriteLine($"{CurrentPlayer?.Name} wins the game.");
+        return player.HandOfCards.Cards.Count < InitCardCount;
     }
 
-    protected override void OnGameRoundsStart()
+    protected override void OnInitiateGame()
     {
-        while (!IsGameEnded)
-        {
-            Players.OfType<IUnoCardGamePlayer>().ToList().ForEach(TakeTurn);
-        }
+        CardTable.ChangeTopCard(Deck.Draw());
+    }
+    
+    protected override void OnExecuteRound()
+    {
+        Players.OfType<IUnoCardGamePlayer>().ToList().ForEach(TakeTurn);
     }
     
     private void TakeTurn(IUnoCardGamePlayer player)
@@ -59,12 +61,16 @@ public class UnoCardGame: CardGame<UnoCard>
         }
         CurrentPlayer?.AddCardToHand(Deck.Draw());
     }
-
-    protected override void OnCardsDealtToPlayers()
+    
+    protected override bool IsGameOver()
     {
-        for (int i = 0; i < InitCardCount; i++)
-        {
-            Players.ForEach(player => player.AddCardToHand(Deck.Draw()));
-        }
+        return !IsGameEnded;
+    }
+    
+    
+    
+    protected override IReadOnlyCollection<CardPlayer<UnoCard>> IdentifyWinners()
+    {
+        return new []{CurrentPlayer as CardPlayer<UnoCard>}!;
     }
 }

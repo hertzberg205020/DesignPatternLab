@@ -11,4 +11,8 @@
       <ProjectReference Include="..\CardGameFramework.Infra\CardGameFramework.Infra.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models\" />
+    </ItemGroup>
+
 </Project>

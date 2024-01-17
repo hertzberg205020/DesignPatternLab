@@ -5,23 +5,30 @@ namespace CardGameFramework.Showdown.Models;
 
 public class ShowDownGame : CardGame<PokerCard>
 {
-    public const int NumOfRounds = 13;
+    private const int NumOfRounds = 13;
+    private int _curRound = 0;
     private readonly List<TurnMove> _turnMoves = new();
 
     public ShowDownGame(Deck<PokerCard> deck, List<CardPlayer<PokerCard>> players)
         : base(deck, players)
     {
+        if (players.Any(player => player is not IShowDownGamePlayer))
+        {
+            throw new ArgumentException("Player must be IShowDownGamePlayer");
+        }
+    }
+    
+    protected override bool IsGameOver()
+    {
+        return _curRound < NumOfRounds;
     }
 
-    protected override void OnGameRoundsStart()
+    protected override void OnExecuteRound()
     {
-        for (int i = 0; i < NumOfRounds; i++)
-        {
-            // 使用 OfType<T>()，僅會返回可以被成功轉型的物件
-            Players.OfType<IShowDownGamePlayer>().ToList().ForEach(TakeTurn);
-            ShowDown();
-            _turnMoves.Clear();
-        }
+        Players.OfType<IShowDownGamePlayer>().ToList().ForEach(TakeTurn);
+        ShowDown();
+        _turnMoves.Clear();
+        _curRound++;
     }
 
     private void TakeTurn(IShowDownGamePlayer player)
@@ -48,35 +55,16 @@ public class ShowDownGame : CardGame<PokerCard>
             Console.WriteLine($"{turnMove.Player.Name} shows {turnMove.Card}");
         }
     }
-
-    protected override void OnGameEnded()
+    
+    protected override IReadOnlyCollection<CardPlayer<PokerCard>> IdentifyWinners()
     {
-        
         var sortedPlayers = Players.OfType<IShowDownGamePlayer>()
             .OrderByDescending(player => player.Points)
             .ToList();
 
-        foreach (var player in sortedPlayers)
-        {
-            Console.WriteLine($"{player.Name} has {player.Points} points.");
-        }
-
         var topScore = sortedPlayers.First().Points;
-        var winners = sortedPlayers.Where(player => player.Points == topScore).ToList();
+        var winners = sortedPlayers.Where(player => player.Points == topScore).Cast<CardPlayer<PokerCard>>().ToList();;
 
-        ShowWinners(winners);
-    }
-
-    private static void ShowWinners(IReadOnlyCollection<IShowDownGamePlayer> winners)
-    {
-        if (winners.Count == 1)
-        {
-            Console.WriteLine($"{winners.First().Name} wins the game.");
-        }
-        else
-        {
-            string winnerNames = string.Join(", ", winners.Select(w => w.Name));
-            Console.WriteLine($"It's a tie! Winners are: {winnerNames}.");
-        }
+        return winners;
     }
 }
