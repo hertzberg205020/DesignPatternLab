@@ -20,7 +20,7 @@ public class ShowDownGame : CardGame<PokerCard>
     
     protected override bool IsGameOver()
     {
-        return _curRound < NumOfRounds;
+        return _curRound >= NumOfRounds;
     }
 
     protected override void OnExecuteRound()

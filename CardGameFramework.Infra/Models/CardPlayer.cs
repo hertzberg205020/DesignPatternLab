@@ -35,13 +35,13 @@ public abstract class CardPlayer<TCard>
         return selectedCard;
     }
     
-    public void DisplayCardsSelections()
+    public virtual void DisplayCardsSelections()
     {
         Console.WriteLine($"{Name}'s cards on hand: ");
         Console.WriteLine(RevealCardsOnHand());
     }
     
-    public string RevealCardsOnHand()
+    public virtual string RevealCardsOnHand()
     {
         StringBuilder result = new StringBuilder();
         var cardCount = HandOfCards.Cards.Count;

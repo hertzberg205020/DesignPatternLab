@@ -4,7 +4,7 @@ public abstract class CardGame<TCard>
     where TCard : ICard
 {
     public readonly Deck<TCard> Deck;
-    protected readonly List<CardPlayer<TCard>> Players;
+    public readonly List<CardPlayer<TCard>> Players;
 
     protected CardGame(Deck<TCard> deck, List<CardPlayer<TCard>> players)
     {
@@ -41,12 +41,14 @@ public abstract class CardGame<TCard>
     {
         while (!Deck.IsEmpty())
         {
-            foreach (var player in Players)
+            foreach (var player in Players.Where(player => !IsDealComplete(player)))
             {
-                if (IsDealComplete(player))
-                {
-                    player.AddCardToHand(Deck.Draw());
-                }
+                player.AddCardToHand(Deck.Draw());
+            }
+
+            if (Players.All(IsDealComplete))
+            {
+                break;
             }
         }
     }
@@ -57,7 +59,7 @@ public abstract class CardGame<TCard>
     /// <returns></returns>
     protected virtual bool IsDealComplete(CardPlayer<TCard> player)
     {
-        return true;
+        return false;
     }
 
     protected virtual void OnInitiateGame()
@@ -66,7 +68,7 @@ public abstract class CardGame<TCard>
 
     protected void OnGameRoundsStart()
     {
-        while (IsGameOver())
+        while (!IsGameOver())
         {
             OnExecuteRound();
         }

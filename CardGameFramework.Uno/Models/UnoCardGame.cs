@@ -10,7 +10,7 @@ public class UnoCardGame: CardGame<UnoCard>
     
     public const int InitCardCount = 5;
     
-    private bool IsGameEnded { get; set; } = false;
+    private bool IsGameContinue { get; set; } = true;
     
     public UnoCardGame(Deck<UnoCard> deck, List<CardPlayer<UnoCard>> players, CardTable cardTable) : 
         base(deck, players)
@@ -21,7 +21,7 @@ public class UnoCardGame: CardGame<UnoCard>
     
     protected override bool IsDealComplete(CardPlayer<UnoCard> player)
     {
-        return player.HandOfCards.Cards.Count < InitCardCount;
+        return player.HandOfCards.Cards.Count > InitCardCount;
     }
 
     protected override void OnInitiateGame()
@@ -31,7 +31,14 @@ public class UnoCardGame: CardGame<UnoCard>
     
     protected override void OnExecuteRound()
     {
-        Players.OfType<IUnoCardGamePlayer>().ToList().ForEach(TakeTurn);
+        foreach (var player in Players.Select(p => p as IUnoCardGamePlayer))
+        {
+            TakeTurn(player!);
+            if (IsGameOver())
+            {
+                return;
+            }
+        }
     }
     
     private void TakeTurn(IUnoCardGamePlayer player)
@@ -47,7 +54,7 @@ public class UnoCardGame: CardGame<UnoCard>
         {
             CardTable.ChangeTopCard(turnMove.Card);
             Console.WriteLine($"{CurrentPlayer.Name} lays {turnMove.Card}");
-            IsGameEnded = !turnMove.IsContinue;
+            IsGameContinue = turnMove.IsContinue;
         }
     }
     
@@ -64,7 +71,7 @@ public class UnoCardGame: CardGame<UnoCard>
     
     protected override bool IsGameOver()
     {
-        return !IsGameEnded;
+        return !IsGameContinue;
     }
     
     

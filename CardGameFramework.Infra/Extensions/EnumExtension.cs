@@ -21,3 +21,4 @@ public static class EnumExtension
         return displayAttribute?.Name ?? enumName;
     }
 }
+
