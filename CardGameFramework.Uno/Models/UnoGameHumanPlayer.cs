@@ -12,7 +12,7 @@ public class UnoGameHumanPlayer : HumanCardPlayer<UnoCard>, IUnoCardGamePlayer
         {
             Console.WriteLine($"the top card is {CardTable.TopUnoCard}");
             
-            DisplayCardsSelections();
+            DisplayCardSelections();
             Console.WriteLine("Please enter the index of card you want to lay or -1 (pass): ");
             
             var cardIndex = GetCardIndexFromUser();

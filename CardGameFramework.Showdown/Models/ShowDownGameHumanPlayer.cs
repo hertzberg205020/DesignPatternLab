@@ -10,7 +10,7 @@ public class ShowDownGameHumanPlayer: HumanCardPlayer<PokerCard>, IShowDownGameP
     {
         while (true)
         {
-            DisplayCardsSelections();
+            DisplayCardSelections();
             Console.WriteLine("Please enter the card you want to show: ");
             var indexOfCard = Console.ReadLine();
             if (int.TryParse(indexOfCard, out var index))

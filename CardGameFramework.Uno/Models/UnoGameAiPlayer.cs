@@ -9,7 +9,7 @@ public class UnoGameAiPlayer: AiCardPlayer<UnoCard>, IUnoCardGamePlayer
     public UnoCard? LayCard()
     {
         Console.WriteLine($"the top card is {CardTable.TopUnoCard}");
-        DisplayCardsSelections();
+        DisplayCardSelections();
         foreach (UnoCard card in HandOfCards.Cards)
         {
             if (((IUnoCardGamePlayer) this).IsValidCardToLay(card))
