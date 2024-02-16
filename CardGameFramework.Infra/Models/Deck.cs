@@ -2,7 +2,7 @@
 
 namespace CardGameFramework.Infra.Models;
 
-public class Deck<TCard> 
+public class Deck<TCard>: IDeck<TCard>
     where TCard : ICard
 {
     private List<TCard> Cards { get; set; }

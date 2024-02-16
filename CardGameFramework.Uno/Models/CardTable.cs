@@ -10,7 +10,7 @@ public class CardTable
 
     public UnoCardGame Game { get; set; }
 
-    public Deck<UnoCard> Deck => Game.Deck;
+    public IDeck<UnoCard> Deck => Game.Deck;
     
     public void RefillDeck()
     {

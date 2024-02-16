@@ -3,7 +3,7 @@
 public abstract class CardGame<TCard>
     where TCard : ICard
 {
-    public readonly Deck<TCard> Deck;
+    public readonly IDeck<TCard> Deck;
     public readonly List<CardPlayer<TCard>> Players;
 
     protected CardGame(Deck<TCard> deck, List<CardPlayer<TCard>> players)
