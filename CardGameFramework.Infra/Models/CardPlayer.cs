@@ -7,7 +7,7 @@ public abstract class CardPlayer<TCard>
 {
     public string? Name { get; set; }
     
-    public CardGame<TCard> CardGame { get; set; }
+    public CardGame<TCard>? CardGame { get; set; }
 
     public HandOfCards<TCard> HandOfCards { get; set; } = new HandOfCards<TCard>();
 
@@ -16,6 +16,11 @@ public abstract class CardPlayer<TCard>
     public void AddCardToHand(TCard card)
     {
         HandOfCards.Add(card);
+    }
+    
+    public void AddCardsToHand(IEnumerable<TCard> cards)
+    {
+        HandOfCards.AddRange(cards);
     }
     
     /// <summary>
@@ -33,6 +38,16 @@ public abstract class CardPlayer<TCard>
         var selectedCard = HandOfCards.Cards[index];
         HandOfCards.Cards.RemoveAt(index);
         return selectedCard;
+    }
+    
+    /// <summary>
+    /// for testing purpose
+    /// </summary>
+    /// <param name="cards">specify the cards to be set to hand</param>
+    public void SetHand(IEnumerable<TCard> cards)
+    {
+        HandOfCards.Cards.Clear();
+        HandOfCards.AddRange(cards);
     }
     
     public virtual void DisplayCardSelections()

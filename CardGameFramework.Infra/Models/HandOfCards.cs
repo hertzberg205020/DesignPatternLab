@@ -23,4 +23,14 @@ public class HandOfCards<TCard>
         return target;
     }
     
+    public void AddRange(IEnumerable<TCard> cards)
+    {
+        Cards.AddRange(cards);
+    }
+    
+    public void Clear()
+    {
+        Cards.Clear();
+    }
+    
 }
