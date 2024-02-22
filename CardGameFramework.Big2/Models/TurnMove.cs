@@ -13,7 +13,7 @@ public class TurnMove
     
     public bool IsGameContinue => Player.HandCard.Cards.Count > 0;
     
-    public TurnMove(IBigTwoPlayer player, ICardPattern? cards, bool isPass)
+    private TurnMove(IBigTwoPlayer player, ICardPattern? cards, bool isPass)
     {
         Player = player;
         Cards = cards;
