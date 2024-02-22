@@ -86,19 +86,16 @@ public class Round
                 HandlePass(player);
             }
 
-            if (turnMove is { IsPass: false, Cards: not null })
+            if (turnMove is not { IsPass: false, Cards: not null }) throw new ArgumentException("invalid turn move");
+            
+            // 第一局玩家要出含有梅花3的牌型
+            if (IsFirstRound && 
+                !turnMove.Cards.Contents.Any(p => p.Suit == Suit.Club && p.Rank == Rank.Three))
             {
-                // 第一局玩家要出含有梅花3的牌型
-                if (IsFirstRound)
-                {
-                    if (!turnMove.Cards.Contents.Any(p => p.Suit == Suit.Club && p.Rank == Rank.Three))
-                    {
-                        throw new FirstRoundMustPlayClub3Exception();
-                    }
-                }
-
-                HandleValidPlay(turnMove);
+                throw new FirstRoundMustPlayClub3Exception();
             }
+
+            HandleValidPlay(turnMove);
         }
         catch (TopPlayerPassOnFirstTurnException e)
         {
@@ -130,17 +127,15 @@ public class Round
 
         // 型別一致 且 play 牌型 比 top 大 才能出牌
         // 使用反射設使用 CompareTo 方法
-        if (topType == playType)
+        if (topType != playType) return false;
+        var method = topType.GetMethod("CompareTo");
+        
+        if (method == null) throw new ArgumentException("牌型不合法");
+        
+        var result = method.Invoke(play, new object[] { TopPlay });
+        if (result != null)
         {
-            var method = topType.GetMethod("CompareTo");
-            if (method != null)
-            {
-                var result = method.Invoke(play, new object[] { TopPlay });
-                if (result != null)
-                {
-                    return (int)result > 0;
-                }
-            }
+            return (int)result > 0;
         }
 
         return false;
