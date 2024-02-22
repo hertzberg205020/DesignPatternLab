@@ -30,7 +30,7 @@ public interface IBigTwoPlayer
             IList<int>? indices = null;
             try
             {
-                indices = ParseInput();
+                indices = DecideCardsToPlayOrPassByIndex();
             }
             catch (Exception e)
             {
@@ -69,7 +69,7 @@ public interface IBigTwoPlayer
         }
     }
 
-    IList<int> ParseInput();
+    IList<int> DecideCardsToPlayOrPassByIndex();
     
 
     /// <summary>

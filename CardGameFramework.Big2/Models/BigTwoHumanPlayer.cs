@@ -12,7 +12,7 @@ public class BigTwoHumanPlayer : HumanCardPlayer<PokerCard>, IBigTwoPlayer
         HandCard = handCard;
     }
     
-    public IList<int> ParseInput()
+    public IList<int> DecideCardsToPlayOrPassByIndex()
     {
         while (true)
         {
