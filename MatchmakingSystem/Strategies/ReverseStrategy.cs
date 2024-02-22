@@ -11,13 +11,13 @@ public class ReverseStrategy: IMatchingStrategy
         _matchingStrategy = matchingStrategy;
     }
 
-    public Individual FindBestMatchForIndividual(Individual individual, ref List<Individual> individuals)
-    {
-        // use the original strategy to sort the individuals
-        // then return the last one
-        _matchingStrategy.FindBestMatchForIndividual(individual, ref individuals);
-        return individuals.Last();
-    }
+    // public Individual FindBestMatchForIndividual(Individual individual, ref List<Individual> individuals)
+    // {
+    //     // use the original strategy to sort the individuals
+    //     // then return the last one
+    //     _matchingStrategy.FindBestMatchForIndividual(individual, ref individuals);
+    //     return individuals.Last();
+    // }
 
     public List<IndividualPair> Match(Individual target, List<Individual> individuals)
     {
