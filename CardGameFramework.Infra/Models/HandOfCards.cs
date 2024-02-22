@@ -1,17 +1,35 @@
-﻿namespace CardGameFramework.Infra.Models;
+﻿using System.Collections;
 
-public class HandOfCards<TCard> 
+namespace CardGameFramework.Infra.Models;
+
+public class HandOfCards<TCard> : IEnumerable<TCard>
     where TCard: ICard
 {
-    public List<TCard> Cards { get; } = new List<TCard>();
+    public List<TCard> Cards { get; }
     
-    public void Add(TCard card)
+    public HandOfCards(int size = 5)
+    {
+        Cards = new List<TCard>(size);
+    }
+    
+    public TCard this[int index] => Cards[index];
+        
+    public IEnumerator<TCard> GetEnumerator()
+    {
+        return Cards.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+    
+    public virtual void Add(TCard card)
     {
         Cards.Add(card);
     }
     
-    
-    public TCard PlaceCard(int index)
+    public virtual TCard PlaceCard(int index)
     {
         if (index < 0 || index >= Cards.Count)
         {
@@ -23,12 +41,12 @@ public class HandOfCards<TCard>
         return target;
     }
     
-    public void AddRange(IEnumerable<TCard> cards)
+    public virtual void AddRange(IEnumerable<TCard> cards)
     {
         Cards.AddRange(cards);
     }
     
-    public void Clear()
+    public virtual void Clear()
     {
         Cards.Clear();
     }

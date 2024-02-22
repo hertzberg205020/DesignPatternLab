@@ -6,6 +6,10 @@ public class PairPattern: ICardPattern, IComparable<PairPattern>
 {
     public IList<PokerCard> Contents { get; set; }
     
+    public static string PatternName { get; } = "對子";
+    
+    public override string ToString() => string.Join(" ", Contents);
+    
     public PairPattern(IList<PokerCard> contents)
     {
         Contents = contents;

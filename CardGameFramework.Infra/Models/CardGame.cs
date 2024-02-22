@@ -5,8 +5,9 @@ public abstract class CardGame<TCard>
 {
     public readonly IDeck<TCard> Deck;
     public readonly List<CardPlayer<TCard>> Players;
+    private int _playerIndex = 0;
 
-    protected CardGame(Deck<TCard> deck, List<CardPlayer<TCard>> players)
+    protected CardGame(IDeck<TCard> deck, List<CardPlayer<TCard>> players)
     {
         Deck = deck;
         Players = players;
@@ -24,7 +25,7 @@ public abstract class CardGame<TCard>
         OnGameEnded();
     }
 
-    protected void OnPlayersNaming()
+    public void OnPlayersNaming()
     {
         for (var i = 0; i < Players.Count; i++)
         {
@@ -32,41 +33,42 @@ public abstract class CardGame<TCard>
         }
     }
 
-    private void OnDeckShuffling()
+    public void OnDeckShuffling()
     {
         Deck.Shuffle();
     }
 
-    protected void OnCardsDealtToPlayers()
+    public void OnCardsDealtToPlayers()
     {
+        
         while (!Deck.IsEmpty())
         {
-            foreach (var player in Players.Where(player => !IsDealComplete(player)))
+            foreach (var player in Players)
             {
                 player.AddCardToHand(Deck.Draw());
             }
-
             if (Players.All(IsDealComplete))
             {
                 break;
             }
         }
     }
+    
 
     /// <summary>
     /// 抽牌終止條件
     /// </summary>
     /// <returns></returns>
-    protected virtual bool IsDealComplete(CardPlayer<TCard> player)
+    public virtual bool IsDealComplete(CardPlayer<TCard> player)
     {
         return false;
     }
 
-    protected virtual void OnInitiateGame()
+    public virtual void OnInitiateGame()
     {
     }
 
-    protected void OnGameRoundsStart()
+    public void OnGameRoundsStart()
     {
         while (!IsGameOver())
         {
@@ -74,18 +76,18 @@ public abstract class CardGame<TCard>
         }
     }
 
-    protected abstract bool IsGameOver();
-    protected abstract void OnExecuteRound();
+    public abstract bool IsGameOver();
+    public abstract void OnExecuteRound();
 
-    protected virtual void OnGameEnded()
+    public virtual void OnGameEnded()
     {
         var winners = IdentifyWinners();
         ShowWinners(winners);
     }
-    
-    protected abstract IReadOnlyCollection<CardPlayer<TCard>> IdentifyWinners();
 
-    protected void ShowWinners(IReadOnlyCollection<CardPlayer<TCard>> winners)
+    public abstract IReadOnlyCollection<CardPlayer<TCard>> IdentifyWinners();
+
+    public void ShowWinners(IReadOnlyCollection<CardPlayer<TCard>> winners)
     {
         if (winners.Count == 1)
         {

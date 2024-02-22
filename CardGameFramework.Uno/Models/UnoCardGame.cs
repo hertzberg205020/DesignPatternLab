@@ -18,18 +18,18 @@ public class UnoCardGame: CardGame<UnoCard>
         CardTable = cardTable;
         CardTable.Game = this;
     }
-    
-    protected override bool IsDealComplete(CardPlayer<UnoCard> player)
+
+    public override bool IsDealComplete(CardPlayer<UnoCard> player)
     {
         return player.HandOfCards.Cards.Count > InitCardCount;
     }
 
-    protected override void OnInitiateGame()
+    public override void OnInitiateGame()
     {
         CardTable.ChangeTopCard(Deck.Draw());
     }
-    
-    protected override void OnExecuteRound()
+
+    public override void OnExecuteRound()
     {
         foreach (var player in Players.Select(p => p as IUnoCardGamePlayer))
         {
@@ -68,15 +68,14 @@ public class UnoCardGame: CardGame<UnoCard>
         }
         CurrentPlayer?.AddCardToHand(Deck.Draw());
     }
-    
-    protected override bool IsGameOver()
+
+    public override bool IsGameOver()
     {
         return !IsGameContinue;
     }
-    
-    
-    
-    protected override IReadOnlyCollection<CardPlayer<UnoCard>> IdentifyWinners()
+
+
+    public override IReadOnlyCollection<CardPlayer<UnoCard>> IdentifyWinners()
     {
         return new []{CurrentPlayer as CardPlayer<UnoCard>}!;
     }

@@ -4,30 +4,30 @@ namespace CardGameFramework.Big2.Enums;
 
 public enum Rank: byte
 {
-    [Display(Name = "2")]
-    Two = 0,
     [Display(Name = "3")]
-    Three,
+    Three = 0,
     [Display(Name = "4")]
-    Four,
+    Four = 1,
     [Display(Name = "5")]
-    Five,
+    Five = 2,
     [Display(Name = "6")]
-    Six,
+    Six = 3,
     [Display(Name = "7")]
-    Seven,
+    Seven = 4,
     [Display(Name = "8")]
-    Eight,
+    Eight = 5,
     [Display(Name = "9")]
-    Nine,
+    Nine = 6,
     [Display(Name = "10")]
-    Ten,
+    Ten = 7,
     [Display(Name = "J")]
-    Jack,
+    Jack = 8,
     [Display(Name = "Q")]
-    Queen,
+    Queen = 9,
     [Display(Name = "K")]
-    King,
+    King = 10,
     [Display(Name = "A")]
-    Ace,
+    Ace = 11,
+    [Display(Name = "2")]
+    Two = 12
 }

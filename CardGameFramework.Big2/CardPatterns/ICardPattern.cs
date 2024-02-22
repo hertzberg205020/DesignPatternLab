@@ -6,4 +6,5 @@ public interface ICardPattern
 {
     IList<PokerCard> Contents { get; set; }
     static abstract bool IsValid(IList<PokerCard> cards);
+    static abstract string PatternName { get; }
 }

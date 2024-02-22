@@ -33,11 +33,15 @@ public class Deck<TCard>: IDeck<TCard>
 
     public void Shuffle()
     {
-        var random = new Random();
-        for (var i = 0; i < Cards.Count; i++)
+        Random rnd = new();
+        
+        var n = Cards.Count;
+
+        while (n > 1)
         {
-            var j = random.Next(i, Cards.Count);
-            (Cards[i], Cards[j]) = (Cards[j], Cards[i]);
+            n--;
+            var k = rnd.Next(n + 1);
+            (Cards[k], Cards[n]) = (Cards[n], Cards[k]);
         }
     }
 

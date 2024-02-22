@@ -1,4 +1,5 @@
 ﻿using CardGameFramework.Big2.CardPatterns;
+using CardGameFramework.Big2.Exceptions;
 using CardGameFramework.Big2.Models;
 using ICardPattern = CardGameFramework.Big2.CardPatterns.ICardPattern;
 
@@ -25,7 +26,7 @@ public abstract class CardPatternConstructor
             return Next.Construct(cards);
         }
 
-        throw new Exception("No pattern found");
+        throw new NoSuchPatternException();
     }
 
     protected abstract bool IsMatch(List<PokerCard> cards);

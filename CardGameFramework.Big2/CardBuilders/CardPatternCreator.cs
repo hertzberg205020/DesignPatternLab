@@ -35,7 +35,7 @@ public class CardPatternCreator
         }
     }
 
-    public ICardPattern? Create(List<PokerCard> cards)
+    public ICardPattern? CreateCardPattern(List<PokerCard> cards)
     {
         return _patternConstructor.Construct(cards);
     }

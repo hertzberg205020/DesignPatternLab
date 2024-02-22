@@ -17,13 +17,13 @@ public class ShowDownGame : CardGame<PokerCard>
             throw new ArgumentException("Player must be IShowDownGamePlayer");
         }
     }
-    
-    protected override bool IsGameOver()
+
+    public override bool IsGameOver()
     {
         return _curRound >= NumOfRounds;
     }
 
-    protected override void OnExecuteRound()
+    public override void OnExecuteRound()
     {
         Players.OfType<IShowDownGamePlayer>().ToList().ForEach(TakeTurn);
         ShowDown();
@@ -55,8 +55,8 @@ public class ShowDownGame : CardGame<PokerCard>
             Console.WriteLine($"{turnMove.Player.Name} shows {turnMove.Card}");
         }
     }
-    
-    protected override IReadOnlyCollection<CardPlayer<PokerCard>> IdentifyWinners()
+
+    public override IReadOnlyCollection<CardPlayer<PokerCard>> IdentifyWinners()
     {
         var sortedPlayers = Players.OfType<IShowDownGamePlayer>()
             .OrderByDescending(player => player.Points)

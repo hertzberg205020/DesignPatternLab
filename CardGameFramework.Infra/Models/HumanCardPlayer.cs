@@ -3,10 +3,16 @@
 public class HumanCardPlayer<TCard>: CardPlayer<TCard>
     where TCard: ICard
 {
+    protected HumanCardPlayer() { }
+    protected HumanCardPlayer(HandOfCards<TCard> handOfCards) : base(handOfCards)
+    {
+    }
+    
     public override void NameSelf(int order)
     {
-        Console.WriteLine($"Player{order} Please enter your name: ");
-        Name = Console.ReadLine();
+        var name = Console.ReadLine();
+        ArgumentNullException.ThrowIfNull(name);
+        Name = name;
     }
     
 }

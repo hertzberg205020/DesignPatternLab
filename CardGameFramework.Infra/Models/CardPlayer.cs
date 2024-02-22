@@ -9,16 +9,26 @@ public abstract class CardPlayer<TCard>
     
     public CardGame<TCard>? CardGame { get; set; }
 
-    public HandOfCards<TCard> HandOfCards { get; set; } = new HandOfCards<TCard>();
-
+    public HandOfCards<TCard> HandOfCards { get; set; }
+    
+    protected CardPlayer()
+    {
+        HandOfCards = new HandOfCards<TCard>();
+    }
+    
+    protected CardPlayer(HandOfCards<TCard> handOfCards)
+    {
+        HandOfCards = handOfCards;
+    }
+    
     public abstract void NameSelf(int order);
     
-    public void AddCardToHand(TCard card)
+    public virtual void AddCardToHand(TCard card)
     {
         HandOfCards.Add(card);
     }
     
-    public void AddCardsToHand(IEnumerable<TCard> cards)
+    public virtual void AddCardsToHand(IEnumerable<TCard> cards)
     {
         HandOfCards.AddRange(cards);
     }
@@ -28,7 +38,7 @@ public abstract class CardPlayer<TCard>
     /// </summary>
     /// <param name="index">the index of the card in hand</param>
     /// <returns>the card played</returns>
-    public TCard PlayCard(int index)
+    public virtual TCard PlayCard(int index)
     {
         if (index < 0 || index >= HandOfCards.Cards.Count)
         {
@@ -44,7 +54,7 @@ public abstract class CardPlayer<TCard>
     /// for testing purpose
     /// </summary>
     /// <param name="cards">specify the cards to be set to hand</param>
-    public void SetHand(IEnumerable<TCard> cards)
+    public virtual void SetHand(IEnumerable<TCard> cards)
     {
         HandOfCards.Cards.Clear();
         HandOfCards.AddRange(cards);
