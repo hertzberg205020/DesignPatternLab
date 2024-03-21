@@ -20,4 +20,9 @@ public class MoveForwardCommand: ICommand
     {
         Tank.MoveBackward();
     }
+    
+    public override string ToString()
+    {
+        return "MoveTankForward";
+    }
 }

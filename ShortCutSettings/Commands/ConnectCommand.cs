@@ -21,4 +21,9 @@ public class ConnectCommand: ICommand
     {
         Telecom.Disconnect();
     }
+    
+    public override string ToString()
+    {
+        return "ConnectTelecom";
+    }
 }
