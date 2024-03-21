@@ -71,7 +71,7 @@ public class BigTwoGameTests: IDisposable
         
         SetIn(inputFilePath);
         var writer = SetOut();
-        Console.Out.NewLine = "\n";
+        // Console.Out.NewLine = "\n";
         InitializeGame();
         _game?.Run();
         var actual = GetActual(writer);
@@ -87,7 +87,7 @@ public class BigTwoGameTests: IDisposable
         
         SetIn(inputFilePath);
         var writer = SetOut();
-        Console.Out.NewLine = "\n";
+        // Console.Out.NewLine = "\n";
         InitializeGame();
         _game?.Run();
         var actual = GetActual(writer);
@@ -103,7 +103,7 @@ public class BigTwoGameTests: IDisposable
         
         SetIn(inputFilePath);
         var writer = SetOut();
-        Console.Out.NewLine = "\n";
+        // Console.Out.NewLine = "\n";
         InitializeGame();
         _game?.Run();
         var actual = GetActual(writer);
@@ -119,7 +119,7 @@ public class BigTwoGameTests: IDisposable
         
         SetIn(inputFilePath);
         var writer = SetOut();
-        Console.Out.NewLine = "\n";
+        // Console.Out.NewLine = "\n";
         InitializeGame();
         _game?.Run();
         var actual = GetActual(writer);
@@ -136,7 +136,7 @@ public class BigTwoGameTests: IDisposable
         
         SetIn(inputFilePath);
         var writer = SetOut();
-        Console.Out.NewLine = "\n";
+        // Console.Out.NewLine = "\n";
         InitializeGame();
         _game?.Run();
         var actual = GetActual(writer);
@@ -152,7 +152,7 @@ public class BigTwoGameTests: IDisposable
         
         SetIn(inputFilePath);
         var writer = SetOut();
-        Console.Out.NewLine = "\n";
+        // Console.Out.NewLine = "\n";
         InitializeGame();
         _game?.Run();
         var actual = GetActual(writer);
