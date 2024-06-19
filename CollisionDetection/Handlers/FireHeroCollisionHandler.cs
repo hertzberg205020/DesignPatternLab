@@ -14,18 +14,21 @@ public class FireHeroCollisionHandler: CollisionHandler
     
     protected override void DoHandle(Sprite src, Sprite desc)
     {
-        var (hero, fire) = src is Hero ? (src as Hero, desc) : (desc as Hero, src);
-        
+        var (hero, fire) = (src as Hero, desc);
         // Hero 生命值減少 10 滴血
         hero.TakeDamage(10); 
         
         // Fire 從世界中被移除
         fire.World?.RemoveSprite(fire);
-        
-        // 如果src 為 Hero，src 移動成功
-        if (src is Hero)
-        {
-            src.World?.MoveSprite(src, desc.PositionX);
-        }
+        src.World?.MoveSprite(src, desc.PositionX);
+    }
+
+    protected override void DoHandleInReverseOrder(Sprite src, Sprite desc)
+    {
+        var (hero, fire) = (desc as Hero, src);
+        // Hero 生命值減少 10 滴血
+        hero.TakeDamage(10); 
+        // Fire 從世界中被移除
+        fire.World?.RemoveSprite(fire);
     }
 }

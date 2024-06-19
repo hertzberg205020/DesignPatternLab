@@ -4,9 +4,9 @@ namespace CollisionDetection.Handlers;
 
 public class WaterHeroCollisionHandler: CollisionHandler
 {
-    public override SpriteType? SpriteType1 => SpriteType.Water;
+    public override SpriteType? SpriteType1 => SpriteType.Hero;
     
-    public override SpriteType? SpriteType2 => SpriteType.Hero;
+    public override SpriteType? SpriteType2 => SpriteType.Water;
     
     public WaterHeroCollisionHandler(CollisionHandler? next) : base(next)
     {
@@ -14,7 +14,7 @@ public class WaterHeroCollisionHandler: CollisionHandler
     
     protected override void DoHandle(Sprite src, Sprite desc)
     {
-        var (hero, water) = src is Hero ? (src as Hero, desc) : (desc as Hero, src);
+        var (hero, water) = (src as Hero, desc);
         
         // Hero 生命值增加 10 滴血
         hero!.TakeDamage(-10);
@@ -23,9 +23,17 @@ public class WaterHeroCollisionHandler: CollisionHandler
         water.World?.RemoveSprite(water);
         
         // 如果src 為 Hero，src 移動成功
-        if (src is Hero)
-        {
-            src.World?.MoveSprite(src, desc.PositionX);
-        }
+        src.World?.MoveSprite(src, desc.PositionX);
+    }
+    
+    protected override void DoHandleInReverseOrder(Sprite src, Sprite desc)
+    {
+        var (hero, water) = (desc as Hero, src);
+        
+        // Hero 生命值增加 10 滴血
+        hero!.TakeDamage(-10);
+        
+        // Water 從世界中被移除
+        water.World?.RemoveSprite(water);
     }
 }
