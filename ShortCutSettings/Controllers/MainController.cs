@@ -43,7 +43,7 @@ public class MainController
             switch (key)
             {
                 case '1': 
-                    SetCommand();
+                    SetCommands();
                     break;
                 case '2':
                     Undo();
@@ -57,12 +57,32 @@ public class MainController
             }
         }
     }
-
-    private void SetCommand()
+    
+    private void SetCommands()
     {
-        Console.Write("key: ");
-        var key = Console.ReadKey().KeyChar;
+        Console.Write("設置巨集指令 (y/n)：");
+        var choice = Console.ReadKey().KeyChar;
         Console.WriteLine();
+        
+        // switch case
+        switch (choice)
+        {
+            case 
+                'y':
+                SetMacro();
+                break;
+            case 'n':
+                SetSingleCommand();
+                break;
+            default:
+                Console.WriteLine("Invalid choice");
+                break;
+        }
+    }
+
+    private void SetSingleCommand()
+    {
+        var key = SetKey();
         Console.WriteLine($"要將哪一道指令設置到快捷鍵 {key} 上: ");
         ShowCommands();
         var commandChoice = Console.ReadKey().KeyChar;
@@ -79,6 +99,14 @@ public class MainController
         SetCommand(key, command);
     }
 
+    private static char SetKey()
+    {
+        Console.Write("key: ");
+        var key = Console.ReadKey().KeyChar;
+        Console.WriteLine();
+        return key;
+    }
+
     private void ShowCommands()
     {
         Console.WriteLine("(0) MoveTankForward");
@@ -86,6 +114,40 @@ public class MainController
         Console.WriteLine("(2) ConnectTelecom");
         Console.WriteLine("(3) DisconnectTelecom");
         Console.WriteLine("(4) ResetMainControlKeyboard");
+    }
+    
+    private void SetMacro()
+    {
+        var key = SetKey();
+        
+        Console.WriteLine($"要將哪些指令設置成快捷鍵 {key} 的巨集（輸入多個數字，以空白隔開）: ");
+        ShowCommands();
+        
+        var commandChoices = Console.ReadLine()?.Split(' ').Select(char.Parse).ToList();
+        var commands = ConvertToCommands(commandChoices);
+        SetCommand(key, commands);
+    }
+
+    private Macro ConvertToCommands(List<char>? commandChoices)
+    {
+        ArgumentNullException.ThrowIfNull(commandChoices);
+        
+        var macro = new Macro();
+        foreach (var commandChoice in commandChoices)
+        {
+            ICommand command = commandChoice switch
+            {
+                '0' => CommandMapper['0'],
+                '1' => CommandMapper['1'],
+                '2' => CommandMapper['2'],
+                '3' => CommandMapper['3'],
+                '4' => CommandMapper['4'],
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            macro.AddCommand(command);
+        }
+        
+        return macro;
     }
 
     public void SetCommand(char key, ICommand command)
