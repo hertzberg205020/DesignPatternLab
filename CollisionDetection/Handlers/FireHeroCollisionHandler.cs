@@ -4,28 +4,28 @@ namespace CollisionDetection.Handlers;
 
 public class FireHeroCollisionHandler: CollisionHandler
 {
-    public override SpriteType? SpriteType1 => SpriteType.Hero;
+    public override SpriteType? ExpectedSpriteType1 => SpriteType.Hero;
     
-    public override SpriteType? SpriteType2 => SpriteType.Fire;
+    public override SpriteType? ExpectedSpriteType2 => SpriteType.Fire;
     
     public FireHeroCollisionHandler(CollisionHandler? next) : base(next)
     {
     }
     
-    protected override void DoHandle(Sprite src, Sprite desc)
+    protected override void DoHandle(Sprite src, Sprite dest)
     {
-        var (hero, fire) = (src as Hero, desc);
+        var (hero, fire) = (src as Hero, desc: dest);
         // Hero 生命值減少 10 滴血
         hero.TakeDamage(10); 
         
         // Fire 從世界中被移除
         fire.World?.RemoveSprite(fire);
-        src.World?.MoveSprite(src, desc.PositionX);
+        src.World?.MoveSprite(src, dest.PositionX);
     }
 
-    protected override void DoHandleInReverseOrder(Sprite src, Sprite desc)
+    protected override void DoHandleInReverseOrder(Sprite src, Sprite dest)
     {
-        var (hero, fire) = (desc as Hero, src);
+        var (hero, fire) = (dest as Hero, src);
         // Hero 生命值減少 10 滴血
         hero.TakeDamage(10); 
         // Fire 從世界中被移除

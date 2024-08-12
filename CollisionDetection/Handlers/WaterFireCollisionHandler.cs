@@ -4,19 +4,19 @@ namespace CollisionDetection.Handlers;
 
 public class WaterFireCollisionHandler: CollisionHandler
 {
-    public override SpriteType? SpriteType1 => SpriteType.Fire;
+    public override SpriteType? ExpectedSpriteType1 => SpriteType.Fire;
     
-    public override SpriteType? SpriteType2 => SpriteType.Water;
+    public override SpriteType? ExpectedSpriteType2 => SpriteType.Water;
     
     public WaterFireCollisionHandler(CollisionHandler? next) : base(next)
     {
     }
     
-    protected override void DoHandle(Sprite src, Sprite desc)
+    protected override void DoHandle(Sprite src, Sprite dest)
     {
         // Water 從世界中被移除。
         src.World?.RemoveSprite(src);
         // Fire 從世界中被移除。
-        desc.World?.RemoveSprite(desc);
+        dest.World?.RemoveSprite(dest);
     }
 }

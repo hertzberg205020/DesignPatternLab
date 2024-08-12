@@ -4,48 +4,46 @@ namespace CollisionDetection.Handlers;
 
 public abstract class CollisionHandler
 {
-    public CollisionHandler(CollisionHandler? next)
+    protected CollisionHandler(CollisionHandler? next)
     {
         Next = next;
     }
 
     public CollisionHandler? Next { get; set; }
 
-    public abstract SpriteType? SpriteType1 { get; }
+    public abstract SpriteType? ExpectedSpriteType1 { get; }
 
-    public abstract SpriteType? SpriteType2 { get; }
+    public abstract SpriteType? ExpectedSpriteType2 { get; }
 
-    public void Handle(Sprite src, Sprite desc)
+    public void Handle(Sprite src, Sprite dest)
     {
-        if (IsMatch(src, desc))
+        if (IsMatch(src, dest))
         {
-            if (src.Notation == SpriteType1)
+            if (src.Notation == ExpectedSpriteType1)
             {
-                DoHandle(src, desc);
+                DoHandle(src, dest);
             }
             else
             {
-                DoHandleInReverseOrder(src, desc);
+                DoHandleInReverseOrder(src, dest);
             }
         }
         else
         {
-            Next?.Handle(src, desc);
+            Next?.Handle(src, dest);
         }
     }
 
-    protected abstract void DoHandle(Sprite src, Sprite desc);
+    protected abstract void DoHandle(Sprite src, Sprite dest);
+
     // the default implementation is to handle the collision in reverse order
-    protected virtual void DoHandleInReverseOrder(Sprite src, Sprite desc) => DoHandle(desc, src);
+    protected virtual void DoHandleInReverseOrder(Sprite src, Sprite dest) => DoHandle(dest, src);
 
-    protected virtual bool IsMatch(Sprite src, Sprite desc)
+    protected virtual bool IsMatch(Sprite src, Sprite dest)
     {
-        var spriteType1 = SpriteType1;
-        var spriteType2 = SpriteType2;
-        var coupledSprites = new HashSet<SpriteType?>() { spriteType1, spriteType2 };
-
-        return coupledSprites.Count == 2 &&
-               coupledSprites.Contains(src.Notation) &&
-               coupledSprites.Contains(desc.Notation);
+        var expectedTypes = new HashSet<SpriteType?> { ExpectedSpriteType1, ExpectedSpriteType2 };
+        return expectedTypes.Count == 2
+            && expectedTypes.Contains(src.Notation)
+            && expectedTypes.Contains(dest.Notation);
     }
 }

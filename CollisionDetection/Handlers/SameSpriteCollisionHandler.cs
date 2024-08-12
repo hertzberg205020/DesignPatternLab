@@ -4,20 +4,20 @@ namespace CollisionDetection.Handlers;
 
 public class SameSpriteCollisionHandler: CollisionHandler
 {
-    public override SpriteType? SpriteType1 => null;
+    public override SpriteType? ExpectedSpriteType1 => null;
     
-    public override SpriteType? SpriteType2 => null;
+    public override SpriteType? ExpectedSpriteType2 => null;
     
     public SameSpriteCollisionHandler(CollisionHandler? next) : base(next)
     {
     }
 
-    protected override bool IsMatch(Sprite src, Sprite desc)
+    protected override bool IsMatch(Sprite src, Sprite dest)
     {
-        return src.Notation == desc.Notation;
+        return src.Notation == dest.Notation;
     }
 
-    protected override void DoHandle(Sprite src, Sprite desc)
+    protected override void DoHandle(Sprite src, Sprite dest)
     {
         Console.WriteLine($"Move fail");
     }
