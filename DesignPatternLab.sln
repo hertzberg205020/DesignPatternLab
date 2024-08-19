@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
+#
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterballCollege", "WaterballCollege\WaterballCollege.csproj", "{43ACE45C-CB0D-4F36-A1B9-5F4098DC121D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarmUp", "WarmUp\WarmUp.csproj", "{A59F41AA-7AA9-4C30-991C-2158C6233BA7}"
@@ -34,6 +34,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortCutSettings", "ShortCutSettings\ShortCutSettings.csproj", "{7485E95A-1B1C-44D4-A60A-A5DDEA025552}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureMap", "TreasureMap\TreasureMap.csproj", "{25827055-5A3B-4FCC-9117-379196D35F9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrescriberSystem", "PrescriberSystem\PrescriberSystem.csproj", "{5376F69B-761A-457A-9FC8-C801D04F8725}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,5 +111,9 @@ Global
 		{25827055-5A3B-4FCC-9117-379196D35F9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25827055-5A3B-4FCC-9117-379196D35F9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25827055-5A3B-4FCC-9117-379196D35F9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5376F69B-761A-457A-9FC8-C801D04F8725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5376F69B-761A-457A-9FC8-C801D04F8725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5376F69B-761A-457A-9FC8-C801D04F8725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5376F69B-761A-457A-9FC8-C801D04F8725}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
