@@ -1,0 +1,47 @@
+﻿[
+  {
+    "Id": "A123456789",
+    "Name": "JohnDoe",
+    "Gender": "M",
+    "Age": 30,
+    "Height": 175.5,
+    "Weight": 70.2,
+    "PatientCases": []
+  },
+  {
+    "Id": "B987654321",
+    "Name": "JaneSmith",
+    "Gender": "F",
+    "Age": 25,
+    "Height": 160.3,
+    "Weight": 55.0,
+    "PatientCases": []
+  },
+  {
+    "Id": "C135792468",
+    "Name": "AliceJohnson",
+    "Gender": "F",
+    "Age": 40,
+    "Height": 165.0,
+    "Weight": 60.5,
+    "PatientCases": []
+  },
+  {
+    "Id": "D246813579",
+    "Name": "BobBrown",
+    "Gender": "M",
+    "Age": 50,
+    "Height": 180.2,
+    "Weight": 80.3,
+    "PatientCases": []
+  },
+  {
+    "Id": "E112233445",
+    "Name": "CharlieDavis",
+    "Gender": "M",
+    "Age": 35,
+    "Height": 170.0,
+    "Weight": 75.0,
+    "PatientCases": []
+  }
+]
