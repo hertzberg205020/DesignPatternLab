@@ -5,12 +5,13 @@ using PrescriberSystem.Models;
 
 namespace PrescriberSystem.Services;
 
-public sealed class PatientDatabase
+public sealed class PatientDatabase : IDisposable, IAsyncDisposable
 {
     private readonly string _patientFilePath;
     private readonly ConcurrentDictionary<string, Patient> _patients =
         new ConcurrentDictionary<string, Patient>();
     private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+    private bool _disposed = false;
 
     public PatientDatabase(string patientFilePath)
     {
@@ -19,6 +20,11 @@ public sealed class PatientDatabase
         //     "patients.json"
         // );
         _patientFilePath = patientFilePath;
+    }
+
+    ~PatientDatabase()
+    {
+        Dispose(false);
     }
 
     public async Task LoadPatientsAsync()
@@ -110,5 +116,30 @@ public sealed class PatientDatabase
         {
             _semaphore.Release();
         }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                _semaphore.Dispose();
+            }
+            _disposed = true;
+        }
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+        return ValueTask.CompletedTask;
     }
 }

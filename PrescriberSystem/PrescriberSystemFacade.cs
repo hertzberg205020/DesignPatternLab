@@ -6,16 +6,65 @@ using PrescriberSystem.Validators;
 
 namespace PrescriberSystem;
 
-public class PrescriberSystemFacade
+public class PrescriberSystemFacade : IDisposable, IAsyncDisposable
 {
     private readonly Prescriber _prescriber;
 
     private readonly PatientDatabase _patientDatabase;
 
-    private PrescriberSystemFacade(string patientFilePath, string supportDiseaseFilePath)
+    private bool _disposed = false;
+
+    private PrescriberSystemFacade(PatientDatabase patientDatabase, Prescriber prescriber)
     {
-        _patientDatabase = new PatientDatabase(patientFilePath);
-        _prescriber = InitializePrescriber(supportDiseaseFilePath);
+        _patientDatabase = patientDatabase;
+        _prescriber = prescriber;
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                // Dispose managed resources
+                _prescriber.Dispose();
+                _patientDatabase.Dispose();
+            }
+
+            _disposed = true;
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore().ConfigureAwait(false);
+        Dispose(false);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual async ValueTask DisposeAsyncCore()
+    {
+        if (!_disposed)
+        {
+            // Dispose _prescriber asynchronously
+            await _prescriber.DisposeAsync().ConfigureAwait(false);
+
+            // Dispose _patientDatabase asynchronously
+            await _patientDatabase.DisposeAsync().ConfigureAwait(false);
+
+            _disposed = true;
+        }
+    }
+
+    ~PrescriberSystemFacade()
+    {
+        Dispose(false);
     }
 
     public static async Task<PrescriberSystemFacade> CreateAsync(
@@ -23,7 +72,10 @@ public class PrescriberSystemFacade
         string supportDiseaseFilePath
     )
     {
-        var facade = new PrescriberSystemFacade(patientFilePath, supportDiseaseFilePath);
+        var patientDatabase = new PatientDatabase(patientFilePath);
+        var prescriber = InitializePrescriber(supportDiseaseFilePath);
+
+        var facade = new PrescriberSystemFacade(patientDatabase, prescriber);
         await facade.InitializeAsync();
         return facade;
     }

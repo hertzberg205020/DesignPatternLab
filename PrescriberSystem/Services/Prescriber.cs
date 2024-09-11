@@ -12,6 +12,7 @@ public sealed class Prescriber : IAsyncDisposable, IDisposable
     private readonly CancellationTokenSource _globalCts;
     private readonly IDiagnosticHandler? _diagnosticHandler;
     private readonly Task _processingTask;
+    private bool _disposed;
 
     public Prescriber(IDiagnosticHandler? diagnosticHandler)
     {
@@ -21,8 +22,76 @@ public sealed class Prescriber : IAsyncDisposable, IDisposable
         _processingTask = Task.Run(() => ProcessDiagnosisAsync(_globalCts.Token));
     }
 
+    private void ThrowIfDisposed()
+    {
+        if (_disposed)
+        {
+            throw new ObjectDisposedException(nameof(Prescriber));
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_disposed)
+            return;
+
+        await DisposeAsyncCore().ConfigureAwait(false);
+
+        Dispose(disposing: false);
+        GC.SuppressFinalize(this);
+    }
+
+    private async ValueTask DisposeAsyncCore()
+    {
+        _globalCts.Cancel();
+
+        try
+        {
+            await _processingTask.WaitAsync(TimeSpan.FromSeconds(5));
+        }
+        catch (OperationCanceledException)
+        {
+            // Cancellation is expected, ignore
+        }
+        catch (TimeoutException)
+        {
+            // Log timeout
+        }
+
+        _globalCts.Dispose();
+    }
+
+    public void Dispose()
+    {
+        if (_disposed)
+            return;
+
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (_disposed)
+            return;
+
+        if (disposing)
+        {
+            DisposeAsyncCore().AsTask().GetAwaiter().GetResult();
+        }
+
+        _disposed = true;
+    }
+
+    ~Prescriber()
+    {
+        Dispose(disposing: false);
+    }
+
     public Task<Prescription> PrescriptionDemandAsync(Patient patient, HashSet<string> symptoms)
     {
+        ThrowIfDisposed();
+
         var res = EnqueueDiagnosisRequest(new DiagnosticRequest(patient, symptoms));
 
         return res;
@@ -64,66 +133,49 @@ public sealed class Prescriber : IAsyncDisposable, IDisposable
 
     private Task<Prescription> EnqueueDiagnosisRequest(DiagnosticRequest request)
     {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
         _diagnosisQueue.Enqueue(request);
         return request.CompletionSource.Task;
     }
 
     private async Task ProcessDiagnosisAsync(CancellationToken cancellationToken)
     {
-        while (!cancellationToken.IsCancellationRequested)
-        {
-            if (_diagnosisQueue.TryDequeue(out var item))
-            {
-                try
-                {
-                    if (_diagnosticHandler == null)
-                    {
-                        throw new InvalidOperationException("Diagnostic handler is not set.");
-                    }
-                    var prescription = await _diagnosticHandler.Diagnosis(item);
-                    item.CompletionSource.SetResult(prescription);
-                }
-                catch (OperationCanceledException ex)
-                {
-                    // tcs.SetException(ex);
-                    item.CompletionSource.TrySetCanceled(cancellationToken);
-                }
-                catch (Exception ex)
-                {
-                    item.CompletionSource.TrySetException(ex);
-                }
-            }
-            else
-            {
-                await Task.Delay(100, _globalCts.Token);
-            }
-        }
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        await _globalCts.CancelAsync();
-
         try
         {
-            await _processingTask.WaitAsync(TimeSpan.FromSeconds(5)); // 設定超時時間為5秒
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                if (_diagnosisQueue.TryDequeue(out var item))
+                {
+                    try
+                    {
+                        if (_diagnosticHandler == null)
+                        {
+                            throw new InvalidOperationException("Diagnostic handler is not set.");
+                        }
+                        var prescription = await _diagnosticHandler.Diagnosis(item);
+                        item.CompletionSource.SetResult(prescription);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        item.CompletionSource.TrySetCanceled(cancellationToken);
+                    }
+                    catch (Exception ex)
+                    {
+                        item.CompletionSource.TrySetException(ex);
+                    }
+                }
+                else
+                {
+                    await Task.Delay(100, _globalCts.Token);
+                }
+            }
         }
-        catch (OperationCanceledException)
+        catch (Exception ex)
         {
-            // 取消操作導致的異常可以被忽略
+            // 處理異常的全局處理邏輯
         }
-        catch (TimeoutException)
-        {
-            // 記錄超時日誌
-        }
-
-        _globalCts.Dispose();
-    }
-
-    public void Dispose()
-    {
-        _globalCts.Cancel();
-        _processingTask.Wait(); // 等待處理任務實際結束
-        _globalCts.Dispose();
     }
 }

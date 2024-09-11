@@ -6,16 +6,42 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        // 取得專案的絕對路徑
-        var root = AppDomain.CurrentDomain.BaseDirectory;
-        var supportedDiseaseFilePath = Path.Combine(root, "Config", "support-disease.txt");
-        var patientFilePath = Path.Combine(root, "Data", "patients.json");
+        try
+        {
+            // 取得專案的絕對路徑
+            var root = AppDomain.CurrentDomain.BaseDirectory;
+            var supportedDiseaseFilePath = Path.Combine(root, "Config", "support-disease.txt");
+            var patientFilePath = Path.Combine(root, "Data", "patients.json");
 
-        var facade = await PrescriberSystemFacade.CreateAsync(
-            patientFilePath,
-            supportedDiseaseFilePath
-        );
-        await TestDiagnosisAsync(facade);
+            // 檢查文件是否存在
+            if (!File.Exists(supportedDiseaseFilePath))
+            {
+                throw new FileNotFoundException("支援疾病文件不存在", supportedDiseaseFilePath);
+            }
+            if (!File.Exists(patientFilePath))
+            {
+                throw new FileNotFoundException("病人數據文件不存在", patientFilePath);
+            }
+
+            await using var facade = await PrescriberSystemFacade.CreateAsync(
+                patientFilePath,
+                supportedDiseaseFilePath
+            );
+            await TestDiagnosisAsync(facade);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"發生錯誤: {ex.Message}");
+            // 可以在這裡添加更詳細的日誌記錄
+        }
+    }
+
+    private static async Task TestDiagnosisAsync(PrescriberSystemFacade facade)
+    {
+        var patientId = "A123456789";
+
+        var res = await facade.PrescriptionDemandAsync(patientId, ["sneeze", "headache", "cough"]);
+        Console.WriteLine(res.Name == "清冠一號");
     }
 
     private static void TestDbQuery(PrescriberSystemFacade facade)
@@ -41,14 +67,6 @@ class Program
 
         var newPatient = facade.FindPatient(patient.Id);
         Console.WriteLine(newPatient?.Name == patient.Name);
-    }
-
-    private static async Task TestDiagnosisAsync(PrescriberSystemFacade facade)
-    {
-        var patientId = "A123456789";
-
-        var res = await facade.PrescriptionDemandAsync(patientId, ["sneeze", "headache", "cough"]);
-        Console.WriteLine(res.Name == "清冠一號");
     }
 
     private static async Task TestSavePrescriptionAsync()
