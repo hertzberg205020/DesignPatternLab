@@ -11,15 +11,29 @@ public sealed class Prescriber : IAsyncDisposable, IDisposable
     private readonly ConcurrentQueue<DiagnosticRequest> _diagnosisQueue;
     private readonly CancellationTokenSource _globalCts;
     private readonly IDiagnosticHandler? _diagnosticHandler;
-    private readonly Task _processingTask;
+    private readonly SemaphoreSlim _semaphore;
+    private readonly Task[] _processingTasks;
+    private const int MaxConcurrentTasks = 4; // 可以根據需要調整
     private bool _disposed;
 
-    public Prescriber(IDiagnosticHandler? diagnosticHandler)
+    // 預設最大同時執行緒數量
+    private const int DefaultMaxConcurrentTasks = 15;
+
+    public Prescriber(
+        IDiagnosticHandler? diagnosticHandler,
+        int maxConcurrentTasks = DefaultMaxConcurrentTasks
+    )
     {
         _diagnosisQueue = new ConcurrentQueue<DiagnosticRequest>();
         _diagnosticHandler = diagnosticHandler;
         _globalCts = new CancellationTokenSource();
-        _processingTask = Task.Run(() => ProcessDiagnosisAsync(_globalCts.Token));
+        _semaphore = new SemaphoreSlim(maxConcurrentTasks);
+        _processingTasks = new Task[maxConcurrentTasks];
+
+        for (var i = 0; i < maxConcurrentTasks; i++)
+        {
+            _processingTasks[i] = Task.Run(() => ProcessDiagnosisAsync(_globalCts.Token));
+        }
     }
 
     private void ThrowIfDisposed()
@@ -47,7 +61,7 @@ public sealed class Prescriber : IAsyncDisposable, IDisposable
 
         try
         {
-            await _processingTask.WaitAsync(TimeSpan.FromSeconds(5));
+            await Task.WhenAll(_processingTasks).WaitAsync(TimeSpan.FromSeconds(5));
         }
         catch (OperationCanceledException)
         {
@@ -59,6 +73,7 @@ public sealed class Prescriber : IAsyncDisposable, IDisposable
         }
 
         _globalCts.Dispose();
+        _semaphore.Dispose();
     }
 
     public void Dispose()
@@ -100,7 +115,7 @@ public sealed class Prescriber : IAsyncDisposable, IDisposable
     public async Task CancelAllOperations()
     {
         await _globalCts.CancelAsync();
-        await _processingTask; // 等待處理任務實際結束
+        await Task.WhenAll(_processingTasks);
 
         while (_diagnosisQueue.TryDequeue(out var item))
         {
@@ -143,9 +158,10 @@ public sealed class Prescriber : IAsyncDisposable, IDisposable
 
     private async Task ProcessDiagnosisAsync(CancellationToken cancellationToken)
     {
-        try
+        while (!cancellationToken.IsCancellationRequested)
         {
-            while (!cancellationToken.IsCancellationRequested)
+            await _semaphore.WaitAsync(cancellationToken);
+            try
             {
                 if (_diagnosisQueue.TryDequeue(out var item))
                 {
@@ -169,13 +185,13 @@ public sealed class Prescriber : IAsyncDisposable, IDisposable
                 }
                 else
                 {
-                    await Task.Delay(100, _globalCts.Token);
+                    await Task.Delay(100, cancellationToken);
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            // 處理異常的全局處理邏輯
+            finally
+            {
+                _semaphore.Release();
+            }
         }
     }
 }

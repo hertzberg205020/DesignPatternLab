@@ -57,7 +57,7 @@ public class PrescriberTests
         };
 
         var symptoms = new HashSet<string> { "Cough", "Fever" };
-        const int numberOfClients = 2;
+        const int numberOfClients = 10;
         var tasks = new List<Task<Prescription>>();
 
         // Act
@@ -80,7 +80,7 @@ public class PrescriberTests
 
         // Assert
 
-        Assert.Equal(6, flooredSeconds);
+        Assert.Equal(3, flooredSeconds);
     }
 
     [Fact]
