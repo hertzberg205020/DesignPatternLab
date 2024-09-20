@@ -11,4 +11,14 @@
       <Folder Include="Documents\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FriendshipAnalyzer.Collaborator\FriendshipAnalyzer.Collaborator.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Resources\data.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

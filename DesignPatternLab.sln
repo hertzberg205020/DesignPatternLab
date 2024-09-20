@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrescriberSystem.Test", "Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendshipAnalyzer", "FriendshipAnalyzer\FriendshipAnalyzer.csproj", "{D8E0DF8B-739D-4C13-8293-034337027343}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendshipAnalyzer.Collaborator", "FriendshipAnalyzer.Collaborator\FriendshipAnalyzer.Collaborator.csproj", "{B1DFD0E8-172F-4335-B93E-ECC893096109}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,5 +135,9 @@ Global
 		{D8E0DF8B-739D-4C13-8293-034337027343}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8E0DF8B-739D-4C13-8293-034337027343}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8E0DF8B-739D-4C13-8293-034337027343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1DFD0E8-172F-4335-B93E-ECC893096109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1DFD0E8-172F-4335-B93E-ECC893096109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1DFD0E8-172F-4335-B93E-ECC893096109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1DFD0E8-172F-4335-B93E-ECC893096109}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
