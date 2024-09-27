@@ -82,7 +82,7 @@ id name age subordinateIds
     * 當 `getSubordinates()` 方法被呼叫時，檢查容器是否已載入下屬 `Employee` 物件，若未載入，則根據下屬員工 ID 從
       `RealDatabase` 中載入對應的 `Employee` 物件。
 3. **密碼保護:**
-    * 在 `RealDatabase` 的 `getEmployeeId` 方法中，添加環境變數 `PASSWORD` 的驗證邏輯。
+    * 在 `RealDatabase` 的 `getEmployeeId` 方法中，添加環境變數 `PASSWORD` 的驗證邏輯，確定該值必須為 `1qaz2wsx` 後才得以後續的操作。
     * 可以使用 Java 提供的 `System.getenv()` 方法讀取環境變數。
     * 若驗證失敗，則拋出異常或返回錯誤訊息，中斷資料庫操作。
 
