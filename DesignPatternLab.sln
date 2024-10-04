@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendshipAnalyzer.Collabor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDatabase", "EmployeeDatabase\EmployeeDatabase.csproj", "{9431A8F2-49AA-4553-8DE6-897C93DCAB55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingFramework", "LoggingFramework\LoggingFramework.csproj", "{9DC8C282-5718-4B30-ACF1-C35A29878563}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,5 +147,9 @@ Global
 		{9431A8F2-49AA-4553-8DE6-897C93DCAB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9431A8F2-49AA-4553-8DE6-897C93DCAB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9431A8F2-49AA-4553-8DE6-897C93DCAB55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DC8C282-5718-4B30-ACF1-C35A29878563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DC8C282-5718-4B30-ACF1-C35A29878563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DC8C282-5718-4B30-ACF1-C35A29878563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DC8C282-5718-4B30-ACF1-C35A29878563}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
