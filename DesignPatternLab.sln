@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDatabase", "Employe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingFramework", "LoggingFramework\LoggingFramework.csproj", "{9DC8C282-5718-4B30-ACF1-C35A29878563}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDiscovery", "ServiceDiscovery\ServiceDiscovery.csproj", "{A932B6ED-F767-464A-8F35-D5C5149D2CD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,5 +153,9 @@ Global
 		{9DC8C282-5718-4B30-ACF1-C35A29878563}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DC8C282-5718-4B30-ACF1-C35A29878563}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DC8C282-5718-4B30-ACF1-C35A29878563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A932B6ED-F767-464A-8F35-D5C5149D2CD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A932B6ED-F767-464A-8F35-D5C5149D2CD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A932B6ED-F767-464A-8F35-D5C5149D2CD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A932B6ED-F767-464A-8F35-D5C5149D2CD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
