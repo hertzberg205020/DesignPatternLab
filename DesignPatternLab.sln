@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDiscovery", "Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputationModel", "ComputationModel\ComputationModel.csproj", "{38180243-32B6-4699-B1CE-95C5FAFAD97C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithm", "GeneticAlgorithm\GeneticAlgorithm.csproj", "{CB1E3083-AAB3-4750-940B-560C9A86B02F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,5 +165,9 @@ Global
 		{38180243-32B6-4699-B1CE-95C5FAFAD97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38180243-32B6-4699-B1CE-95C5FAFAD97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38180243-32B6-4699-B1CE-95C5FAFAD97C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB1E3083-AAB3-4750-940B-560C9A86B02F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB1E3083-AAB3-4750-940B-560C9A86B02F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB1E3083-AAB3-4750-940B-560C9A86B02F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB1E3083-AAB3-4750-940B-560C9A86B02F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
