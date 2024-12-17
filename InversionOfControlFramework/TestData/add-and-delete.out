@@ -1,0 +1,133 @@
+/
+---
+Hello, welcome to vocabulary learning system.
+---
+[/1] Manage words
+[/2] Review words
+[/B] Previous Page
+[/ESC] Exit
+---
+What are you looking for? 
+/ Manage words
+---
+Wanna learn a new word?
+---
+[/1] Search words
+[/2] Add new words
+[/3] Delete words
+[/B] Previous Page
+[/ESC] Exit
+---
+Hello, please select a place to go: 
+/ Manage words / Add new words
+---
+You don't have any words.
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to add: 
+/ Manage words / Add new words
+---
+Current Words: light, stand, work
+Words successfully added: light, stand, work
+Words not found: apple, people
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to add: 
+/ Manage words / Add new words
+---
+Current Words: light, stand, work
+Words not found: a, b, c, d
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to add: 
+/ Manage words / Add new words
+---
+Current Words: light, stand, work, point, change
+Words successfully added: point, change
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to add: 
+/ Manage words
+---
+Wanna learn a new word?
+---
+[/1] Search words
+[/2] Add new words
+[/3] Delete words
+[/B] Previous Page
+[/ESC] Exit
+---
+Hello, please select a place to go: 
+/ Manage words / Delete words
+---
+Current Words: light, stand, work, point, change
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to delete:
+/ Manage words / Delete words
+---
+Current Words: stand, work, point, change
+Words successfully deleted: light
+Words not found: a, b, c
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to delete:
+/ Manage words / Delete words
+---
+Current Words: point
+Words successfully deleted: stand, work, change
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to delete:
+/ Manage words / Delete words
+---
+Current Words: point
+Words not found: a, b, c, d
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to delete:
+/ Manage words / Delete words
+---
+You don't have any words.
+Words successfully deleted: point
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to delete:
+/ Manage words / Delete words
+---
+You don't have any words.
+Words not found: ok
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to delete:
+/ Manage words
+---
+Wanna learn a new word?
+---
+[/1] Search words
+[/2] Add new words
+[/3] Delete words
+[/B] Previous Page
+[/ESC] Exit
+---
+Hello, please select a place to go: 

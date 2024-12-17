@@ -1,0 +1,363 @@
+/
+---
+Hello, welcome to vocabulary learning system.
+---
+[/1] Manage words
+[/2] Review words
+[/B] Previous Page
+[/ESC] Exit
+---
+What are you looking for? 
+/ Manage words
+---
+Wanna learn a new word?
+---
+[/1] Search words
+[/2] Add new words
+[/3] Delete words
+[/B] Previous Page
+[/ESC] Exit
+---
+Hello, please select a place to go: 
+/ Manage words / Add new words
+---
+You don't have any words.
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to add: 
+/ Manage words / Add new words
+---
+Current Words: light, work, stand, lead, point, play
+Words successfully added: light, work, stand, lead, point, play
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to add: 
+/ Manage words
+---
+Wanna learn a new word?
+---
+[/1] Search words
+[/2] Add new words
+[/3] Delete words
+[/B] Previous Page
+[/ESC] Exit
+---
+Hello, please select a place to go: 
+/
+---
+Hello, welcome to vocabulary learning system.
+---
+[/1] Manage words
+[/2] Review words
+[/B] Previous Page
+[/ESC] Exit
+---
+What are you looking for? 
+/ Review words
+---
+Are you ready for the review test?
+Latest point: 0/0
+---
+[Y] Let's do it.
+[N] No, not today.
+[/ESC] Exit
+---
+Answer: 
+/ Review words / Question 1
+---
+Point: 0
+Remaining: 6
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+1. Question: l___t: To provide with light or lighting; illuminate.
+Answer: 
+/ Review words / Result
+---
+You got the answer. The answer is light.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Question 2
+---
+Point: 1
+Remaining: 5
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+2. Question: w__k: Activity involving mental or physical effort done in order to achieve a purpose or result.
+Answer: 
+/ Review words / Result
+---
+You missed it! The answer is work.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Question 3
+---
+Point: 1
+Remaining: 4
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+3. Question: s___d: An act of standing; an attitude or position of the body.
+Answer: 
+/ Review words / Result
+---
+You got the answer. The answer is stand.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Question 4
+---
+Point: 2
+Remaining: 3
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+4. Question: l__d: The initiative in an action; an example for others to follow.
+Answer: 
+/ Review words / Result
+---
+You missed it! The answer is lead.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Question 5
+---
+Point: 2
+Remaining: 2
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+5. Question: p___t: A particular spot, place, or moment.
+Answer: 
+/ Review words / Result
+---
+You got the answer. The answer is point.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Question 6
+---
+Point: 3
+Remaining: 1
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+6. Question: p__y: Engage in activity for enjoyment and recreation rather than a serious or practical purpose.
+Answer: 
+/ Review words / Result
+---
+You got the answer. The answer is play.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Exam's Over
+---
+The exam is over!
+You got 4/6 point.
+---
+[/*] End
+[/ESC] Exit
+---
+Command: 
+/ Review words
+---
+Are you ready for the review test?
+Latest point: 4/6
+---
+[Y] Let's do it.
+[N] No, not today.
+[/ESC] Exit
+---
+Answer: 
+/ Review words
+---
+Are you ready for the review test?
+Latest point: 4/6
+---
+[Y] Let's do it.
+[N] No, not today.
+[/ESC] Exit
+---
+Answer: 
+/
+---
+Hello, welcome to vocabulary learning system.
+---
+[/1] Manage words
+[/2] Review words
+[/B] Previous Page
+[/ESC] Exit
+---
+What are you looking for? 
+/ Review words
+---
+Are you ready for the review test?
+Latest point: 4/6
+---
+[Y] Let's do it.
+[N] No, not today.
+[/ESC] Exit
+---
+Answer: 
+/ Review words / Question 1
+---
+Point: 0
+Remaining: 6
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+1. Question: l___t: To provide with light or lighting; illuminate.
+Answer: 
+/ Review words / Result
+---
+You got the answer. The answer is light.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Question 2
+---
+Point: 1
+Remaining: 5
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+2. Question: w__k: Be engaged in physical or mental activity in order to achieve a purpose or result; do work.
+Answer: 
+/ Review words / Result
+---
+You got the answer. The answer is work.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Question 3
+---
+Point: 2
+Remaining: 4
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+3. Question: s___d: Have or maintain an upright position, supported by one's feet.
+Answer: 
+/ Review words / Result
+---
+You got the answer. The answer is stand.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Question 4
+---
+Point: 3
+Remaining: 3
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+4. Question: l__d: The initiative in an action; an example for others to follow.
+Answer: 
+/ Review words / Result
+---
+You got the answer. The answer is lead.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Question 5
+---
+Point: 4
+Remaining: 2
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+5. Question: p___t: A particular spot, place, or moment.
+Answer: 
+/ Review words / Result
+---
+You got the answer. The answer is point.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Question 6
+---
+Point: 5
+Remaining: 1
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+6. Question: p__y: Engage in activity for enjoyment and recreation rather than a serious or practical purpose.
+Answer: 
+/ Review words / Result
+---
+You got the answer. The answer is play.
+---
+[/*] Continue
+[/ESC] Exit
+---
+Command: 
+/ Review words / Exam's Over
+---
+The exam is over!
+You got 6/6 point.
+---
+[/*] End
+[/ESC] Exit
+---
+Command: 
+/ Review words
+---
+Are you ready for the review test?
+Latest point: 6/6
+---
+[Y] Let's do it.
+[N] No, not today.
+[/ESC] Exit
+---
+Answer: 
+/
+---
+Hello, welcome to vocabulary learning system.
+---
+[/1] Manage words
+[/2] Review words
+[/B] Previous Page
+[/ESC] Exit
+---
+What are you looking for? 

@@ -1,0 +1,115 @@
+/
+---
+Hello, welcome to vocabulary learning system.
+---
+[/1] Manage words
+[/2] Review words
+[/B] Previous Page
+[/ESC] Exit
+---
+What are you looking for? 
+/ Manage words
+---
+Wanna learn a new word?
+---
+[/1] Search words
+[/2] Add new words
+[/3] Delete words
+[/B] Previous Page
+[/ESC] Exit
+---
+Hello, please select a place to go: 
+/ Manage words / Search words
+---
+Genius is one percent inspiration and ninety-nine percent perspiration.
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input a word's name: 
+/ Manage words / Search words
+---
+Cannot find the word 'apple'.
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input a word's name: 
+/ Manage words / Search words
+---
+Word: light
+Description: The natural agent that stimulates sight and makes things visible
+verb - To provide with light or lighting; illuminate.
+adj - Having a considerable or sufficient amount of natural light; not dark.
+noun - The natural agent that stimulates sight and makes things visible.
+---
+[/1] Add light into word repository
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input a word's name: 
+/ Manage words / Search words / Add 'light' into word repository
+---
+The word 'light' has been added.
+---
+[/*] Okay, I got it
+[/ESC] Exit
+---
+Command: 
+/ Manage words / Search words
+---
+Genius is one percent inspiration and ninety-nine percent perspiration.
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input a word's name: 
+/ Manage words
+---
+Wanna learn a new word?
+---
+[/1] Search words
+[/2] Add new words
+[/3] Delete words
+[/B] Previous Page
+[/ESC] Exit
+---
+Hello, please select a place to go: 
+/ Manage words / Add new words
+---
+Current Words: light
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to add: 
+/ Manage words
+---
+Wanna learn a new word?
+---
+[/1] Search words
+[/2] Add new words
+[/3] Delete words
+[/B] Previous Page
+[/ESC] Exit
+---
+Hello, please select a place to go: 
+/ Manage words / Delete words
+---
+Current Words: light
+---
+[/B] Previous Page
+[/ESC] Exit
+---
+Please input word's names (separated by commas) that you want to delete:
+/ Manage words
+---
+Wanna learn a new word?
+---
+[/1] Search words
+[/2] Add new words
+[/3] Delete words
+[/B] Previous Page
+[/ESC] Exit
+---
+Hello, please select a place to go: 
