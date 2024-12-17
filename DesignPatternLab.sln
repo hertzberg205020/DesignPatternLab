@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsciiTheme", "AsciiTheme\As
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgGame", "RpgGame\RpgGame.csproj", "{B679A146-B93C-455B-800B-A51E5B5A763B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMediaBot", "SocialMediaBot\SocialMediaBot.csproj", "{68DFFE67-20A6-4F20-B0B8-A0BB929C0218}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,5 +183,9 @@ Global
 		{B679A146-B93C-455B-800B-A51E5B5A763B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B679A146-B93C-455B-800B-A51E5B5A763B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B679A146-B93C-455B-800B-A51E5B5A763B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68DFFE67-20A6-4F20-B0B8-A0BB929C0218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68DFFE67-20A6-4F20-B0B8-A0BB929C0218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68DFFE67-20A6-4F20-B0B8-A0BB929C0218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68DFFE67-20A6-4F20-B0B8-A0BB929C0218}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
