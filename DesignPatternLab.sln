@@ -63,6 +63,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMediaBot", "SocialMed
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InversionOfControlFramework", "InversionOfControlFramework\InversionOfControlFramework.csproj", "{7D89A532-C1E1-486E-9C7A-F2D49D492B07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFramework", "WebFramework\WebFramework.csproj", "{71B476DD-2F83-4CF9-ADC5-57348691B13B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -193,5 +195,9 @@ Global
 		{7D89A532-C1E1-486E-9C7A-F2D49D492B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D89A532-C1E1-486E-9C7A-F2D49D492B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D89A532-C1E1-486E-9C7A-F2D49D492B07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71B476DD-2F83-4CF9-ADC5-57348691B13B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B476DD-2F83-4CF9-ADC5-57348691B13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B476DD-2F83-4CF9-ADC5-57348691B13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B476DD-2F83-4CF9-ADC5-57348691B13B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
