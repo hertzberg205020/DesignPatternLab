@@ -1,6 +1,6 @@
 # 自幹一個 Web Framework ★★★★
 
-## 終極副本：獨立分析、設計和實作一款 Web Framework！
+## 終極副本：獨立分析、設計和實作一款 Web Framework
 
 ## 魔王對冒險者們的喊話
 
@@ -18,9 +18,9 @@
 
 不瞞你說，這正是為什麼我想要以「Web Framework」作為旅程的結尾，Web Framework 涉及三大構成艱難需求的要素：
 
-1.  Web Framework 涉及豐富無形且扎實的 Web/Http 技術背景知識。
-2.  Web Framework 是許多公司後端開發賴以維生的框架，仰賴十分卓越的易用性和擴充彈性。
-3.  Web Framework 的規模可大可小，只要你有耐心，你便能獨自一人開發出大規模的精緻系統。
+1. Web Framework 涉及豐富無形且扎實的 Web/Http 技術背景知識。
+2. Web Framework 是許多公司後端開發賴以維生的框架，仰賴十分卓越的易用性和擴充彈性。
+3. Web Framework 的規模可大可小，只要你有耐心，你便能獨自一人開發出大規模的精緻系統。
 
 你的初版 Web Framework 可能只有 2000 行的程式碼，但接著在新功能需求的添加下，你會再添加到 4000 行程式碼。接著再考慮「資安相關」的需求，你的框架將演化成 16000 行程式碼。16000 行其實已經算是成熟的商用套件了，如 Javascript 後端開發者常用的 express.js，也差不多位於這個行數區間。接著你肯定還會想繼續加強細節（畢竟這作品可是你引以為傲的孩子），你會開始引入各種 middleware，在架構上不斷積累至 40000 多行程式碼——不斷變強、變強，再變強。
 
@@ -48,12 +48,12 @@ Web App 將被部署在 HTTP Server 之上，所以你得進一步了解 Web App
 
 ### 附錄-3. Web App 和 HTTP Server 之間的關係
 
-1.  HTTP Server 是實踐 HTTP 通訊協定的程式（執行此程式之後，我們會說 HTTP Server 是一個常駐於背景的進程）。在執行 HTTP Server 的時候，需要為其指定一個通訊埠（Port)，在執行完 HTTP Server 程式之後，HTTP Server 便會在其所屬網路環境中「偵聽」來自於此指定通訊埠的 HTTP 請求 (HTTP Request)。
-    1.  通訊埠為一個號碼，通常伺服器端的程式埠號會介於 5000~65535 之間。
-2.  HTTP Server 有兩種啟動方式：
-    1.  常駐背景程式的啟動方法：在作業系統中執行該 HTTP Server 程式執行檔。
+1. HTTP Server 是實踐 HTTP 通訊協定的程式（執行此程式之後，我們會說 HTTP Server 是一個常駐於背景的進程）。在執行 HTTP Server 的時候，需要為其指定一個通訊埠（Port)，在執行完 HTTP Server 程式之後，HTTP Server 便會在其所屬網路環境中「偵聽」來自於此指定通訊埠的 HTTP 請求 (HTTP Request)。
+    1. 通訊埠為一個號碼，通常伺服器端的程式埠號會介於 5000~65535 之間。
+2. HTTP Server 有兩種啟動方式：
+    1. 常駐背景程式的啟動方法：在作業系統中執行該 HTTP Server 程式執行檔。
 
-    2.  嵌入式 HTTP Server：許多程式語言會內建 **HTTP Server API**，允許程式開發者直接透過物件導向程式呼叫的方式來執行 HTTP Server (Run a HTTP Server programmatically)。以下程式碼示範在 Java 中，如何啟動指定於 8080 通訊埠的 HTTP Server：
+    2. 嵌入式 HTTP Server：許多程式語言會內建 **HTTP Server API**，允許程式開發者直接透過物件導向程式呼叫的方式來執行 HTTP Server (Run a HTTP Server programmatically)。以下程式碼示範在 Java 中，如何啟動指定於 8080 通訊埠的 HTTP Server：
 
         ```
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
@@ -62,35 +62,35 @@ Web App 將被部署在 HTTP Server 之上，所以你得進一步了解 Web App
 
 ### 附錄-4. HTTP Server 的主要職責：偵聽請求和回應
 
-1.  我們曾在裝飾者模式挑戰題中的背景知識小節中，提到何謂 HTTP 客戶端 (HTTP Client) 和 HTTP 請求 (HTTP Request)。
+1. 我們曾在裝飾者模式挑戰題中的背景知識小節中，提到何謂 HTTP 客戶端 (HTTP Client) 和 HTTP 請求 (HTTP Request)。
 
-    1.  HTTP Client 透過發送 HTTP Request 來向 HTTP Server 請求相關資源，或是請求執行某一段後端程式邏輯。
+    1. HTTP Client 透過發送 HTTP Request 來向 HTTP Server 請求相關資源，或是請求執行某一段後端程式邏輯。
 
-    2.  更精準地來說，是前端（網頁或是手機）作為 HTTP Client，發送 HTTP Request 來向部署在 HTTP Server 上的後端程式請求資源，或是請求執行某一段後端程式邏輯。如下圖：
+    2. 更精準地來說，是前端（網頁或是手機）作為 HTTP Client，發送 HTTP Request 來向部署在 HTTP Server 上的後端程式請求資源，或是請求執行某一段後端程式邏輯。如下圖：
 
         ![c6m1-0](./Documents/Figures/6B-1.png)
 
-2.  可以說，HTTP Request 正是前後端主要溝通的媒介。前後端開發人員會在埋頭開發之前，先開會決議好後端欲提供的每一項 HTTP API，並說明清楚每一項 HTTP API 的預期 HTTP Request 格式，以及後端會回應的 HTTP Response 格式。最後將決議制訂於 API Document 之中供兩方人員參考。只要雙方都嚴格遵守 API Document 上制定的 HTTP Request / HTTP Response 規格做開發，便能預期雙方程式能在上線之後順利溝通。
+2. 可以說，HTTP Request 正是前後端主要溝通的媒介。前後端開發人員會在埋頭開發之前，先開會決議好後端欲提供的每一項 HTTP API，並說明清楚每一項 HTTP API 的預期 HTTP Request 格式，以及後端會回應的 HTTP Response 格式。最後將決議制訂於 API Document 之中供兩方人員參考。只要雙方都嚴格遵守 API Document 上制定的 HTTP Request / HTTP Response 規格做開發，便能預期雙方程式能在上線之後順利溝通。
 
-3.  HTTP Server 的主要職責很單純，那便是偵聽於某一通訊埠的 HTTP Request，並將後端指定的回應資料，包裝成 HTTP Response 並傳遞回 HTTP Client 端。
+3. HTTP Server 的主要職責很單純，那便是偵聽於某一通訊埠的 HTTP Request，並將後端指定的回應資料，包裝成 HTTP Response 並傳遞回 HTTP Client 端。
 
-4.  嵌入式的 HTTP Server，通常都會套用觀察者模式，允許開發者在接收新 HTTP Request 時執行特定的行為。你需要參考以下 Java 範例程式，對嵌入式 HTTP Server 的應用做多一點的想像，這會幫助你更容易了解 Web Framework 的職責。
+4. 嵌入式的 HTTP Server，通常都會套用觀察者模式，允許開發者在接收新 HTTP Request 時執行特定的行為。你需要參考以下 Java 範例程式，對嵌入式 HTTP Server 的應用做多一點的想像，這會幫助你更容易了解 Web Framework 的職責。
 
      ```
      HttpServer httpServer = HttpServer.create(new InetSocketAddress(8080), 0);
-        
+
      httpServer.createContext("/", new HttpHandler() {
          @Override
          public void handle(HttpExchange httpRequest) throws IOException {
              // 判斷 HTTP Request 的內容，並決定欲執行的邏輯
          }
      });
-        
+
     httpServer.start();
     ```
 
     我們能夠向 HTTP Server 實體註冊 Observer （也就是 HTTPHandler 的實作），類別圖如下：
-    
+
     ![c6m1-1](./Documents/Figures/6B-2.png)
 
 ### 附錄-5. HTTP 請求與回應 (HTTP Request and Response)
@@ -99,48 +99,48 @@ Web App 將被部署在 HTTP Server 之上，所以你得進一步了解 Web App
 
 我們必須詳細地理解 HTTP Request 和 HTTP Response 的格式和其中的概念，才能知道該如何在 HTTP Server 之上建構完整的 Web Framework，此 Web Framework 要盡可能支援 HTTP 協定中訂定的所有概念才行。由於此需求在初版並不會真的要求你將所有 HTTP 概念完整實作至 Web Framework 之中，所以此節只會針對需求涵蓋的範疇做相關知識的講解。
 
-1.  HTTP Request 中依序包含三個部分：
-    1.  Request Line：首先請求中會描述此次請求的 **HTTP method、URL** （也就是欲存取資源的「連結」）和 HTTP version。
-        1.  HTTP Method 用來標註此次請求欲進行的「操作」種類，HTTP 協定本身雖對每一個 HTTP Method 有所規範，但通俗來說只要前後端決議清楚不同 HTTP method 代表的含義就好。HTTP Method 主要有 9 種：`GET`、`POST`、`PUT`、`PATCH`、`DELETE`、`HEAD`、`OPTIONS`、`TRACE`、`CONNECT`。其中常用來表達業務邏輯請求的為 `GET`、`POST`、`PUT`、`PATCH`、`DELETE`。
-        2.  HTTP URL：為請求的指定連結，通常每一個 URL 代表著的是一項位於伺服器端的「**資源 (Resource)**」。URL 的格式為 `scheme://host:port/path?query_string`（省略了一些細節）：
-            -   `scheme`: 指定此請求使用的通訊協定，如果為 HTTP 請求，則此處應填 `http` 。
-            -   `host`: 指定此請求的 Domain Name 或者是 IP 位址，我們會用 Domain Name 或是 IP 位址來定位一伺服器在網際網路上的絕對位置。
-            -   `port`: 指定此請求在伺服器上的通訊埠。如果不填此參數，預設會使用通訊協定本身預設的通訊埠；如果是 HTTP 協定，預設的通訊埠為 80
-            -   `path`: 指定此請求欲存取資源所在階層位置。
-            -   `query_string`: 此請求的「額外」查詢變數 (Query parameter)，通常用在 `GET` 請求中用來表達查詢條件，好比在 `/users?offset=10&limit=50` URL 中，有兩個查詢變數 `offset` 和 `limit` ，代表著此次請求想要查詢的是「位於第 10 筆使用者資料之後，的 50 筆使用者資料」。
-        3.  HTTP Version：指定此請求使用的 HTTP 通訊協定版本。
-    2.  標頭 （Headers）: 接著會包含標頭，標頭為多筆鍵值對 （Key-value pair），提供關於請求的額外資訊，好比 `user-agent` 欄位代表此請求是透過哪一套軟體代理發送（i.e., 哪一套瀏覽器）、`content-length` 欄位代表此請求主體的二進制長度、`content-type` 欄位代表此請求主體資料的資料格式（幫助 Web Framework 判讀），以及一些使用者身份的自定義欄位。
-    3.  主體（Request Body）: 客戶端欲傳送給伺服器端的「資料」。通常 `POST`、`PUT` 以及 `PATCH` 請求中會需要涵蓋資料，此時客戶端就會把資料以 JSON 或是其他多媒體格式放入 Request Body 中。
-2.  HTTP Response 與 HTTP Request 非常相似，皆以三個部分組成，唯一的差別在於 HTTP Response 中首先是以 Status Line 構成：
-    1.  Status Line：
-        1.  HTTP Version：指定此回應使用的 HTTP 通訊協定版本。
-        2.  Status code：在回應中用以「表示此次請求的結果狀態」。HTTP 制定了一系列的 Status code 用以分類各種不同的結果狀態。
-            1.  不同數字開頭代表不同的狀態：
-                -   1xx (Informational): 表示已收到請求，伺服器器正在處理中。
-                -   2xx (Successful): 表示已成功理解並正在處理請求，或是已經完整實現請求。
-                -   3xx (Redirection): 表示為了完成請求，客戶端必須進行進一步的操作，比如重定向 (Redirect)。
-                -   4xx (Client Error): 表示客戶端提交的請求有誤，導致伺服器無法處理。（錯在客戶）
-                -   5xx (Server Error): 表示伺服器在處理請求時發生了錯誤。（錯在服務）
-            2.  常用的 Status code 有以下幾種：
-                -   200 OK: 表示請求成功，服務器已經完整實現了請求。
-                -   201 Created: 表示請求成功，並且（強調）新的資源已經成功創建。
-                -   204 No Content: 表示請求成功，但（強調）沒有返回任何內容。
-                -   400 Bad Request: 表示客戶端提交的請求有誤，伺服器無法理解。
-                -   401 Unauthorized: 表示此請求未經授權，需要用戶驗證身份。（必須先知道客戶的身份，接著才能考慮是否要實現請求）
-                -   403 Forbidden: 表示伺服器拒絕處理請求，用戶沒有訪問資源的權限。（知道了客戶的身份之後，認為客戶無權提出此項請求）
-                -   404 Not Found: 表示所請求的資源不存在。（通俗來說，代表連結有誤）
-                -   405 Method Not Allowed: 表示請求方法不允許。當客戶端使用不被目標資源支援的 HTTP 方法（例如GET、POST、PUT、DELETE等）發出請求時，服務器將返回405狀態碼。這表示該資源存在於服務器上，但不支援客戶端所使用的請求方法。
-                -   500 Internal Server Error: 表示服務器在處理請求時發生了內部錯誤。
-    2.  標頭 （Headers）：接著涵蓋回應的標頭，與 HTTP Request 一樣，包含用以描述額外資訊的多筆鍵值對。
-    3.  主體（Request Body）：與 HTTP Request 一樣，代表伺服器端欲回應給客戶端的資料。
-3.  關於標頭中的 Content-type 欄位：`Content-type` 表達的是主體 (Body) 中的資料格式，以 [Media Type](https://en.wikipedia.org/wiki/Media_type) 表示。常見的 Media Type 有以下幾種，每一種表示不同的資料格式。
-    1.  JSON (application/json)：JSON 格式
-    2.  XML (application/xml)：XML 格式
-    3.  Plain Text (text/plain)：純文字（i.e., 無限定格式）
-    4.  HTML (text/html)：為一般網頁主體 HTML 格式
-    5.  Form data (application/x-www-form-urlencoded)：為常見網頁提交表單時所用的格式
-    6.  Multipart form data (multipart/form-data)：當主體中複合多筆子主體時使用，常見於當客戶端欲上傳多筆檔案時使用
-    7.  Binary data (application/octet-stream)：純粹的二進制格式
+1. HTTP Request 中依序包含三個部分：
+    1. Request Line：首先請求中會描述此次請求的 **HTTP method、URL** （也就是欲存取資源的「連結」）和 HTTP version。
+        1. HTTP Method 用來標註此次請求欲進行的「操作」種類，HTTP 協定本身雖對每一個 HTTP Method 有所規範，但通俗來說只要前後端決議清楚不同 HTTP method 代表的含義就好。HTTP Method 主要有 9 種：`GET`、`POST`、`PUT`、`PATCH`、`DELETE`、`HEAD`、`OPTIONS`、`TRACE`、`CONNECT`。其中常用來表達業務邏輯請求的為 `GET`、`POST`、`PUT`、`PATCH`、`DELETE`。
+        2. HTTP URL：為請求的指定連結，通常每一個 URL 代表著的是一項位於伺服器端的「**資源 (Resource)**」。URL 的格式為 `scheme://host:port/path?query_string`（省略了一些細節）：
+            - `scheme`: 指定此請求使用的通訊協定，如果為 HTTP 請求，則此處應填 `http` 。
+            - `host`: 指定此請求的 Domain Name 或者是 IP 位址，我們會用 Domain Name 或是 IP 位址來定位一伺服器在網際網路上的絕對位置。
+            - `port`: 指定此請求在伺服器上的通訊埠。如果不填此參數，預設會使用通訊協定本身預設的通訊埠；如果是 HTTP 協定，預設的通訊埠為 80
+            - `path`: 指定此請求欲存取資源所在階層位置。
+            - `query_string`: 此請求的「額外」查詢變數 (Query parameter)，通常用在 `GET` 請求中用來表達查詢條件，好比在 `/users?offset=10&limit=50` URL 中，有兩個查詢變數 `offset` 和 `limit` ，代表著此次請求想要查詢的是「位於第 10 筆使用者資料之後，的 50 筆使用者資料」。
+        3. HTTP Version：指定此請求使用的 HTTP 通訊協定版本。
+    2. 標頭 （Headers）: 接著會包含標頭，標頭為多筆鍵值對 （Key-value pair），提供關於請求的額外資訊，好比 `user-agent` 欄位代表此請求是透過哪一套軟體代理發送（i.e., 哪一套瀏覽器）、`content-length` 欄位代表此請求主體的二進制長度、`content-type` 欄位代表此請求主體資料的資料格式（幫助 Web Framework 判讀），以及一些使用者身份的自定義欄位。
+    3. 主體（Request Body）: 客戶端欲傳送給伺服器端的「資料」。通常 `POST`、`PUT` 以及 `PATCH` 請求中會需要涵蓋資料，此時客戶端就會把資料以 JSON 或是其他多媒體格式放入 Request Body 中。
+2. HTTP Response 與 HTTP Request 非常相似，皆以三個部分組成，唯一的差別在於 HTTP Response 中首先是以 Status Line 構成：
+    1. Status Line：
+        1. HTTP Version：指定此回應使用的 HTTP 通訊協定版本。
+        2. Status code：在回應中用以「表示此次請求的結果狀態」。HTTP 制定了一系列的 Status code 用以分類各種不同的結果狀態。
+            1. 不同數字開頭代表不同的狀態：
+                - 1xx (Informational): 表示已收到請求，伺服器器正在處理中。
+                - 2xx (Successful): 表示已成功理解並正在處理請求，或是已經完整實現請求。
+                - 3xx (Redirection): 表示為了完成請求，客戶端必須進行進一步的操作，比如重定向 (Redirect)。
+                - 4xx (Client Error): 表示客戶端提交的請求有誤，導致伺服器無法處理。（錯在客戶）
+                - 5xx (Server Error): 表示伺服器在處理請求時發生了錯誤。（錯在服務）
+            2. 常用的 Status code 有以下幾種：
+                - 200 OK: 表示請求成功，服務器已經完整實現了請求。
+                - 201 Created: 表示請求成功，並且（強調）新的資源已經成功創建。
+                - 204 No Content: 表示請求成功，但（強調）沒有返回任何內容。
+                - 400 Bad Request: 表示客戶端提交的請求有誤，伺服器無法理解。
+                - 401 Unauthorized: 表示此請求未經授權，需要用戶驗證身份。（必須先知道客戶的身份，接著才能考慮是否要實現請求）
+                - 403 Forbidden: 表示伺服器拒絕處理請求，用戶沒有訪問資源的權限。（知道了客戶的身份之後，認為客戶無權提出此項請求）
+                - 404 Not Found: 表示所請求的資源不存在。（通俗來說，代表連結有誤）
+                - 405 Method Not Allowed: 表示請求方法不允許。當客戶端使用不被目標資源支援的 HTTP 方法（例如GET、POST、PUT、DELETE等）發出請求時，服務器將返回405狀態碼。這表示該資源存在於服務器上，但不支援客戶端所使用的請求方法。
+                - 500 Internal Server Error: 表示服務器在處理請求時發生了內部錯誤。
+    2. 標頭 （Headers）：接著涵蓋回應的標頭，與 HTTP Request 一樣，包含用以描述額外資訊的多筆鍵值對。
+    3. 主體（Request Body）：與 HTTP Request 一樣，代表伺服器端欲回應給客戶端的資料。
+3. 關於標頭中的 Content-type 欄位：`Content-type` 表達的是主體 (Body) 中的資料格式，以 [Media Type](https://en.wikipedia.org/wiki/Media_type) 表示。常見的 Media Type 有以下幾種，每一種表示不同的資料格式。
+    1. JSON (application/json)：JSON 格式
+    2. XML (application/xml)：XML 格式
+    3. Plain Text (text/plain)：純文字（i.e., 無限定格式）
+    4. HTML (text/html)：為一般網頁主體 HTML 格式
+    5. Form data (application/x-www-form-urlencoded)：為常見網頁提交表單時所用的格式
+    6. Multipart form data (multipart/form-data)：當主體中複合多筆子主體時使用，常見於當客戶端欲上傳多筆檔案時使用
+    7. Binary data (application/octet-stream)：純粹的二進制格式
 
 ### 附錄-6. Web Framework 的基本設計思想：控制反轉 (Inversion Of Control, IoC)
 
@@ -175,8 +175,8 @@ httpServer.createContext("/", new HttpHandler() {
                         break;
                     ...
                 }
-                
-                
+
+
     }
 });
 
@@ -228,15 +228,15 @@ public class BookController {
 
 這段程式碼用於處理「書籍 (Book) 資源」的相關 HTTP 請求。首先透過 `@RequestMapping("/books")`註解來指定 `BookController` 負責的是位於路徑 `/books`下的所有處理請求。`BookController` 定義了兩個 API Endpoints：
 
-1.  `[POST] /books` 宣告於 `createBook`方法，用於新增一本新書。
-    -   接收一個請求主體 (Request body) 為 `CreateBookRequest` 型別的物件，其中包含書籍的標題和作者。
-    -   呼叫 `BookService` 的 `createBook` 方法，將該書籍新增到系統中。
-    -   將新增的書籍轉換為 `BookView` 物件，並以 HTTP 回應狀態碼 201 Created 給客戶端。
-2.  `GET /books/{id}` 宣告於 `getBook`方法，用於取得特定 id 的書籍資源。
-    -   接收一個路徑變數 (id) 作為參數，代表要查詢的書籍 id。
-    -   呼叫 `BookService` 的 `getBookById` 方法，根據提供的 id 來查詢相應的書籍。
-    -   如果找不到該 id 對應的書籍，則回傳 HTTP 回應狀態碼 404 Not Found 給客戶端。
-    -   如果成功找到書籍，則將書籍轉換為 `BookView` 物件，並將該物件回傳給客戶端。
+1. `[POST] /books` 宣告於 `createBook`方法，用於新增一本新書。
+    - 接收一個請求主體 (Request body) 為 `CreateBookRequest` 型別的物件，其中包含書籍的標題和作者。
+    - 呼叫 `BookService` 的 `createBook` 方法，將該書籍新增到系統中。
+    - 將新增的書籍轉換為 `BookView` 物件，並以 HTTP 回應狀態碼 201 Created 給客戶端。
+2. `GET /books/{id}` 宣告於 `getBook`方法，用於取得特定 id 的書籍資源。
+    - 接收一個路徑變數 (id) 作為參數，代表要查詢的書籍 id。
+    - 呼叫 `BookService` 的 `getBookById` 方法，根據提供的 id 來查詢相應的書籍。
+    - 如果找不到該 id 對應的書籍，則回傳 HTTP 回應狀態碼 404 Not Found 給客戶端。
+    - 如果成功找到書籍，則將書籍轉換為 `BookView` 物件，並將該物件回傳給客戶端。
 
 在上述程式中，唯一和 HTTP 技術有關的部分只有 `@RestController`, `@RequestMapping("/books")`, `@PostMapping`, `@GetMapping("/{id}")`, `@RequestBody` 和 `@PathVariable` 等註解。只要透過這些註解輕描淡寫，就能將路由等流程控制權交給 Web Framework，而開發者只專注在業務邏輯上。不過這份程式中所展現的簡潔，實際上大量仰賴著程式語言的特性，不同程式語言有著不同的特性，導致了不同的控制反轉實作能力。本題目刻意避開了這個問題，我們只會先要求你透過最基本的物件導向語法來設計 Web Framework，若你在完成初版實作後仍心有餘力，你可以善用語言特性來提升 Web Framework 的易用性。
 
@@ -244,13 +244,13 @@ public class BookController {
 
 你需要開發一款 Web Framework，這款 Web Framework 他能夠允許開發者用「最少」且「最有表達力」的程式碼，來做到以下幾件事情：
 
-1.  **路由機制 \[B\]**：Web Framework 能判讀 HTTP 請求，並根據請求中路徑及其內容決定欲呼叫對應的程式區塊，此程式區塊又被稱之為 **Handler Method**。執行完 Handler Method 之後，會將 Handler Method 的回傳值透過序列化機制 \[C\] 來建立 HTTP 回應，並傳回給客戶端。
-2.  **序列化/解序列化機制 \[C\]**：自動化將 HTTP Request Body 解序列化成物件，或者是將物件序列化成 HTTP Response Body 的能力。於是開發者不必深入了解 HTTP Request / Response Body 的格式處理細節。
-3.  **異常處理機制 \[D\]**：在客戶非法請求或是後端程式拋出例外時，仍能適當處理，或是以適當 HTTP Status code 展示請求結果且不影響伺服器持續運作的能力。
-4.  **擴充性考量 \[E\]**：Web Framework 在路由、序列化/解序列化、異常處理等機制的實作上，需要支援非常強勁的擴充性，以便於在未來支援各類 Web App 情境時，仍然在不修改 Web Framework 核心原始碼的情況下，透過擴充新的插件來支援新情境。
-5.  **IoC 容器設計 \[F\]**：如 \[附錄-6\] 小節所說，Web Framework 設計須做到「控制反轉」來提升程式品質。不過「控制反轉」其實有一項關鍵的衍生設計議題：物件生命週期的管理。你需要實作 IoC 容器來完整r實現控制反轉。
+1. **路由機制 \[B\]**：Web Framework 能判讀 HTTP 請求，並根據請求中路徑及其內容決定欲呼叫對應的程式區塊，此程式區塊又被稱之為 **Handler Method**。執行完 Handler Method 之後，會將 Handler Method 的回傳值透過序列化機制 \[C\] 來建立 HTTP 回應，並傳回給客戶端。
+2. **序列化/解序列化機制 \[C\]**：自動化將 HTTP Request Body 解序列化成物件，或者是將物件序列化成 HTTP Response Body 的能力。於是開發者不必深入了解 HTTP Request / Response Body 的格式處理細節。
+3. **異常處理機制 \[D\]**：在客戶非法請求或是後端程式拋出例外時，仍能適當處理，或是以適當 HTTP Status code 展示請求結果且不影響伺服器持續運作的能力。
+4. **擴充性考量 \[E\]**：Web Framework 在路由、序列化/解序列化、異常處理等機制的實作上，需要支援非常強勁的擴充性，以便於在未來支援各類 Web App 情境時，仍然在不修改 Web Framework 核心原始碼的情況下，透過擴充新的插件來支援新情境。
+5. **IoC 容器設計 \[F\]**：如 \[附錄-6\] 小節所說，Web Framework 設計須做到「控制反轉」來提升程式品質。不過「控制反轉」其實有一項關鍵的衍生設計議題：物件生命週期的管理。你需要實作 IoC 容器來完整r實現控制反轉。
 
-## A. Web App 需求情境展示：
+## A. Web App 需求情境展示
 
 此章節描述你需要實現的 Web App 規格，由多項使用案例組成，而每一項使用案例中會描述其流程和對應的 HTTP API Document \[附錄-4.2\]。
 
@@ -260,28 +260,28 @@ public class BookController {
 
 ### A1. 會員註冊 (User registration)
 
-1.  流程：
-    1.  使用者提供以下資料來註冊 (Register) 會員身份 \[R1\]：
-        1.  郵件 (Email)：必須為郵件格式，字數限制 4~32。不能與已註冊的會員所擁有的郵件重複。
-        2.  名稱 (Name)：字數限制 5~32。
-        3.  密碼 (Password)：字數限制 5~32。
-    2.  後端驗證註冊資料：
-        1.  在以下兩種情況下，此請求會被視為不合法的請求。後端根據不同情況做出不同回應：
-            1.  郵件已存在 (Email Duplication) \[R3\]：該筆註冊郵件與現存會員的郵件重複。
-            2.  資料格式不正確（超出字數限制，或是註冊的郵件不遵守郵件格式）\[R4\]
-        2.  如果請求合法則成功註冊。則首先先為這筆新的會員資料創建其會員編號，並回傳成功註冊的會員資料 \[R2\]：
-            1.  會員編號 (Id)：該會員的流水號，從 1 開始算起，如果此系統中目前存在 3 位會員，則在此時註冊會員的話會獲得會員編號 4。
-            2.  郵件和名稱則為使用者在註冊時提供的郵件和名稱。
-2.  API Document
-    1.  使用者註冊 \[R1\] — HTTP Request
-        1.  HTTP Headers:
+1. 流程：
+    1. 使用者提供以下資料來註冊 (Register) 會員身份 \[R1\]：
+        1. 郵件 (Email)：必須為郵件格式，字數限制 4~32。不能與已註冊的會員所擁有的郵件重複。
+        2. 名稱 (Name)：字數限制 5~32。
+        3. 密碼 (Password)：字數限制 5~32。
+    2. 後端驗證註冊資料：
+        1. 在以下兩種情況下，此請求會被視為不合法的請求。後端根據不同情況做出不同回應：
+            1. 郵件已存在 (Email Duplication) \[R3\]：該筆註冊郵件與現存會員的郵件重複。
+            2. 資料格式不正確（超出字數限制，或是註冊的郵件不遵守郵件格式）\[R4\]
+        2. 如果請求合法則成功註冊。則首先先為這筆新的會員資料創建其會員編號，並回傳成功註冊的會員資料 \[R2\]：
+            1. 會員編號 (Id)：該會員的流水號，從 1 開始算起，如果此系統中目前存在 3 位會員，則在此時註冊會員的話會獲得會員編號 4。
+            2. 郵件和名稱則為使用者在註冊時提供的郵件和名稱。
+2. API Document
+    1. 使用者註冊 \[R1\] — HTTP Request
+        1. HTTP Headers:
 
-            -   `content-type`: `application/json`
-        2.  HTTP Method: `POST`
+            - `content-type`: `application/json`
+        2. HTTP Method: `POST`
 
-        3.  HTTP Path: `/api/users`
+        3. HTTP Path: `/api/users`
 
-        4.  Request Body:
+        4. Request Body:
 
             ```
             {
@@ -291,16 +291,16 @@ public class BookController {
             }
             ```
 
-        5.  成功註冊 \[R2\] — HTTP Response
-            
-            1.  HTTP Status Code: `200`
-                
-            2.  HTTP Headers:
-                
-                -   `content-type`: `application/json`
-                -   `content-encoding`: `UTF-8`
-            3.  Response Body:
-                
+        5. 成功註冊 \[R2\] — HTTP Response
+
+            1. HTTP Status Code: `200`
+
+            2. HTTP Headers:
+
+                - `content-type`: `application/json`
+                - `content-encoding`: `UTF-8`
+            3. Response Body:
+
                 ```
                 {
                   "id": "會員編號",
@@ -308,59 +308,59 @@ public class BookController {
                   "name": "會員名稱",
                 }
                 ```
-                
-        6.  註冊失敗案例 1（郵件已存在）\[R3\]：
-            
-            1.  HTTP Status Code: `400`
-                
-            2.  HTTP Headers:
-                
-                -   `content-type`: `plain/text`
-                -   `content-encoding`: `UTF-8`
-            3.  Request Body:
-                
+
+        6. 註冊失敗案例 1（郵件已存在）\[R3\]：
+
+            1. HTTP Status Code: `400`
+
+            2. HTTP Headers:
+
+                - `content-type`: `plain/text`
+                - `content-encoding`: `UTF-8`
+            3. Request Body:
+
                 ```
                 Duplicate email
                 ```
-                
-        7.  註冊失敗案例 2（資料格式不正確）\[R4\]：
-            
-            1.  HTTP Status Code: `400`
-                
-            2.  HTTP Headers:
-                
-                -   `content-type`: `plain/text`
-                -   `content-encoding`: `UTF-8`
-            3.  Response Body:
-                
+
+        7. 註冊失敗案例 2（資料格式不正確）\[R4\]：
+
+            1. HTTP Status Code: `400`
+
+            2. HTTP Headers:
+
+                - `content-type`: `plain/text`
+                - `content-encoding`: `UTF-8`
+            3. Response Body:
+
                 ```
                 Registration's format incorrect.
                 ```
 
 ### A2. 會員登入 (User Login)
 
-1.  流程：
-    1.  使用者提供以下資料來登入 (Login) \[R1\]：
-        1.  郵件 (Email)：必須為郵件格式，字數限制 4~32。
-        2.  密碼 (Password)：字數限制 5~32。
-    2.  後端驗證登入資料：
-        1.  在以下兩種情況下，此請求會被視為不合法的請求。後端根據不同情況做出不同回應：
-            1.  找不到相同郵件和密碼的會員 (Credentials Invalid) \[R3\]
-            2.  資料格式不正確（超出字數限制，或是登入的郵件不遵守郵件格式）\[R4\]
-        2.  若能找出相同郵件和密碼的會員，則判定為登入成功且回傳該會員資料 \[R2\]：
-            1.  會員編號 (Id)：該會員在註冊時便決定好的編號。
-            2.  郵件和名稱則為使用者在註冊時提供的郵件和名稱。
-            3.  **身份權杖 (Token)**：後端隨機生出一組 36~60 字數的亂碼字串（必須保證在不同時間點會產生出絕對不同且不會重複的字串，可使用 UUID 相關套件），此份亂碼字串作為該會員的身份權杖，未來每當使用者在送出 HTTP 請求時，在標頭中帶上這個權杖，就能透過權杖向後端展現其會員的身份，並享有該會員的特殊權限。
-2.  API Document
-    1.  使用者登入 \[R1\] — HTTP Request
-        1.  HTTP Headers:
+1. 流程：
+    1. 使用者提供以下資料來登入 (Login) \[R1\]：
+        1. 郵件 (Email)：必須為郵件格式，字數限制 4~32。
+        2. 密碼 (Password)：字數限制 5~32。
+    2. 後端驗證登入資料：
+        1. 在以下兩種情況下，此請求會被視為不合法的請求。後端根據不同情況做出不同回應：
+            1. 找不到相同郵件和密碼的會員 (Credentials Invalid) \[R3\]
+            2. 資料格式不正確（超出字數限制，或是登入的郵件不遵守郵件格式）\[R4\]
+        2. 若能找出相同郵件和密碼的會員，則判定為登入成功且回傳該會員資料 \[R2\]：
+            1. 會員編號 (Id)：該會員在註冊時便決定好的編號。
+            2. 郵件和名稱則為使用者在註冊時提供的郵件和名稱。
+            3. **身份權杖 (Token)**：後端隨機生出一組 36~60 字數的亂碼字串（必須保證在不同時間點會產生出絕對不同且不會重複的字串，可使用 UUID 相關套件），此份亂碼字串作為該會員的身份權杖，未來每當使用者在送出 HTTP 請求時，在標頭中帶上這個權杖，就能透過權杖向後端展現其會員的身份，並享有該會員的特殊權限。
+2. API Document
+    1. 使用者登入 \[R1\] — HTTP Request
+        1. HTTP Headers:
 
-            -   `content-type`: `application/json`
-        2.  HTTP Method: `POST`
+            - `content-type`: `application/json`
+        2. HTTP Method: `POST`
 
-        3.  HTTP Path: `/api/users/login`
+        3. HTTP Path: `/api/users/login`
 
-        4.  Request Body:
+        4. Request Body:
 
             ```
             {
@@ -369,16 +369,16 @@ public class BookController {
             }
             ```
 
-        5.  成功登入 \[R2\] — HTTP Response
-            
-            1.  HTTP Status Code: `200`
-                
-            2.  HTTP Headers:
-                
-                -   `content-type`: `application/json`
-                -   `content-encoding`: `UTF-8`
-            3.  Response Body:
-                
+        5. 成功登入 \[R2\] — HTTP Response
+
+            1. HTTP Status Code: `200`
+
+            2. HTTP Headers:
+
+                - `content-type`: `application/json`
+                - `content-encoding`: `UTF-8`
+            3. Response Body:
+
                 ```
                 {
                   "id": "會員編號",
@@ -386,60 +386,60 @@ public class BookController {
                   "name": "會員名稱",
                   "token": "67cbbe1b-0c10-46e4-b4a8-9e8505c2453b" // 會員的權杖範例
                 }
-                ``` 
-                
-        6.  登入失敗案例 1（找不到相同郵件和密碼的會員）\[R3\]：
-            
-            1.  HTTP Status Code: `400`
-                
-            2.  HTTP Headers:
-                
-                -   `content-type`: `plain/text`
-                -   `content-encoding`: `UTF-8`
-            3.  Request Body:
-                
+                ```
+
+        6. 登入失敗案例 1（找不到相同郵件和密碼的會員）\[R3\]：
+
+            1. HTTP Status Code: `400`
+
+            2. HTTP Headers:
+
+                - `content-type`: `plain/text`
+                - `content-encoding`: `UTF-8`
+            3. Request Body:
+
                 ```
                 Credentials invalid
-                ``` 
-                
-        7.  登入失敗案例 2（資料格式不正確）\[R4\]：
-            
-            1.  HTTP Status Code: `400`
-                
-            2.  HTTP Headers:
-                
-                -   `content-type`: `plain/text`
-                -   `content-encoding`: `UTF-8`
-            3.  Response Body:
-                
+                ```
+
+        7. 登入失敗案例 2（資料格式不正確）\[R4\]：
+
+            1. HTTP Status Code: `400`
+
+            2. HTTP Headers:
+
+                - `content-type`: `plain/text`
+                - `content-encoding`: `UTF-8`
+            3. Response Body:
+
                 ```
                 Login's format incorrect.
                 ```
 
 ### A3. 會員修改名稱 (User Rename)
 
-1.  流程：
-    1.  使用者欲提供以下資料來修改會員名稱 \[R1\]：
-        1.  名稱 (Name)：字數限制 5~32。
-    2.  後端首先做身份驗證，解析請求標頭中的身份權杖：
-        1.  如果此為權杖的格式不正確，導致後端無法正確解析，則視為身份驗證失敗，回傳 \[R2\]。
-        2.  如果後端能成功解析此身份權杖所展現的會員身份，但此請求提出修改的會員對象為其他用戶，由於你無權修改其他會員的名稱，回傳 \[R3\]。
-    3.  後端驗證修改名稱資料：
-        1.  如果名稱的長度不正確，則回傳 \[R5\]
-        2.  找到此會員，並成功修改其名稱，回傳 \[R4\]。
-2.  API Document
-    1.  使用者欲修改名稱 \[R1\] — HTTP Request
-        1.  HTTP Headers:
+1. 流程：
+    1. 使用者欲提供以下資料來修改會員名稱 \[R1\]：
+        1. 名稱 (Name)：字數限制 5~32。
+    2. 後端首先做身份驗證，解析請求標頭中的身份權杖：
+        1. 如果此為權杖的格式不正確，導致後端無法正確解析，則視為身份驗證失敗，回傳 \[R2\]。
+        2. 如果後端能成功解析此身份權杖所展現的會員身份，但此請求提出修改的會員對象為其他用戶，由於你無權修改其他會員的名稱，回傳 \[R3\]。
+    3. 後端驗證修改名稱資料：
+        1. 如果名稱的長度不正確，則回傳 \[R5\]
+        2. 找到此會員，並成功修改其名稱，回傳 \[R4\]。
+2. API Document
+    1. 使用者欲修改名稱 \[R1\] — HTTP Request
+        1. HTTP Headers:
 
-            -   `content-type`: `application/json`
-            -   身份權杖 (token) 透過 header 攜帶：
-                -   `Authorization`: `Bearer <token>` （欄位名稱為 Authorization，值的部分首先先填入 Bearer，接著隔一個空白，再填入身份權杖的字串）
-        2.  HTTP Method: `PATCH`
+            - `content-type`: `application/json`
+            - 身份權杖 (token) 透過 header 攜帶：
+                - `Authorization`: `Bearer <token>` （欄位名稱為 Authorization，值的部分首先先填入 Bearer，接著隔一個空白，再填入身份權杖的字串）
+        2. HTTP Method: `PATCH`
 
-        3.  HTTP Path: `/api/users/{userId}`
+        3. HTTP Path: `/api/users/{userId}`
 
-            -   將該會員的編號作為路徑變數 (Path Variable)，填入路徑中的 `{userId}` 段落。如果此使用者的會員編號為 3，則修改名稱請求的路徑為：`/api/users/3`。
-        4.  Request Body:
+            - 將該會員的編號作為路徑變數 (Path Variable)，填入路徑中的 `{userId}` 段落。如果此使用者的會員編號為 3，則修改名稱請求的路徑為：`/api/users/3`。
+        4. Request Body:
 
             ```
             {
@@ -447,112 +447,112 @@ public class BookController {
             }
             ```
 
-        5.  此為不合法的身份權杖（權杖格式不正確） \[R2\] — HTTP Response
-            
-            1.  HTTP Status Code: `401`
-                
-            2.  HTTP Headers:
-                
-                -   `content-type`: `plain/text`
-                -   `content-encoding`: `UTF-8`
-            3.  Response Body:
-                
+        5. 此為不合法的身份權杖（權杖格式不正確） \[R2\] — HTTP Response
+
+            1. HTTP Status Code: `401`
+
+            2. HTTP Headers:
+
+                - `content-type`: `plain/text`
+                - `content-encoding`: `UTF-8`
+            3. Response Body:
+
                 ```
                 Can't authenticate who you are.
                 ```
-                
-        6.  無權修改其他人的名稱 \[R3\] — HTTP Response
-            
-            1.  HTTP Status Code: `403`
-                
-            2.  HTTP Headers:
-                
-                -   `content-type`: `plain/text`
-                -   `content-encoding`: `UTF-8`
-            3.  Response Body:
-                
+
+        6. 無權修改其他人的名稱 \[R3\] — HTTP Response
+
+            1. HTTP Status Code: `403`
+
+            2. HTTP Headers:
+
+                - `content-type`: `plain/text`
+                - `content-encoding`: `UTF-8`
+            3. Response Body:
+
                 ```
                 Forbidden
                 ```
-                
-        7.  成功修改名稱 \[R4\] — HTTP Response
-            
-            1.  HTTP Status Code: `204`
-            2.  HTTP Headers 中不存在 `content-type` 和 `content-encoding` ，並且也沒有 Response Body。
-        8.  名稱的長度不正確 \[R5\] — HTTP Response
-            
-            1.  HTTP Status Code: `400`
-                
-            2.  HTTP Headers:
-                
-                -   `content-type`: `plain/text`
-                -   `content-encoding`: `UTF-8`
-            3.  Response Body:
-                
+
+        7. 成功修改名稱 \[R4\] — HTTP Response
+
+            1. HTTP Status Code: `204`
+            2. HTTP Headers 中不存在 `content-type` 和 `content-encoding` ，並且也沒有 Response Body。
+        8. 名稱的長度不正確 \[R5\] — HTTP Response
+
+            1. HTTP Status Code: `400`
+
+            2. HTTP Headers:
+
+                - `content-type`: `plain/text`
+                - `content-encoding`: `UTF-8`
+            3. Response Body:
+
                 ```
                 Name's format invalid.
                 ```
 
 ### A4. 用名稱關鍵字來查詢會員 (User Query)
 
-1.  流程
-    1.  使用者欲查詢會員 \[R1\]，提供以下資料：
-        1.  查詢關鍵字 (keyword)：為一字串，非必要參數
-    2.  後端驗證此請求者是否來自於一「會員」，意即此請求須攜帶合法的會員權杖，否則無權查詢，中斷操作 \[R2\]。
-    3.  後端回傳篩選後的會員列表作為查詢結果 \[R3\]
-        1.  如果使用者沒有提供此查詢關鍵字，則回傳所有會員。
-        2.  如果使用者有提供此查詢關鍵字，則回傳所有會員中，名稱包含此關鍵字的會員。
-2.  API Document
-    1.  使用者欲查詢會員 \[R1\] — HTTP Request
-        1.  HTTP Headers:
+1. 流程
+    1. 使用者欲查詢會員 \[R1\]，提供以下資料：
+        1. 查詢關鍵字 (keyword)：為一字串，非必要參數
+    2. 後端驗證此請求者是否來自於一「會員」，意即此請求須攜帶合法的會員權杖，否則無權查詢，中斷操作 \[R2\]。
+    3. 後端回傳篩選後的會員列表作為查詢結果 \[R3\]
+        1. 如果使用者沒有提供此查詢關鍵字，則回傳所有會員。
+        2. 如果使用者有提供此查詢關鍵字，則回傳所有會員中，名稱包含此關鍵字的會員。
+2. API Document
+    1. 使用者欲查詢會員 \[R1\] — HTTP Request
+        1. HTTP Headers:
 
-            -   身份權杖 (token) 透過 header 攜帶：
-                -   `Authorization`: `Bearer <token>` （欄位名稱為 Authorization，值的部分首先先填入 Bearer，接著隔一個空白，再填入身份權杖的字串）
-        2.  HTTP Method: `GET`
+            - 身份權杖 (token) 透過 header 攜帶：
+                - `Authorization`: `Bearer <token>` （欄位名稱為 Authorization，值的部分首先先填入 Bearer，接著隔一個空白，再填入身份權杖的字串）
+        2. HTTP Method: `GET`
 
-        3.  HTTP Path: `/api/users`
+        3. HTTP Path: `/api/users`
 
-        4.  HTTP 查詢變數 (Query Parameter)：`keyword` 為一字串
+        4. HTTP 查詢變數 (Query Parameter)：`keyword` 為一字串
 
-            -   舉例來說，如果此使用者欲查詢的關鍵字為 `johnny` ，則此請求的路徑為`/api/users?keyword=johnny`
-        5.  Request Body: 無需提供
+            - 舉例來說，如果此使用者欲查詢的關鍵字為 `johnny` ，則此請求的路徑為`/api/users?keyword=johnny`
+        5. Request Body: 無需提供
 
-        6.  此為不合法的身份權杖（權杖格式不正確） \[R2\] — HTTP Response
+        6. 此為不合法的身份權杖（權杖格式不正確） \[R2\] — HTTP Response
 
-            1.  HTTP Status Code: `401`
+            1. HTTP Status Code: `401`
 
-            2.  HTTP Headers:
+            2. HTTP Headers:
 
-                -   `content-type`: `plain/text`
-                -   `content-encoding`: `UTF-8`
-            3.  Response Body:
-                
+                - `content-type`: `plain/text`
+                - `content-encoding`: `UTF-8`
+            3. Response Body:
+
                 ```
                 Can't authenticate who you are.
                 ```
 
-        7.  回傳篩選後的會員列表作為查詢結果 \[R3\] — HTTP Response
-            
-            1.  HTTP Status Code: `200`
-                
-            2.  HTTP Headers:
-                
-                -   `content-type`: `application/json`
-                -   `content-encoding`: `UTF-8`
-            3.  Response Body:
-                
+        7. 回傳篩選後的會員列表作為查詢結果 \[R3\] — HTTP Response
+
+            1. HTTP Status Code: `200`
+
+            2. HTTP Headers:
+
+                - `content-type`: `application/json`
+                - `content-encoding`: `UTF-8`
+            3. Response Body:
+
                 ```
                 [
                   {
-                    "id": "第 0 位會員的編號", 
-                    "email": "第 0 位會員的郵件", 
-                    "name": "第 0 位會員的姓名", 
-                  }, 
+                    "id": "第 0 位會員的編號",
+                    "email": "第 0 位會員的郵件",
+                    "name": "第 0 位會員的姓名",
+                  },
                   {
-                    "id": "第 1 位會員的編號", 
-                    "email": "第 1 位會員的郵件", 
-                    "name": "第 1 位會員的姓名", 
-                  }, 
+                    "id": "第 1 位會員的編號",
+                    "email": "第 1 位會員的郵件",
+                    "name": "第 1 位會員的姓名",
+                  },
                   ... // 以此類推，列入每一位會員在 JSON 陣列中
                 ]
                 ```
@@ -575,7 +575,7 @@ class UserController {
         LoginRequest request = request.readBodyAsObject(LoginRequest.class);
         var email = request.getEmail();
         var password = request.getPassword();
-        // 查詢此會員是否存在 
+        // 查詢此會員是否存在
         if (users.containsKey(email)) {
         User user = users.get(email);
             if (password.equals(user.getPassword())) {
@@ -612,18 +612,18 @@ class UserController {
 
 ### B1. HttpRequest 介面設計
 
--   好比 `HttpRequest` 類別可能包含以下方法：
-    1.  `readBodyAsObject(type: Class<T>): T`: 讀取 HTTP Request body，並解序列化轉成某型別。（請參考序列化/解序列化機制 \[C\]）
-    2.  `getHeader(key: String): String` ：獲得此 HTTP Headers 中的 `key` 名稱對應的欄位。好比 `key` 可能為 `content-type` 或是 `content-encoding` 。
-    3.  `getHttpMethod(): HttpMethod` ：獲得此 HTTP 請求的 HTTP method。
-    4.  此外，HttpRequest 也可能會提供一個方便的方法，來幫助開發者獲得此次請求的某段路徑變數 (Path Variable)，或是查詢變數 (Query Variable)。
+- 好比 `HttpRequest` 類別可能包含以下方法：
+    1. `readBodyAsObject(type: Class<T>): T`: 讀取 HTTP Request body，並解序列化轉成某型別。（請參考序列化/解序列化機制 \[C\]）
+    2. `getHeader(key: String): String` ：獲得此 HTTP Headers 中的 `key` 名稱對應的欄位。好比 `key` 可能為 `content-type` 或是 `content-encoding` 。
+    3. `getHttpMethod(): HttpMethod` ：獲得此 HTTP 請求的 HTTP method。
+    4. 此外，HttpRequest 也可能會提供一個方便的方法，來幫助開發者獲得此次請求的某段路徑變數 (Path Variable)，或是查詢變數 (Query Variable)。
 
 ### B2. 將 HTTP 請求路由到各個 Handler Method
 
 宣告完 UserController 之後，接下來再透過某種物件導向的語法，來將 HTTP 請求路由到 UserController 的各個方法上。好比以下虛擬程式碼所述：
 
 ```
-WebApplication webApp = new WebApplication(port=8080); 
+WebApplication webApp = new WebApplication(port=8080);
 Router router = webApp.getRouter();  // Router 為你所設計的 Web Framework 中負責路由的類別
 UserController userController = new UserController(/* ...依賴注入所需參數 */);
 
@@ -638,23 +638,23 @@ router.get("/api/users", userController::queryUsers);
 
 此份虛擬程式碼做了以下幾件事：
 
-1.  創建 HttpServer，並決定要偵聽的 port 為 8080。
-2.  創建自定義框架中的 `Router` 物件和 Web App 中所需的 `UserController` 物件。
-3.  向 `Router` 物件註冊四筆路由設定：
-    1.  HTTP 請求：`[POST] /api/users` ，將被匹配到 `UserController` 物件的 register 方法。
-    2.  HTTP 請求：`[POST] /api/users/login` ，將被匹配到 `UserController` 物件的 login 方法。
-    3.  HTTP 請求：`[PATCH] /api/users/{userId}` ，將被匹配到 `UserController` 物件的 rename 方法。
-    4.  HTTP 請求：`[GET] /api/users` ，將被匹配到 `UserController` 物件的 queryUsers 方法。
+1. 創建 HttpServer，並決定要偵聽的 port 為 8080。
+2. 創建自定義框架中的 `Router` 物件和 Web App 中所需的 `UserController` 物件。
+3. 向 `Router` 物件註冊四筆路由設定：
+    1. HTTP 請求：`[POST] /api/users` ，將被匹配到 `UserController` 物件的 register 方法。
+    2. HTTP 請求：`[POST] /api/users/login` ，將被匹配到 `UserController` 物件的 login 方法。
+    3. HTTP 請求：`[PATCH] /api/users/{userId}` ，將被匹配到 `UserController` 物件的 rename 方法。
+    4. HTTP 請求：`[GET] /api/users` ，將被匹配到 `UserController` 物件的 queryUsers 方法。
 
 如此一來，當有一會員登入請求 `[POST] /api/users/login` ，程式會執行以下流程：
 
-1.  `HttpServer` 通知我們有一則新的 HTTP 請求。
-2.  `Router` 將此筆請求包成我們自定義的 `HttpRequest` 物件。
-3.  `Router` 透過路由找到了此筆請求對應的 `UserController` 物件的 `login` 方法。
-4.  `Router` 將 `HttpRequest` 傳入 `UserController` 的 `login` 方法中執行。
-5.  `UserController` 的 login 方法執行完畢，此時可能有兩種結果：
-    1.  `login` 方法拋出例外：此時 `Router` 會遵循某種「異常處理 \[D\]」機制，來決定適當的 HTTP Response。
-    2.  `login` 方法正常結束，回傳 `LoginResponse` 物件：此時 `Router` 遵循「序列化/解序列化機制 \[C\]」，參考此路由訂定的 `content-type` ，並將 `LoginResponse` 序列化成對應 `content-type` 所需格式。好比開發者可能會透過某種方式將 `UserController` 的所有回應，配置成 `application/json` `content-type` 格式，於是 Router 會將 `LoginResponse` 序列化成 json 字串。
+1. `HttpServer` 通知我們有一則新的 HTTP 請求。
+2. `Router` 將此筆請求包成我們自定義的 `HttpRequest` 物件。
+3. `Router` 透過路由找到了此筆請求對應的 `UserController` 物件的 `login` 方法。
+4. `Router` 將 `HttpRequest` 傳入 `UserController` 的 `login` 方法中執行。
+5. `UserController` 的 login 方法執行完畢，此時可能有兩種結果：
+    1. `login` 方法拋出例外：此時 `Router` 會遵循某種「異常處理 \[D\]」機制，來決定適當的 HTTP Response。
+    2. `login` 方法正常結束，回傳 `LoginResponse` 物件：此時 `Router` 遵循「序列化/解序列化機制 \[C\]」，參考此路由訂定的 `content-type` ，並將 `LoginResponse` 序列化成對應 `content-type` 所需格式。好比開發者可能會透過某種方式將 `UserController` 的所有回應，配置成 `application/json` `content-type` 格式，於是 Router 會將 `LoginResponse` 序列化成 json 字串。
 
 ## C. 序列化 / 解序列化機制
 
@@ -664,7 +664,7 @@ router.get("/api/users", userController::queryUsers);
 
 這裡簡單定義一下何謂「序列化/解序列化」，序列化的意思是將一物件轉成能透過網路傳遞的「字串」或是「二進制陣列」；而解序列化的意思就是將一「字串」或是「二進制陣列」，轉回某一指定型別的物件。好比以下例子：
 
-1.  假設開發者宣告了一 `RegisterRequest` 類別如下：
+1. 假設開發者宣告了一 `RegisterRequest` 類別如下：
 
     ```
     public static class RegisterRequest {
@@ -675,17 +675,17 @@ router.get("/api/users", userController::queryUsers);
     }
     ```
 
-2.  而此時，我們偵聽到一 HTTP 請求，且其 HTTP Request Body 如下：
+2. 而此時，我們偵聽到一 HTTP 請求，且其 HTTP Request Body 如下：
 
     ```
     {
-      "email": "johnny@waterballsa.tw", 
-      "name": "水球", 
-      "password": "MyNameIsJohnny123", 
+      "email": "johnny@waterballsa.tw",
+      "name": "水球",
+      "password": "MyNameIsJohnny123",
     }
     ```
 
-3.  並且開發者宣告了以下 Handler Method 作為路由匹配對象：
+3. 並且開發者宣告了以下 Handler Method 作為路由匹配對象：
 
     ```
     public UserResponse register(HttpRequest request) {
@@ -694,16 +694,16 @@ router.get("/api/users", userController::queryUsers);
     }
     ```
 
-4.  在執行 `request.readBodyAsObject(RegisterRequest.class)` 這一行時，`HttpRequest` 介面的實作會執行以下流程：
+4. 在執行 `request.readBodyAsObject(RegisterRequest.class)` 這一行時，`HttpRequest` 介面的實作會執行以下流程：
 
-    1.  首先會先參考此 HTTP 請求 Headers 中的 `content-type` 欄位 \[附錄-5\]，根據此欄位的值來辨別 Request Body 中所用的格式，並分別為每一種格式提供一種解序列化方式。
-        1.  好比若此 HTTP 請求 Headers 中的 `content-type` 欄位為 `application/json` ，則會透過第三方 Json 套件來去解析 HTTP Request Body 中 JSON 格式的字串，將字串解序列化成 `RegisterRequest.class` 型別。
-        2.  而若此 HTTP 請求 Headers 中的 `content-type` 欄位為 `application/xml` ，則會透過第三方 XML 套件來去解析 HTTP Request Body 中 XML 格式的字串，將字串解序列化成 `RegisterRequest.class` 型別。
-        3.  以此類推，Web Framework 中能支援越多格式越好。如果遇到尚未支援的 `content-type` 格式，則此時會拋出例外，中斷請求。（請見章節 \[D\]，此時應該拋出 500 HTTP Status Code 表示例外)
-5.  而當此 Handler Method 執行結束後，Handler Method 會回傳一 `UserResponse` 型別的物件作為回應。此時 Web Framework 會執行以下流程來結束此次 HTTP 請求：
+    1. 首先會先參考此 HTTP 請求 Headers 中的 `content-type` 欄位 \[附錄-5\]，根據此欄位的值來辨別 Request Body 中所用的格式，並分別為每一種格式提供一種解序列化方式。
+        1. 好比若此 HTTP 請求 Headers 中的 `content-type` 欄位為 `application/json` ，則會透過第三方 Json 套件來去解析 HTTP Request Body 中 JSON 格式的字串，將字串解序列化成 `RegisterRequest.class` 型別。
+        2. 而若此 HTTP 請求 Headers 中的 `content-type` 欄位為 `application/xml` ，則會透過第三方 XML 套件來去解析 HTTP Request Body 中 XML 格式的字串，將字串解序列化成 `RegisterRequest.class` 型別。
+        3. 以此類推，Web Framework 中能支援越多格式越好。如果遇到尚未支援的 `content-type` 格式，則此時會拋出例外，中斷請求。（請見章節 \[D\]，此時應該拋出 500 HTTP Status Code 表示例外)
+5. 而當此 Handler Method 執行結束後，Handler Method 會回傳一 `UserResponse` 型別的物件作為回應。此時 Web Framework 會執行以下流程來結束此次 HTTP 請求：
 
-    1.  參考此 Handler Method 的配置，其中一項配置是「此 Handler Method」在回應時欲指定的 `content-type` 。好比次此 `register` Handler method 可以透過指定其 `content-type` 為 `application/json` 說，來要求以 JSON 格式來序列化其回應的 `UserResponse` 物件。其他 `content-type` 格式也是用，如 `application/xml` 。
-        1.  如果此 Handler Method 指定的 `content-type` 未被支援，則此時會拋出例外，中斷請求。（請見章節 \[D\]，此時拋出 500 HTTP Status Code 表示例外)
+    1. 參考此 Handler Method 的配置，其中一項配置是「此 Handler Method」在回應時欲指定的 `content-type` 。好比次此 `register` Handler method 可以透過指定其 `content-type` 為 `application/json` 說，來要求以 JSON 格式來序列化其回應的 `UserResponse` 物件。其他 `content-type` 格式也是用，如 `application/xml` 。
+        1. 如果此 Handler Method 指定的 `content-type` 未被支援，則此時會拋出例外，中斷請求。（請見章節 \[D\]，此時拋出 500 HTTP Status Code 表示例外)
 
 此等序列化/解序列化在各大 Web Framework 中非常方便，如此一來，就能夠幫助開發者處理繁雜的 HTTP 資料格式細節。
 
@@ -711,89 +711,89 @@ router.get("/api/users", userController::queryUsers);
 
 此章節針對所有可能在「路由階段」中的「非法請求」或是「執行期例外」，訂定對應的異常處理行為。
 
-1.  找不到此筆 HTTP 請求對應的 Handler Method — 回應以下 Http Response：
+1. 找不到此筆 HTTP 請求對應的 Handler Method — 回應以下 Http Response：
 
-    1.  HTTP Status Code: `404`
+    1. HTTP Status Code: `404`
 
-    2.  HTTP Headers:
+    2. HTTP Headers:
 
-        -   `content-type`: `plain/text`
-        -   `content-encoding`: `UTF-8`
-    3.  Response Body:
+        - `content-type`: `plain/text`
+        - `content-encoding`: `UTF-8`
+    3. Response Body:
 
         ```
         Cannot find the path "<path>"
         ```
 
-    4.  Response Body（舉例）：當 Client 發出 `/api/notfound` 請求，但 Web App 中不存在此路由，所以此時回傳的 Response Body 為：
-        
+    4. Response Body（舉例）：當 Client 發出 `/api/notfound` 請求，但 Web App 中不存在此路由，所以此時回傳的 Response Body 為：
+
         ```
         Cannot find the path "/api/notfound"
         ```
 
-2.  若此筆 HTTP 請求可匹配到路由中的路徑，但是請求指定的 HTTP Method 不匹配此路徑在路由中的路徑 — 回應以下 Http Response：
+2. 若此筆 HTTP 請求可匹配到路由中的路徑，但是請求指定的 HTTP Method 不匹配此路徑在路由中的路徑 — 回應以下 Http Response：
 
-    1.  HTTP Status Code: `405`
+    1. HTTP Status Code: `405`
 
-    2.  HTTP Headers:
+    2. HTTP Headers:
 
-        -   `content-type`: `plain/text`
-        -   `content-encoding`: `UTF-8`
-    3.  Response Body:
+        - `content-type`: `plain/text`
+        - `content-encoding`: `UTF-8`
+    3. Response Body:
 
         ```
         The method "<method>" is not allowed on "<path>"
         ```
 
-    4.  Response Body（舉例）：當路由中有一筆 `[POST] /api/users → userController::register` ，而 Client 發出 `[DELETE] /api/users` 請求，此時回傳的 Response Body 為：
-        
+    4. Response Body（舉例）：當路由中有一筆 `[POST] /api/users → userController::register` ，而 Client 發出 `[DELETE] /api/users` 請求，此時回傳的 Response Body 為：
+
         ```
         The method "DELETE" is not allowed on the path "/api/users"
         ```
 
-3.  當 Handler method 在執行的過程中拋出了例外：
+3. 當 Handler method 在執行的過程中拋出了例外：
 
-    1.  預設的情況下會回傳以下 HTTP Response：
+    1. 預設的情況下會回傳以下 HTTP Response：
 
-        1.  HTTP Status Code: `500`
+        1. HTTP Status Code: `500`
 
-        2.  HTTP Headers:
+        2. HTTP Headers:
 
-            -   `content-type`: `plain/text`
-            -   `content-encoding`: `UTF-8`
-        3.  Response Body: Body 中只存放該例外的錯誤訊息。
+            - `content-type`: `plain/text`
+            - `content-encoding`: `UTF-8`
+        3. Response Body: Body 中只存放該例外的錯誤訊息。
 
             ```
             <Exception's message>
             ```
 
-    2.  Web App 開發者，可以針對各種例外情境，來訂定特殊的回傳方式，來覆寫預設的 500 HTTP Response，請參考擴充性考量\[E\]。
+    2. Web App 開發者，可以針對各種例外情境，來訂定特殊的回傳方式，來覆寫預設的 500 HTTP Response，請參考擴充性考量\[E\]。
 
-4.  如果你的程式語言不支援「例外處理」機制（好比 Go)，Handler method 必須在回傳值表達錯誤情況，則將設計改變成以下形式：
+4. 如果你的程式語言不支援「例外處理」機制（好比 Go)，Handler method 必須在回傳值表達錯誤情況，則將設計改變成以下形式：
 
-    1.  Handler method 透過回傳值表達錯誤情況
-    2.  Web Framework 會解讀 Handler method 的回傳值，如果錯誤發生則執行上述預設處理規則。
+    1. Handler method 透過回傳值表達錯誤情況
+    2. Web Framework 會解讀 Handler method 的回傳值，如果錯誤發生則執行上述預設處理規則。
 
 ## E. 擴充性考量
 
-1.  Web Framework 在路由、序列化/解序列化、異常處理等機制的實作上，需要支援非常強勁的擴充性，以便於在未來支援各類 Web App 情境時，仍然在不修改 Web Framework 核心原始碼的情況下，透過擴充新的插件來支援新情境。
-2.  針對序列化/解序列化機制 \[C\]，你需要以「插件」形式支援各類 HTTP Request / Response Body Media type （參考自標頭的`content-type` \[附錄-5, C\]） 的序列化/解序列化。內建初始支援 `application/json` 、`plain/text` 和各種多媒體檔案等 Media-type。而 Web Framework 初版只提供 `application/xml` Media type 的插件。
-    1.  舉例來說，若開發者想在 Web App 中啟動對 `application/xml` Media type 的支援，則只需要在 Web Framework 的啟動程式中增加插件配置就行了，如下：
+1. Web Framework 在路由、序列化/解序列化、異常處理等機制的實作上，需要支援非常強勁的擴充性，以便於在未來支援各類 Web App 情境時，仍然在不修改 Web Framework 核心原始碼的情況下，透過擴充新的插件來支援新情境。
+2. 針對序列化/解序列化機制 \[C\]，你需要以「插件」形式支援各類 HTTP Request / Response Body Media type （參考自標頭的`content-type` \[附錄-5, C\]） 的序列化/解序列化。內建初始支援 `application/json` 、`plain/text` 和各種多媒體檔案等 Media-type。而 Web Framework 初版只提供 `application/xml` Media type 的插件。
+    1. 舉例來說，若開發者想在 Web App 中啟動對 `application/xml` Media type 的支援，則只需要在 Web Framework 的啟動程式中增加插件配置就行了，如下：
 
         ```
         WebApplication app = new WebApplication(port=8080);
         ...
-        app.addPlugin(new XmlMediaTypePlugin()); 
+        app.addPlugin(new XmlMediaTypePlugin());
         ...
         app.launch();
         ```
 
         此份程式假設 Web Framework 的物件進入點為 `WebApplication` 類別，開發只透過向 `WebApplication` 物件註冊 `XmlMediaTypePlugin` 插件，來支援 `application/xml` 的序列化/解序列化機制。
-        
-    2.  並且也要允許開發者自行開發插件，在擴充新序列化/解序列化機制時，Web App 開發者不必修改 Web Framework 的內部程式碼。
 
-3.  針對異常處理機制 \[D\]，Web Framework 預設提供了一組異常處理的情境，如章節 \[D\] 所說。不過 Web Framework 要允許 Web App 開發者能夠在不修改 Web Framework 內部程式碼的前提下，任意擴充新的異常處理機制，或是支援新的例外與 HTTP Status code 的轉換規則。
-    1.  好比允許開發者可以配置如下：當 Handler Method 拋出 `IncorrectCredentialsException` 例外時，會自動將此例外翻譯成狀態碼 400 的 HTTP 回應，並且回應主體自動填入此例外的錯誤訊息。
+    2. 並且也要允許開發者自行開發插件，在擴充新序列化/解序列化機制時，Web App 開發者不必修改 Web Framework 的內部程式碼。
+
+3. 針對異常處理機制 \[D\]，Web Framework 預設提供了一組異常處理的情境，如章節 \[D\] 所說。不過 Web Framework 要允許 Web App 開發者能夠在不修改 Web Framework 內部程式碼的前提下，任意擴充新的異常處理機制，或是支援新的例外與 HTTP Status code 的轉換規則。
+    1. 好比允許開發者可以配置如下：當 Handler Method 拋出 `IncorrectCredentialsException` 例外時，會自動將此例外翻譯成狀態碼 400 的 HTTP 回應，並且回應主體自動填入此例外的錯誤訊息。
 
 ## F. IoC 容器設計
 
@@ -806,7 +806,7 @@ router.get("/api/users", userController::queryUsers);
 ```
 class UserController {
     private UserService userService; // 這個物件負責會員相關業務邏輯
-    
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -820,10 +820,10 @@ class UserController {
 
 // Web App 程式執行入口
 public static void main(String[] args) {
-    WebApplication webApp = new WebApplication(port=8080); 
+    WebApplication webApp = new WebApplication(port=8080);
     Router router = webApp.getRouter();  // Router 為你所設計的 Web Framework 中負責路由的類別
     UserController userController = new UserController(new UserService());
-    
+
     // 做路由綁定
     router.post("/api/users/login", userController::login);
     ...
@@ -838,19 +838,19 @@ public static void main(String[] args) {
 
 ### F2. IoC 容器設計需求
 
-1.  綜上所述，你需要設計一種控制反轉的容器，容器提供了一些操作，允許開發人員做到以下幾件事：
+1. 綜上所述，你需要設計一種控制反轉的容器，容器提供了一些操作，允許開發人員做到以下幾件事：
 
-    1.  能透過類似於 `container.registerType(”userController”, UserController.class)` 的語法向此容器註冊依賴（依賴名稱為 `userController`，而依賴的實際型別為 `UserController.class`。
-    2.  能透過類似於 `controller = (UserController) container.get(”userController”)` 或是 `controller = container.get(UserController.class)` 的語法來向容器取得某一具名依賴實體。
-2.  呈上，此容器在「生命週期」的設定上，須考量優秀的擴充性，以下為舉例：
+    1. 能透過類似於 `container.registerType(”userController”, UserController.class)` 的語法向此容器註冊依賴（依賴名稱為 `userController`，而依賴的實際型別為 `UserController.class`。
+    2. 能透過類似於 `controller = (UserController) container.get(”userController”)` 或是 `controller = container.get(UserController.class)` 的語法來向容器取得某一具名依賴實體。
+2. 呈上，此容器在「生命週期」的設定上，須考量優秀的擴充性，以下為舉例：
 
-    1.  預設的依賴生命週期可能是「**單體 (Singleton)**」，單體依賴在整份程式的執行期間只會存在一份。好比，如果你將 `UserController` 依賴設定為單體生命週期，那無論你呼叫多少次 `container.get(UserController.class)` ，`UserController` 僅會在第一次所需時被創建出來，接下來每一次向容器存取 `UserController` 依賴時，容器皆會返回同一份實體。
+    1. 預設的依賴生命週期可能是「**單體 (Singleton)**」，單體依賴在整份程式的執行期間只會存在一份。好比，如果你將 `UserController` 依賴設定為單體生命週期，那無論你呼叫多少次 `container.get(UserController.class)` ，`UserController` 僅會在第一次所需時被創建出來，接下來每一次向容器存取 `UserController` 依賴時，容器皆會返回同一份實體。
 
-    2.  除了單體之外，容器還提供了「**雛形 (Prototype)**」生命週期（或是任何其他你喜歡的命名）。如果你將`UserController` 依賴設定為雛形生命週期，那在你每一次呼叫 `container.get(UserController.class)` 時，容器都會創建且返回一個全新的 `UserController` 實體。
+    2. 除了單體之外，容器還提供了「**雛形 (Prototype)**」生命週期（或是任何其他你喜歡的命名）。如果你將`UserController` 依賴設定為雛形生命週期，那在你每一次呼叫 `container.get(UserController.class)` 時，容器都會創建且返回一個全新的 `UserController` 實體。
 
-    3.  除了單體和雛形兩種生命週期之外，你需要允許開發者能夠自行擴充新種類的生命週期至容器中，並且無需修改容器的內部程式碼。舉例來說，你所設計的 Web Framework 可能會想要擴充一種新的 「HTTP 請求」生命週期給 Web App 開發者使用，如果你將 `UserService` 依賴設定為HTTP 請求生命週期，那透過某種方式，你可以確定在「每一次接收到新的 HTTP 請求」時，容器皆會創建出一份新的 `UserService`實體。
+    3. 除了單體和雛形兩種生命週期之外，你需要允許開發者能夠自行擴充新種類的生命週期至容器中，並且無需修改容器的內部程式碼。舉例來說，你所設計的 Web Framework 可能會想要擴充一種新的 「HTTP 請求」生命週期給 Web App 開發者使用，如果你將 `UserService` 依賴設定為HTTP 請求生命週期，那透過某種方式，你可以確定在「每一次接收到新的 HTTP 請求」時，容器皆會創建出一份新的 `UserService`實體。
 
-    4.  開發者能夠自主配置不同的生命週期到不同的依賴上，以下為範例程式碼：
+    4. 開發者能夠自主配置不同的生命週期到不同的依賴上，以下為範例程式碼：
 
         ```
         container.register(UserController.class) // 預設：單體生命週期
@@ -860,10 +860,9 @@ public static void main(String[] args) {
         container.register(BookService.class, new HttpRequestScope()) // 使用 HTTP 請求生命週期
         ```
 
-3.  你所設計的 Web Framework，會善用你所設計的 IoC Container 來管理所有 Handler 依賴，以及衍生依賴的生命週期，並藉此更高效率地控制 HTTP Request to Response 流程。
-
+3. 你所設計的 Web Framework，會善用你所設計的 IoC Container 來管理所有 Handler 依賴，以及衍生依賴的生命週期，並藉此更高效率地控制 HTTP Request to Response 流程。
 
 ## 設計指導
 
-1.  你可以使用任何你認為更「簡潔」或是更有「易用性」的設計，來取代上述此份需求中提及的任何範例程式。
-2.  你可以自由添加任何你在設計過程中所察覺到的 Forces（e.g., 某種擴充性上的考量），不過在套用任何設計或是設計模式時，皆必須要在 OOAD 設計稿上留下 Well-Defined Context（i.e., what forces you; what’s the problem)。
+1. 你可以使用任何你認為更「簡潔」或是更有「易用性」的設計，來取代上述此份需求中提及的任何範例程式。
+2. 你可以自由添加任何你在設計過程中所察覺到的 Forces（e.g., 某種擴充性上的考量），不過在套用任何設計或是設計模式時，皆必須要在 OOAD 設計稿上留下 Well-Defined Context（i.e., what forces you; what’s the problem)。
