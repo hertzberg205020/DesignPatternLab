@@ -11,6 +11,6 @@ public class DokodemoDoor : Treasure, ITreasure
 
     protected override void ApplyEffect(Role role)
     {
-        role.EnterState(new Teleport());
+        role.EnterState(new Teleport(role));
     }
 }

@@ -1,12 +1,14 @@
 ﻿using TreasureMap.Models.MapComponents;
+using TreasureMap.Models.Roles;
 
 namespace TreasureMap.Models.States;
 
 public class Teleport : State
 {
-    public override int LeftRounds { get; set; } = 1;
+    public Teleport(Role role)
+        : base(role, "瞬身") { }
 
-    public override string Name { get; } = "瞬身";
+    public override int LeftRounds { get; set; } = 1;
 
     public override void ExitState()
     {

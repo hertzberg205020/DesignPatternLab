@@ -4,9 +4,10 @@ namespace TreasureMap.Models.States;
 
 public class Erupting : State
 {
-    public override int LeftRounds { get; set; } = 3;
+    public Erupting(Role role)
+        : base(role, "爆發") { }
 
-    public override string Name { get; } = "爆發";
+    public override int LeftRounds { get; set; } = 3;
 
     public override void Attack()
     {
@@ -45,6 +46,6 @@ public class Erupting : State
 
     public override void NextState()
     {
-        Role?.EnterState(new Teleport());
+        Role?.EnterState(new Teleport(Role));
     }
 }

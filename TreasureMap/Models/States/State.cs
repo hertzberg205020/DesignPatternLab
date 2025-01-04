@@ -5,13 +5,19 @@ namespace TreasureMap.Models.States;
 
 public abstract class State
 {
+    protected State(Role role, string name)
+    {
+        Role = role;
+        Name = name;
+    }
+
     public virtual int LeftRounds { get; set; } = 0;
 
     public virtual int ActionCounts { get; set; } = 1;
 
-    public abstract string Name { get; }
+    public string Name { get; }
 
-    public Role? Role { get; set; }
+    public Role Role { get; set; }
 
     public virtual void EnterState() { }
 
@@ -36,7 +42,7 @@ public abstract class State
 
     public virtual void NextState()
     {
-        Role?.EnterState(new Normal());
+        Role?.EnterState(new Normal(Role));
     }
 
     public virtual void TakeDamage(int damage)
@@ -56,7 +62,7 @@ public abstract class State
         if (Role is Character && !(this is Accelerated || this is Stockpile))
         {
             Console.WriteLine($"造成主角身命值減少 {damage} 點。");
-            Role.EnterState(new Invincible());
+            Role.EnterState(new Invincible(Role));
         }
     }
 

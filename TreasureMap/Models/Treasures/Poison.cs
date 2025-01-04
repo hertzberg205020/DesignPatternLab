@@ -11,6 +11,6 @@ public class Poison : Treasure, ITreasure
 
     protected override void ApplyEffect(Role role)
     {
-        role.EnterState(new Poisoned());
+        role.EnterState(new Poisoned(role));
     }
 }

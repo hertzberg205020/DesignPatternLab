@@ -1,10 +1,13 @@
-﻿namespace TreasureMap.Models.States;
+﻿using TreasureMap.Models.Roles;
+
+namespace TreasureMap.Models.States;
 
 public class Healing : State
 {
-    public override int LeftRounds { get; set; } = 5;
+    public Healing(Role role)
+        : base(role, "恢復") { }
 
-    public override string Name { get; } = "恢復";
+    public override int LeftRounds { get; set; } = 5;
 
     public override void OnTurnBegin()
     {
@@ -22,7 +25,7 @@ public class Healing : State
         if (initialHp == Role.MaxHp)
         {
             Console.WriteLine($"{Role.GetType()} 的生命值已達到最大值，無法再回復。");
-            Role.EnterState(new Normal());
+            Role.EnterState(new Normal(Role));
             return;
         }
 

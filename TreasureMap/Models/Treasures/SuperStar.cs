@@ -10,6 +10,6 @@ public class SuperStar : Treasure, ITreasure
 
     protected override void ApplyEffect(Role role)
     {
-        role.EnterState(new Invincible());
+        role.EnterState(new Invincible(role));
     }
 }

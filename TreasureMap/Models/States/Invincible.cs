@@ -1,10 +1,13 @@
-﻿namespace TreasureMap.Models.States;
+﻿using TreasureMap.Models.Roles;
+
+namespace TreasureMap.Models.States;
 
 public class Invincible : State
 {
-    public override int LeftRounds { get; set; } = 2;
+    public Invincible(Role role)
+        : base(role, "無敵") { }
 
-    public override string Name { get; } = "無敵";
+    public override int LeftRounds { get; set; } = 2;
 
     public override void TakeDamage(int damage)
     {

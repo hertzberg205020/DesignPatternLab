@@ -1,10 +1,13 @@
-﻿namespace TreasureMap.Models.States;
+﻿using TreasureMap.Models.Roles;
+
+namespace TreasureMap.Models.States;
 
 public class Stockpile : State
 {
-    public override int LeftRounds { get; set; } = 2;
+    public Stockpile(Role role)
+        : base(role, "蓄力") { }
 
-    public override string Name { get; } = "蓄力";
+    public override int LeftRounds { get; set; } = 2;
 
     public override void TakeDamage(int damage)
     {
@@ -20,11 +23,11 @@ public class Stockpile : State
             Role?.Die();
         }
 
-        Role?.EnterState(new Normal());
+        Role?.EnterState(new Normal(Role));
     }
 
     public override void NextState()
     {
-        Role?.EnterState(new Erupting());
+        Role?.EnterState(new Erupting(Role));
     }
 }

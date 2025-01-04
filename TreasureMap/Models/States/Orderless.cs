@@ -5,9 +5,10 @@ namespace TreasureMap.Models.States;
 
 public class Orderless : State
 {
-    public override int LeftRounds { get; set; } = 3;
+    public Orderless(Role role)
+        : base(role, "混亂") { }
 
-    public override string Name { get; } = "混亂";
+    public override int LeftRounds { get; set; } = 3;
 
     public override void PerformAction()
     {

@@ -13,7 +13,7 @@ public abstract class Role : MapObject
 
     public Role()
     {
-        State = new Normal();
+        State = new Normal(this);
         State.Role = this;
     }
 
@@ -21,7 +21,7 @@ public abstract class Role : MapObject
     {
         State.ExitState();
         State = state;
-        State.Role = this;
+        // State.Role = this;
         State.EnterState();
     }
 

@@ -1,10 +1,13 @@
-﻿namespace TreasureMap.Models.States;
+﻿using TreasureMap.Models.Roles;
+
+namespace TreasureMap.Models.States;
 
 public class Poisoned : State
 {
-    public override int LeftRounds { get; set; } = 3;
+    public Poisoned(Role role)
+        : base(role, "中毒") { }
 
-    public override string Name { get; } = "中毒";
+    public override int LeftRounds { get; set; } = 3;
 
     public override void OnTurnBegin()
     {

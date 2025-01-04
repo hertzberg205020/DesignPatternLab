@@ -22,8 +22,8 @@ internal class Program
         };
 
         var character = new Character();
-        ;
-        character.EnterState(new Poisoned());
+
+        character.EnterState(new Poisoned(character));
 
         var characters = new List<Character> { character };
 

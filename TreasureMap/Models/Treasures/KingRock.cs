@@ -11,6 +11,6 @@ public class KingRock : Treasure, ITreasure
 
     protected override void ApplyEffect(Role role)
     {
-        role.EnterState(new Stockpile());
+        role.EnterState(new Stockpile(role));
     }
 }
