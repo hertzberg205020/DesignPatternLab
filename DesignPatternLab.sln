@@ -65,6 +65,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InversionOfControlFramework
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFramework", "WebFramework\WebFramework.csproj", "{71B476DD-2F83-4CF9-ADC5-57348691B13B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgGame.Tests", "RpgGame.Tests\RpgGame.Tests.csproj", "{F5DFA98F-66FE-4693-8AE5-199327F27F25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,5 +201,9 @@ Global
 		{71B476DD-2F83-4CF9-ADC5-57348691B13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71B476DD-2F83-4CF9-ADC5-57348691B13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71B476DD-2F83-4CF9-ADC5-57348691B13B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5DFA98F-66FE-4693-8AE5-199327F27F25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5DFA98F-66FE-4693-8AE5-199327F27F25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5DFA98F-66FE-4693-8AE5-199327F27F25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5DFA98F-66FE-4693-8AE5-199327F27F25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
