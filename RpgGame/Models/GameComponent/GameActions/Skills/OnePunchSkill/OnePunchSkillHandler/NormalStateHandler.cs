@@ -1,11 +1,12 @@
+using RpgGame.Models.GameComponent.IO;
 using RpgGame.Models.GameComponent.States;
 
-namespace RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkillHandler;
+namespace RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkill.OnePunchSkillHandler;
 
 public class NormalStateHandler : OnePunchHandler
 {
-    public NormalStateHandler(OnePunchHandler? nextHandler)
-        : base(nextHandler) { }
+    public NormalStateHandler(OnePunchHandler? nextHandler, IGameIO gameIO)
+        : base(nextHandler, gameIO) { }
 
     /// <summary>
     /// 目標角色的當前狀態為正常狀態

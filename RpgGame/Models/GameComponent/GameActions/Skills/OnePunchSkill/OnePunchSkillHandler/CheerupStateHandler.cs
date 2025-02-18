@@ -1,11 +1,12 @@
+using RpgGame.Models.GameComponent.IO;
 using RpgGame.Models.GameComponent.States;
 
-namespace RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkillHandler;
+namespace RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkill.OnePunchSkillHandler;
 
 public class CheerupStateHandler : OnePunchHandler
 {
-    public CheerupStateHandler(OnePunchHandler? nextHandler)
-        : base(nextHandler) { }
+    public CheerupStateHandler(OnePunchHandler? nextHandler, IGameIO gameIO)
+        : base(nextHandler, gameIO) { }
 
     /// <summary>
     /// 目標角色的當前狀態為受到鼓舞狀態
@@ -28,7 +29,7 @@ public class CheerupStateHandler : OnePunchHandler
 
         if (target.IsAlive())
         {
-            target.EnterState(new NormalState() { Role = target });
+            target.EnterState(new NormalState(GameIO));
         }
     }
 }

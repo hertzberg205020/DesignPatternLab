@@ -1,4 +1,5 @@
 using RpgGame.Models.GameComponent.GameActions;
+using RpgGame.Models.GameComponent.IO;
 
 namespace RpgGame.Models.GameComponent.DecisionStrategies;
 
@@ -15,6 +16,11 @@ public class DefaultAiDecisionMaker : IDecisionMaker
 
     public GameAction SelectAction(List<GameAction> actions)
     {
+        ArgumentNullException.ThrowIfNull(actions, nameof(actions));
+        if (actions.Count == 0)
+        {
+            throw new ArgumentException("actions cannot be empty.", nameof(actions));
+        }
         var actionList = actions.ToList();
         var actionCount = actionList.Count;
         var selectedAction = actionList[_seed % actionCount];
@@ -24,6 +30,21 @@ public class DefaultAiDecisionMaker : IDecisionMaker
 
     public List<Role> SelectTargets(List<Role> candidates, int requiredTargetCount)
     {
+        ArgumentNullException.ThrowIfNull(candidates);
+
+        if (candidates.Count == 0)
+        {
+            throw new ArgumentException("candidates cannot be empty.", nameof(candidates));
+        }
+
+        if (requiredTargetCount <= 0)
+        {
+            throw new ArgumentException(
+                "requiredTargetCount must be greater than 0.",
+                nameof(requiredTargetCount)
+            );
+        }
+
         var targetCount = Math.Min(requiredTargetCount, candidates.Count);
         var selectedTargets = new List<Role>();
         for (var i = 0; i < targetCount; i++)

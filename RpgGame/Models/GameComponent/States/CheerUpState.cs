@@ -1,3 +1,5 @@
+using RpgGame.Models.GameComponent.IO;
+
 namespace RpgGame.Models.GameComponent.States;
 
 /// <summary>
@@ -6,8 +8,8 @@ namespace RpgGame.Models.GameComponent.States;
 /// </summary>
 public class CheerUpState : State
 {
-    public CheerUpState(Role role)
-        : base("受到鼓舞") { }
+    public CheerUpState(IGameIO gameIO)
+        : base("受到鼓舞", gameIO) { }
 
     public override int LeftRounds { get; set; } = 3;
 
@@ -15,12 +17,13 @@ public class CheerUpState : State
     {
         var damageCorrection = damage + 50;
 
-        Console.WriteLine(FormatAttackMessage(target, damageCorrection));
+        // Console.WriteLine(FormatAttackMessage(target, damageCorrection));
+        GameIO.WriteLine(FormatAttackMessage(target, damageCorrection));
 
         target.TakeDamage(damage + 50);
     }
 
-    public override void BeforeTakeAction()
+    public override void AfterTakeAction()
     {
         DecreaseLeftRounds();
     }

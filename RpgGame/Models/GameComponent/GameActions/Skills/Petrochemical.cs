@@ -1,14 +1,21 @@
+using RpgGame.Models.GameComponent.IO;
 using RpgGame.Models.GameComponent.States;
-using RpgGame.Models.GameLogic;
 
 namespace RpgGame.Models.GameComponent.GameActions.Skills;
 
 public class Petrochemical : Skill
 {
-    public Petrochemical()
-        : base("石化", 100, TargetType.Enemy) { }
+    public Petrochemical(IGameIO gameIO)
+        : base("石化", 100, TargetType.Enemy, gameIO) { }
 
-    public override int GetRequiredTargetCount(Game game, Role self) => 1;
+    public override int GetRequiredTargetCount(Game game, Role self)
+    {
+        ArgumentNullException.ThrowIfNull(game);
+
+        ArgumentNullException.ThrowIfNull(self);
+
+        return 1;
+    }
 
     /// <summary>
     /// 使目標角色獲得三回合的石化狀態
@@ -17,7 +24,7 @@ public class Petrochemical : Skill
     /// <param name="executant"></param>
     /// <param name="targets"></param>
     /// <exception cref="NotImplementedException"></exception>
-    public override void DoExecute(Game game, Role executant, List<Role> targets)
+    public override void Apply(Game game, Role executant, List<Role> targets)
     {
         ArgumentNullException.ThrowIfNull(game);
 
@@ -26,7 +33,7 @@ public class Petrochemical : Skill
         ArgumentNullException.ThrowIfNull(targets);
 
         var target = targets.Single();
-        target.EnterState(new PetrifiedState(target));
+        target.EnterState(new PetrifiedState(GameIO));
     }
 
     public override string FormatExecuteMessage(Role executant, List<Role> targets)
@@ -37,6 +44,6 @@ public class Petrochemical : Skill
 
         var target = targets.Single();
         // [1]英雄 對 [2]攻擊力超強的BOSS 使用了 石化。
-        return $"{executant.Name} 對 {target.Name} 使用了 {Name}!";
+        return $"{executant} 對 {target} 使用了 {Name}。";
     }
 }

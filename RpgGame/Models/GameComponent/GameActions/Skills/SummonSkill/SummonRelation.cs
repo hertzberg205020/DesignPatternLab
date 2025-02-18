@@ -1,4 +1,4 @@
-namespace RpgGame.Models.GameComponent;
+namespace RpgGame.Models.GameComponent.GameActions.Skills.SummonSkill;
 
 public class SummonRelation : IRoleDeathObserver
 {

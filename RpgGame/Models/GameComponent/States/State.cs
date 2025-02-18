@@ -1,3 +1,5 @@
+using RpgGame.Models.GameComponent.IO;
+
 namespace RpgGame.Models.GameComponent.States;
 
 /// <summary>
@@ -14,12 +16,12 @@ public class State
 
     public virtual int LeftRounds { get; set; } = 0;
 
-    public virtual int AttackDamage =>
-        Role?.Strength ?? throw new ArgumentException("Role is null");
+    protected readonly IGameIO GameIO;
 
-    protected State(string name)
+    protected State(string name, IGameIO gameIO)
     {
         Name = name;
+        GameIO = gameIO;
     }
 
     public override string ToString()
@@ -49,7 +51,7 @@ public class State
 
         if (LeftRounds == 0)
         {
-            NextState(new NormalState() { Role = this.Role });
+            NextState(new NormalState(GameIO));
         }
     }
 
@@ -74,9 +76,15 @@ public class State
     public virtual void Attack(Role target, int damage)
     {
         // 輸出攻擊訊息
-        ArgumentNullException.ThrowIfNull(Role, nameof(Role));
+        if (Role == null)
+        {
+            throw new InvalidOperationException("Role is null.");
+        }
 
-        Console.WriteLine(FormatAttackMessage(target, damage));
+        ArgumentNullException.ThrowIfNull(target);
+
+        // Console.WriteLine(FormatAttackMessage(target, damage));
+        GameIO.WriteLine(FormatAttackMessage(target, damage));
         target.TakeDamage(damage);
     }
 
@@ -92,6 +100,6 @@ public class State
 
         // [1]英雄 對 [2]Slime1 造成 50 點傷害。
         // [1]英雄 對 [2]Slime1 造成 100 點傷害。
-        return $"{Role.Name} 對 {target.Name} 造成 {damage} 點傷害。";
+        return $"{Role} 對 {target} 造成 {damage} 點傷害。";
     }
 }

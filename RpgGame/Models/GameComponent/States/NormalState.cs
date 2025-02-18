@@ -1,7 +1,9 @@
+using RpgGame.Models.GameComponent.IO;
+
 namespace RpgGame.Models.GameComponent.States;
 
 public class NormalState : State
 {
-    public NormalState()
-        : base("正常") { }
+    public NormalState(IGameIO gameIO)
+        : base("正常", gameIO) { }
 }

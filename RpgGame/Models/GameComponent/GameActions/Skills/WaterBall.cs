@@ -1,11 +1,11 @@
-using RpgGame.Models.GameLogic;
+using RpgGame.Models.GameComponent.IO;
 
 namespace RpgGame.Models.GameComponent.GameActions.Skills;
 
 public class WaterBall : Skill
 {
-    public WaterBall()
-        : base("水球", 50, TargetType.Enemy) { }
+    public WaterBall(IGameIO gameIO)
+        : base("水球", 50, TargetType.Enemy, gameIO) { }
 
     public override int GetRequiredTargetCount(Game game, Role self) => 1;
 
@@ -16,7 +16,7 @@ public class WaterBall : Skill
     /// <param name="executant"></param>
     /// <param name="targets"></param>
     /// <exception cref="NotImplementedException"></exception>
-    public override void DoExecute(Game game, Role executant, List<Role> targets)
+    public override void Apply(Game game, Role executant, List<Role> targets)
     {
         var target = targets.Single();
         executant.Attack(target, 120);
@@ -27,6 +27,6 @@ public class WaterBall : Skill
         var target = targets.Single();
 
         // [1]英雄 對 [2]Slime2 使用了 水球。
-        return $"{executant.Name} 對 {target.Name} 使用了 {Name}。";
+        return $"{executant} 對 {target} 使用了 {Name}。";
     }
 }

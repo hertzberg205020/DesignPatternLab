@@ -1,11 +1,11 @@
-using RpgGame.Models.GameLogic;
+using RpgGame.Models.GameComponent.IO;
 
 namespace RpgGame.Models.GameComponent.GameActions.Skills;
 
 public class FireBall : Skill
 {
-    public FireBall()
-        : base("火球", 50, TargetType.Enemy) { }
+    public FireBall(IGameIO gameIO)
+        : base("火球", 50, TargetType.Enemy, gameIO) { }
 
     /// <summary>
     /// 所有存活敵軍數量
@@ -30,7 +30,7 @@ public class FireBall : Skill
     /// <param name="executant"></param>
     /// <param name="targets"></param>
     /// <exception cref="NotImplementedException"></exception>
-    public override void DoExecute(Game game, Role executant, List<Role> targets)
+    public override void Apply(Game game, Role executant, List<Role> targets)
     {
         ArgumentNullException.ThrowIfNull(game);
 
@@ -50,9 +50,7 @@ public class FireBall : Skill
 
         ArgumentNullException.ThrowIfNull(targets);
 
-        var targetNames = targets.Select(r => r.Name).ToArray();
-
         // [1]英雄 對 [2]Slime1, [2]Slime2 使用了 火球。
-        return $"{executant.Name} 對 {string.Join(", ", targetNames)} 使用了 {Name}。";
+        return $"{executant} 對 {string.Join(", ", targets)} 使用了 {Name}。";
     }
 }

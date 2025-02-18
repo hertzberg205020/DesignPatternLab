@@ -1,3 +1,5 @@
+using RpgGame.Models.GameComponent.IO;
+
 namespace RpgGame.Models.GameComponent.States;
 
 /// <summary>
@@ -5,12 +7,17 @@ namespace RpgGame.Models.GameComponent.States;
 /// </summary>
 public class PetrifiedState : State
 {
-    public PetrifiedState(Role role)
-        : base("石化") { }
+    public PetrifiedState(IGameIO gameIO)
+        : base("石化", gameIO) { }
 
     public override bool CanTakeAction { get; set; } = false;
 
     public override int LeftRounds { get; set; } = 3;
+
+    public override void Attack(Role target, int damage)
+    {
+        throw new InvalidOperationException("cannot take action");
+    }
 
     public override void AfterTakeAction()
     {

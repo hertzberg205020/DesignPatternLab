@@ -1,0 +1,11 @@
+global using RpgGame.Models;
+global using RpgGame.Models.GameComponent;
+global using RpgGame.Models.GameComponent.DecisionStrategies;
+global using RpgGame.Models.GameComponent.GameActions;
+global using RpgGame.Models.GameComponent.GameActions.Skills;
+global using RpgGame.Models.GameComponent.GameActions.Skills.CurseSkill;
+global using RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkill;
+global using RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkill.OnePunchSkillHandler;
+global using RpgGame.Models.GameComponent.GameActions.Skills.SummonSkill;
+global using RpgGame.Models.GameComponent.IO;
+global using RpgGame.Models.GameComponent.States;

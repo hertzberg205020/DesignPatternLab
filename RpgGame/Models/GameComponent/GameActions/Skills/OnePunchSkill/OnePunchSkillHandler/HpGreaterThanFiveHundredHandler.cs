@@ -1,21 +1,21 @@
-using RpgGame.Models.GameComponent.States;
+using RpgGame.Models.GameComponent.IO;
 
-namespace RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkillHandler;
+namespace RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkill.OnePunchSkillHandler;
 
-public class AbnormalStateHandler : OnePunchHandler
+public class HpGreaterThanFiveHundredHandler : OnePunchHandler
 {
-    public AbnormalStateHandler(OnePunchHandler? nextHandler)
-        : base(nextHandler) { }
+    public HpGreaterThanFiveHundredHandler(OnePunchHandler? nextHandler, IGameIO gameIO)
+        : base(nextHandler, gameIO) { }
 
     /// <summary>
-    /// 目標角色的當前狀態為中毒狀態或是石化狀態
+    /// 目標角色的生命值 ≥ 500
     /// </summary>
     /// <param name="target"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     protected override bool IsMatch(Role target)
     {
-        return target.State is PoisonedState or PetrifiedState;
+        return target.HealthPoint >= 500;
     }
 
     /// <summary>

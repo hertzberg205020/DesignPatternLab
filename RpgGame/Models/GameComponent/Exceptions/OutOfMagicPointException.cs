@@ -16,7 +16,7 @@ public class NotEnoughMagicPointException : ArgumentException
     {
         get
         {
-            return $"Current magic points ({CurrentMagicPoints}) are not enough. Required: {TheRequiredMagicPoints}.";
+            return $"你缺乏 MP，不能進行此行動。";
         }
     }
 }

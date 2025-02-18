@@ -3,8 +3,8 @@ using RpgGame.Models.GameComponent.DecisionStrategies;
 using RpgGame.Models.GameComponent.Exceptions;
 using RpgGame.Models.GameComponent.GameActions;
 using RpgGame.Models.GameComponent.GameActions.Skills;
+using RpgGame.Models.GameComponent.IO;
 using RpgGame.Models.GameComponent.States;
-using RpgGame.Models.GameLogic;
 using RpgGame.Models.Utils;
 
 namespace RpgGame.Models.GameComponent;
@@ -21,33 +21,29 @@ public class Role
 
     public required int Strength { get; set; }
 
+    private readonly IGameIO _gameIO;
+
     /// <summary>
     /// 於每個角色最多只能處於一種狀態之下，每當角色獲得新的狀態時，就會覆寫舊有狀態，並且重新倒數三回合（含當前回合）。
     /// 三回合過後（含當前回合），角色的狀態會還原到正常狀態。
+    /// when the role is initially created, the state is null
     /// </summary>
-    private State _state;
+    public State? State { get; set; }
 
-    public State State
-    {
-        get => _state;
-        set
-        {
-            _state = value;
-            _state.Role = this;
-        }
-    }
-
-    public Game? Rpg { get; set; }
+    public Game? Game { get; set; }
 
     public string? Troop { get; set; }
 
-    public IEnumerable<Skill>? Skills { get; set; }
+    public List<Skill> Skills { get; } = new();
 
     public IDecisionMaker? DecisionMaker;
 
     private readonly List<IRoleDeathObserver> _deathObservers = new();
 
-    public Role() { }
+    public Role(IGameIO gameIo)
+    {
+        _gameIO = gameIo;
+    }
 
     public bool IsDead() => HealthPoint <= 0;
 
@@ -61,40 +57,49 @@ public class Role
     /// </summary>
     public void TakeTurn()
     {
-        State.BeforeTakeAction();
-
-        if (IsDead())
+        if (State == null)
         {
-            return;
+            throw new InvalidOperationException("The role is not in any state");
         }
+
+        State.BeforeTakeAction();
 
         if (State.CanTakeAction)
         {
-            var action = ChooseAction();
-            var target = ChooseTargets(action);
-            PerformAction(action, target);
+            TakeAction();
         }
 
         State.AfterTakeAction();
+    }
+
+    public void TakeAction()
+    {
+        var action = ChooseAction();
+        var targets = ChooseTargets(action);
+        PerformAction(action, targets);
     }
 
     public GameAction ChooseAction()
     {
         try
         {
-            var actions = new List<GameAction> { new BasicAttack() };
-            ArgumentNullException.ThrowIfNull(DecisionMaker, nameof(DecisionMaker));
+            if (DecisionMaker == null)
+            {
+                throw new InvalidOperationException("DecisionMaker is not set");
+            }
 
-            ArgumentNullException.ThrowIfNull(Skills, nameof(Skills));
+            var actions = new List<GameAction> { new BasicAttack(_gameIO) };
 
             actions.AddRange(Skills);
 
             var formattedActionList = GetFormattedActionList(actions);
-            Console.WriteLine(formattedActionList);
+
+            // Console.WriteLine(formattedActionList);
+            _gameIO.WriteLine(formattedActionList);
 
             var action = DecisionMaker.SelectAction(actions);
 
-            if (ValidateMagicPoint(action))
+            if (!ValidateMagicPoint(action))
             {
                 throw new NotEnoughMagicPointException(MagicPoint, action.MpCost);
             }
@@ -103,7 +108,8 @@ public class Role
         }
         catch (NotEnoughMagicPointException e)
         {
-            Console.WriteLine(e);
+            // Console.WriteLine(e);
+            _gameIO.WriteLine(e.Message);
             return ChooseAction();
         }
     }
@@ -122,38 +128,39 @@ public class Role
     private static string GetFormattedActionList(IEnumerable<GameAction> actions)
     {
         var sb = new StringBuilder();
-        sb.AppendLine("選擇行動：");
+        sb.Append("選擇行動：");
         var index = 0;
         foreach (var action in actions)
         {
             // (0) 普通攻擊
-            sb.AppendLine($"({index}) {action} ");
+            sb.Append($"({index}) {action} ");
             index++;
         }
-        // trim the last space and use a new line
-        sb.Length -= 1;
-        sb.AppendLine();
-
-        return sb.ToString();
+        return sb.ToString().TrimEnd();
     }
 
-    private bool ValidateMagicPoint(GameAction action) => MagicPoint < action.MpCost;
+    private bool ValidateMagicPoint(GameAction action) => MagicPoint >= action.MpCost;
 
     public List<Role> ChooseTargets(GameAction action)
     {
-        ArgumentNullException.ThrowIfNull(Rpg, nameof(Rpg));
+        ArgumentNullException.ThrowIfNull(Game, nameof(Game));
         ArgumentNullException.ThrowIfNull(DecisionMaker, nameof(DecisionMaker));
 
-        var requiredTargetCount = action.GetRequiredTargetCount(Rpg, this);
-
+        var requiredTargetCount = action.GetRequiredTargetCount(Game, this);
         var candidates = ObtainCandidates(action);
 
-        if (requiredTargetCount == 0 || candidates.Count <= requiredTargetCount)
+        if (requiredTargetCount == 0)
+        {
+            // return an empty list if no target is required
+            return new List<Role>();
+        }
+
+        // Only show target selection prompt for human players
+        if (candidates.Count <= requiredTargetCount)
         {
             return candidates;
         }
-        // 選擇 1 位目標: (0) [2]Slime1 (1) [2]Slime2
-        Console.WriteLine($"選擇 {requiredTargetCount} 位目標: {GenerateTargetList(candidates)}");
+
         return DecisionMaker.SelectTargets(candidates, requiredTargetCount);
     }
 
@@ -164,14 +171,15 @@ public class Role
         foreach (var target in targets)
         {
             // (0) [2]Slime1
-            sb.AppendLine($"({index}) {target} ");
+            // (troopName) roleName
+            sb.Append($"({index}) {target} ");
             index++;
         }
 
-        return sb.ToString().Trim();
+        return sb.ToString().TrimEnd();
     }
 
-    private List<Role> ObtainCandidates(GameAction action)
+    public List<Role> ObtainCandidates(GameAction action)
     {
         var targetType = action.TargetType;
 
@@ -180,10 +188,13 @@ public class Role
             return new List<Role>();
         }
 
-        ArgumentNullException.ThrowIfNull(Rpg, nameof(Rpg));
+        if (Game == null)
+        {
+            throw new InvalidOperationException("Rpg is not set");
+        }
 
-        var allies = Rpg.GetAllies(this).Where(r => r.IsAlive() && r != this).ToList();
-        var enemies = Rpg.GetEnemies(this).Where(r => r.IsAlive()).ToList();
+        var allies = Game.GetAllies(this).Where(r => r.IsAlive() && r != this).ToList();
+        var enemies = Game.GetEnemies(this).Where(r => r.IsAlive()).ToList();
 
         return targetType switch
         {
@@ -202,39 +213,66 @@ public class Role
     /// <param name="targets"></param>
     public void PerformAction(GameAction action, List<Role> targets)
     {
-        ArgumentNullException.ThrowIfNull(Rpg, nameof(Rpg));
+        ArgumentNullException.ThrowIfNull(Game, nameof(Game));
 
-        MagicPoint -= action.MpCost;
-        action.Execute(Rpg, this, targets);
+        action.Execute(Game, this, targets);
     }
 
     public void TakeDamage(int damage)
     {
-        ValidationUtils.ShouldNotBeNegative(nameof(damage), damage);
+        ValidationUtils.ShouldNotBeNegative(damage);
 
         HealthPoint = Math.Max(0, HealthPoint - damage);
 
         if (IsDead())
         {
-            EnterState(new DeadState(this));
+            EnterState(new DeadState(_gameIO));
         }
     }
 
     public void Attack(Role target, int damage)
     {
+        if (State == null)
+        {
+            throw new InvalidOperationException("The role is not in any state");
+        }
+
+        if (target == null)
+        {
+            throw new ArgumentNullException(nameof(target));
+        }
+
+        if (damage < 0)
+        {
+            throw new ArgumentException("Damage should not be negative");
+        }
+
         State.Attack(target, damage);
     }
 
     public void EnterState(State state)
     {
-        State.ExitState();
+        ArgumentNullException.ThrowIfNull(state);
+
+        if (State == state)
+        {
+            return;
+        }
+
+        if (State != null)
+        {
+            State.ExitState();
+            State.Role = null;
+        }
+
         State = state;
+        State.Role = this;
         State.EnterState();
     }
 
     public void TakeHeal(int heal)
     {
-        ValidationUtils.ShouldNotBeNegative(nameof(heal), heal);
+        ValidationUtils.ShouldNotBeNegative(heal);
 
         HealthPoint += heal;
     }
@@ -259,5 +297,18 @@ public class Role
     public IEnumerable<IRoleDeathObserver> GetDeathObservers()
     {
         return _deathObservers.AsReadOnly();
+    }
+
+    /// <summary>
+    /// Format: [1]英雄
+    /// </summary>
+    public override string ToString()
+    {
+        if (Troop == null)
+        {
+            throw new InvalidOperationException("Troop is not set");
+        }
+
+        return $"[{Troop}]{Name}";
     }
 }

@@ -1,3 +1,5 @@
+using RpgGame.Models.GameComponent.IO;
+
 namespace RpgGame.Models.GameComponent.States;
 
 /// <summary>
@@ -6,13 +8,18 @@ namespace RpgGame.Models.GameComponent.States;
 /// </summary>
 public class PoisonedState : State
 {
-    public PoisonedState(Role role)
-        : base("中毒") { }
+    public PoisonedState(IGameIO gameIO)
+        : base("中毒", gameIO) { }
 
     public override int LeftRounds { get; set; } = 3;
 
     public override void BeforeTakeAction()
     {
+        if (Role == null)
+        {
+            throw new InvalidOperationException("The state is not attached to any role");
+        }
+
         Role.TakeDamage(30);
     }
 

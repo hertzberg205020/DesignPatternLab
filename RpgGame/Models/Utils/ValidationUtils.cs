@@ -12,11 +12,11 @@ public static class ValidationUtils
         return obj;
     }
 
-    public static int ShouldNotBeNegative(string name, int value)
+    public static int ShouldNotBeNegative(int value, string errorMsg = "should not be negative")
     {
         if (value < 0)
         {
-            throw new ArgumentOutOfRangeException(name);
+            throw new ArgumentOutOfRangeException(errorMsg);
         }
 
         return value;

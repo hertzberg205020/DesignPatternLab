@@ -1,12 +1,16 @@
-namespace RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkillHandler;
+using RpgGame.Models.GameComponent.IO;
+
+namespace RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkill.OnePunchSkillHandler;
 
 public abstract class OnePunchHandler
 {
     private readonly OnePunchHandler? _nextHandler;
+    public readonly IGameIO GameIO;
 
-    protected OnePunchHandler(OnePunchHandler? nextHandler)
+    protected OnePunchHandler(OnePunchHandler? nextHandler, IGameIO gameIO)
     {
         _nextHandler = nextHandler;
+        GameIO = gameIO;
     }
 
     public void Handle(Role executant, Role target)

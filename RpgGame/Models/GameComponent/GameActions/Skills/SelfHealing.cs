@@ -1,14 +1,20 @@
-using RpgGame.Models.GameComponent.States;
-using RpgGame.Models.GameLogic;
+using RpgGame.Models.GameComponent.IO;
 
 namespace RpgGame.Models.GameComponent.GameActions.Skills;
 
 public class SelfHealing : Skill
 {
-    public SelfHealing()
-        : base("自我治療", 50, TargetType.Self) { }
+    public SelfHealing(IGameIO gameIO)
+        : base("自我治療", 50, TargetType.Self, gameIO) { }
 
-    public override int GetRequiredTargetCount(Game game, Role self) => 0;
+    public override int GetRequiredTargetCount(Game game, Role self)
+    {
+        ArgumentNullException.ThrowIfNull(game);
+
+        ArgumentNullException.ThrowIfNull(self);
+
+        return 0;
+    }
 
     /// <summary>
     /// 增加自己 150 點 HP
@@ -17,7 +23,7 @@ public class SelfHealing : Skill
     /// <param name="executant"></param>
     /// <param name="targets"></param>
     /// <exception cref="NotImplementedException"></exception>
-    public override void DoExecute(Game game, Role executant, List<Role> targets)
+    public override void Apply(Game game, Role executant, List<Role> targets)
     {
         ArgumentNullException.ThrowIfNull(game);
 
@@ -29,6 +35,6 @@ public class SelfHealing : Skill
     public override string FormatExecuteMessage(Role executant, List<Role> targets)
     {
         // [2]Slime1 使用了 自我治療。
-        return $"{executant.Name} 使用了 {Name}。";
+        return $"{executant} 使用了 {Name}。";
     }
 }

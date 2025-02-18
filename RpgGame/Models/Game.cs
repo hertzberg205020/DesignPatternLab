@@ -1,20 +1,31 @@
+using System.Text.RegularExpressions;
 using RpgGame.Models.GameComponent;
 using RpgGame.Models.GameComponent.DecisionStrategies;
 using RpgGame.Models.GameComponent.GameActions.Skills;
-using RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkillHandler;
+using RpgGame.Models.GameComponent.GameActions.Skills.CurseSkill;
+using RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkill;
+using RpgGame.Models.GameComponent.GameActions.Skills.OnePunchSkill.OnePunchSkillHandler;
+using RpgGame.Models.GameComponent.GameActions.Skills.SummonSkill;
+using RpgGame.Models.GameComponent.IO;
 using RpgGame.Models.GameComponent.States;
 
-namespace RpgGame.Models.GameLogic;
+namespace RpgGame.Models;
 
 public class Game
 {
     private readonly Dictionary<string, List<Role>> _troops = new();
     private Role? _hero;
     private bool _isEnd = false;
+    private readonly IGameIO _gameIO;
+
+    public Game(IGameIO gameIO)
+    {
+        _gameIO = gameIO;
+    }
 
     public void Start()
     {
-        InitializeTroop();
+        InitializeTroops();
         ExecuteBattle();
         OnBattleEnd();
     }
@@ -22,22 +33,40 @@ public class Game
     /// <summary>
     /// 讀取標準輸入，初始化軍隊
     /// </summary>
-    private void InitializeTroop()
+    private void InitializeTroops()
+    {
+        while (_troops.Keys.Count < 2)
+        {
+            InitTroop();
+        }
+    }
+
+    private void InitTroop()
     {
         string? line;
-        string currentTroop = string.Empty;
+        var currentTroop = string.Empty;
+        const string troopStartPattern = @"#軍隊-([^-]+)-開始";
+        const string troopEndPattern = @"#軍隊-([^-]+)-結束";
 
-        while ((line = Console.ReadLine()) != null)
+        while ((line = _gameIO.ReadLine()) != null)
         {
             // Skip empty lines
             if (string.IsNullOrWhiteSpace(line))
                 continue;
 
-            // Handle troop markers
-            if (IsTroopMarker(line))
+            var matchBeginInit = Regex.Match(line, troopStartPattern);
+
+            if (matchBeginInit.Success)
             {
-                currentTroop = ProcessTroopMarker(line);
+                currentTroop = matchBeginInit.Groups[1].Value;
                 continue;
+            }
+
+            var matchEndInit = Regex.Match(line, troopEndPattern);
+
+            if (matchEndInit.Success)
+            {
+                break;
             }
 
             // Process role if within a troop definition
@@ -46,30 +75,6 @@ public class Game
                 ProcessRoleLine(line, currentTroop);
             }
         }
-    }
-
-    /// <summary>
-    /// 檢查是否為軍隊標記行
-    /// </summary>
-    private bool IsTroopMarker(string line)
-    {
-        return line.StartsWith("#軍隊-");
-    }
-
-    /// <summary>
-    /// 處理軍隊標記，返回當前軍隊編號或空字串
-    /// </summary>
-    private string ProcessTroopMarker(string line)
-    {
-        if (line.EndsWith("-開始"))
-        {
-            return line.Replace("#軍隊-", "").Replace("-開始", "");
-        }
-        else if (line.EndsWith("-結束"))
-        {
-            return string.Empty; // 清空當前軍隊標記
-        }
-        return string.Empty;
     }
 
     /// <summary>
@@ -94,13 +99,14 @@ public class Game
     /// <param name="parts">the parts of the line</param>
     private Role ParseRoleInfo(string[] parts)
     {
-        return new Role()
+        var isHero = parts[0].Equals("英雄", StringComparison.Ordinal);
+        return new Role(_gameIO)
         {
-            Name = parts[0],
+            Name = isHero ? "英雄" : parts[0],
             HealthPoint = int.Parse(parts[1]),
             MagicPoint = int.Parse(parts[2]),
             Strength = int.Parse(parts[3]),
-            IsHero = parts[0].Equals("英雄", StringComparison.Ordinal)
+            IsHero = isHero
         };
     }
 
@@ -128,15 +134,15 @@ public class Game
     {
         return skillName switch
         {
-            "水球" => new WaterBall(),
-            "火球" => new FireBall(),
-            "自我治療" => new SelfHealing(),
-            "石化" => new Petrochemical(),
-            "下毒" => new Poison(),
-            "召喚" => new Summon(),
-            "自爆" => new SelfExplosion(),
-            "鼓舞" => new CheerUp(),
-            "詛咒" => new Curse(),
+            "水球" => new WaterBall(_gameIO),
+            "火球" => new FireBall(_gameIO),
+            "自我治療" => new SelfHealing(_gameIO),
+            "石化" => new Petrochemical(_gameIO),
+            "下毒" => new Poison(_gameIO),
+            "召喚" => new Summon(_gameIO),
+            "自爆" => new SelfExplosion(_gameIO),
+            "鼓舞" => new CheerUp(_gameIO),
+            "詛咒" => new Curse(_gameIO),
             "一拳攻擊" => CreateOnePunchSkill(),
             _ => null
         };
@@ -149,8 +155,13 @@ public class Game
     {
         return new OnePunch(
             new HpGreaterThanFiveHundredHandler(
-                new AbnormalStateHandler(new CheerupStateHandler(new NormalStateHandler(null)))
-            )
+                new AbnormalStateHandler(
+                    new CheerupStateHandler(new NormalStateHandler(null, _gameIO), _gameIO),
+                    _gameIO
+                ),
+                _gameIO
+            ),
+            _gameIO
         );
     }
 
@@ -160,14 +171,14 @@ public class Game
     private Role CreateRole(Role role, List<Skill> skills)
     {
         IDecisionMaker decisionMaker = role.IsHero
-            ? new HumanDecisionMaker()
+            ? new HumanDecisionMaker(_gameIO)
             : new DefaultAiDecisionMaker();
 
-        var normalState = new NormalState();
+        var normalState = new NormalState(_gameIO);
 
-        role.Skills = skills;
-
-        role.State = normalState;
+        role.Skills.AddRange(skills);
+        role.DecisionMaker = decisionMaker;
+        role.EnterState(normalState);
 
         return role;
     }
@@ -179,9 +190,8 @@ public class Game
             _troops.Add(team, new List<Role>());
         }
         _troops[team].Add(role);
-        role.Rpg = this;
+        role.Game = this;
         role.Troop = team;
-        role.Name = $"[{team}]{role.Name}"; // [1]英雄
 
         if (role.IsHero)
         {
@@ -196,7 +206,7 @@ public class Game
             throw new ArgumentException("Role is not in any troop");
         }
 
-        return _troops[role.Troop];
+        return _troops[role.Troop].Where(e => e != role).ToList();
     }
 
     public List<Role> GetEnemies(Role role)
@@ -296,8 +306,8 @@ public class Game
     /// <param name="role">the role</param>
     private void PrintRoleStatus(Role role)
     {
-        Console.WriteLine(
-            $"輪到 {role.Name} (HP: {role.HealthPoint}, MP: {role.MagicPoint}, STR: {role.Strength}, State: {role.State})。"
+        _gameIO.WriteLine(
+            $"輪到 {role} (HP: {role.HealthPoint}, MP: {role.MagicPoint}, STR: {role.Strength}, State: {role.State})。"
         );
     }
 
@@ -308,11 +318,11 @@ public class Game
     {
         if (IsHeroDead())
         {
-            Console.WriteLine("你失敗了！");
+            _gameIO.WriteLine("你失敗了！");
         }
         else
         {
-            Console.WriteLine("你獲勝了！");
+            _gameIO.WriteLine("你獲勝了！");
         }
     }
 
